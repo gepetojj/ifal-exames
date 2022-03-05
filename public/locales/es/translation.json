@@ -1,0 +1,157 @@
+{
+	"course": {
+		"id": "Código:",
+		"campus": "El campus:",
+		"modality": "Modalidad:",
+		"name": "Curso:",
+		"shift": "Turno de trabajo:",
+		"vacancies": "Vacantes:"
+	},
+	"shifts": {
+		"morning": "Manãna",
+		"afternoon": "Tarde",
+		"night": "Noche"
+	},
+	"document": {
+		"createdAt": "Creado en:",
+		"updatedAt": "Actualizado el:"
+	},
+	"tags": {
+		"open": "Abierto",
+		"future": "Futuro",
+		"closed": "Cerrado",
+		"free": "Gratis"
+	},
+	"exam": {
+		"subscriptionPeriod": "Periodo de inscripción:",
+		"until": "a",
+		"campus": "Campi:",
+		"offers": "Ofertas:",
+		"level": "Nivel:",
+		"modalities": "Modalidades:",
+		"vacancies": "Vacantes disponibles:",
+		"subscribe": "Suscríbase a",
+		"seeMore": "Ver más"
+	},
+	"form": {
+		"back": "Volver",
+		"passwordForgot": "¿Ha olvidado su contraseña?",
+		"send": "Enviar",
+		"nextStep": "Siguiente paso"
+	},
+	"searchBar": {
+		"searchExams": "Buscar exámenes:",
+		"placeholder": "Buscar:"
+	},
+	"examContent": {
+		"documents": "Documentos",
+		"loadMore": "Descargar más",
+		"notFound": "Este examen no tiene documentos."
+	},
+	"examNavigation": {
+		"back": "Volver"
+	},
+	"header": {
+		"logoAlt": "Logotipo de IFAL",
+		"title": "Sistema de selección",
+		"exams": "Exámenes",
+		"account": "Su cuenta",
+		"login": "Iniciar sesión",
+		"manage": "Gestionar",
+		"faq": "Preguntas frecuentes",
+		"navMenu": "Menú de cambio de página",
+		"error": "Error",
+		"wait": "Por favor, espere..."
+	},
+	"navigation": {
+		"wait": "Por favor, espere...",
+		"examMenu": "Menú de cambio de tipo de examen"
+	},
+	"navigationOptions": {
+		"ongoing": "En proceso",
+		"future": "Futuros",
+		"closed": "Cerrados",
+		"login": "Iniciar sesión",
+		"register": "Crear una cuenta",
+		"accountData": "Datos personales",
+		"accountSubs": "Suscripciones",
+		"accountConn": "Conexiones",
+		"logout": "Desconectar",
+		"adminExams": "Exámenes",
+		"adminUsers": "Usuarios",
+		"adminFaq": "Preguntas frecuentes"
+	},
+	"examsLayout": {
+		"ongoingExam": "en proceso",
+		"closedExam": "cerrados",
+		"futureExam": "futuros",
+		"searchResults": "Resultados",
+		"searchNotFound": "Su búsqueda no ha dado ningún resultado.",
+		"loadingExams": "Cargando exámenes",
+		"loadingError": "Error al intentar cargar exámenes.",
+		"examsType": "disponibles",
+		"examsNotFound": "No hay exámenes"
+	},
+	"examDetails": {
+		"description": "Consulte el examen %v, con %v ofertas de cursos, que pone a su disposición el IFAL.",
+		"loading": "Cargando...",
+		"loadingError": "Ha habido un error.",
+		"loadingNotFound": "No se ha encontrado.",
+		"courses": "Curso(s)",
+		"loadingAlt": "Cargando examen...",
+		"loadingErrorAlt": "Se ha producido un error al intentar cargar esta examen.",
+		"examNotFound": "Examen no encontrado.",
+		"noCourses": "Este examen no tiene cursos disponibles."
+	},
+	"ongoingExams": {
+		"loading": "Cargando...",
+		"title": "Exámenes en curso"
+	},
+	"closedExams": {
+		"loading": "Cargando...",
+		"title": "Exámenes cerrados"
+	},
+	"futureExams": {
+		"loading": "Cargando...",
+		"title": "Futuros exámenes"
+	},
+	"app": {
+		"title": "Sistema de Selección - IFAL",
+		"description": "Participe en las selecciones para los cursos del Instituto Federal de Alagoas."
+	},
+	"error": {
+		"title": "Se ha producido un error - IFAL",
+		"imageAlt": "Señalización de errores",
+		"detailsTitle": "Se ha producido un error en esta página.",
+		"detailsDescription": "Si tiene problemas técnicos, póngase en contacto con nuestro equipo a través de las redes sociales o por correo electrónico.",
+		"detailsSubtitle": "Detalles técnicos:",
+		"errorCode": "Código de error:",
+		"errorPath": "Ruta del error:"
+	},
+	"offline": {
+		"title": "Estás fuera de línea - IFAL",
+		"youreOffline": "Estás fuera de línea :(",
+		"tryingToReconnect": "Intentaremos reconectar en %v segundos.",
+		"reconnect": "Conecte de nuevo"
+	},
+	"login": {
+		"title": "Entrar en el sistema",
+		"buttonName": "Iniciar sesión",
+		"email": "Correo electrónico:",
+		"emailHelper": "Introduzca la dirección de correo electrónico del titular de la cuenta.",
+		"password": "Contraseña:"
+	},
+	"footer": {
+		"logoAlt": "Logotipo de IFAL",
+		"socialMedia": "Comunicación social",
+		"related": "Relacionado",
+		"originalSite": "Sitio web original",
+		"blog": "Blog de IFAL",
+		"goToProject": "Ver el proyecto",
+		"contacts": "Contactos",
+		"dsi": "DSI",
+		"postgraduate": "Posgraduación",
+		"copyright": "© 2021 - Gepetojj",
+		"mention": "Originalmente por la Junta de Tecnología de la Información - IFAL"
+	}
+}

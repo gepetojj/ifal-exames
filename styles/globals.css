@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+	@apply scrollbar scrollbar-w-2 scrollbar-thumb-rounded-xl scrollbar-thumb-white-minusFour 
+	scrollbar-track-transparent selection:bg-primary-plusFour selection:text-black-plusOne;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p,
+span {
+	@apply m-0;
+}
+
+#nprogress {
+	@apply pointer-events-none;
+}
+
+#nprogress .bar {
+	@apply fixed top-0 left-0 z-50 h-[2px] w-full bg-white-main shadow-xl;
+}
+
+#nprogress .peg {
+	@apply absolute right-0 block h-full w-[100px] transform opacity-100 shadow-md;
+}
+
+.nprogress-custom-parent {
+	@apply relative overflow-hidden;
+}
+
+.nprogress-custom-parent #nprogress .bar {
+	@apply absolute;
+}
+
+.ais-Highlight-highlighted {
+	@apply bg-primary-plusOne/20 font-medium;
+}
+
+.ais-SearchBox {
+	@apply flex h-9 w-full items-center justify-start rounded-project bg-white-minusOne pl-2 pr-2 print:hidden;
+}
+
+.ais-SearchBox-form {
+	@apply flex h-full w-full items-center justify-center;
+}
+
+.ais-SearchBox-input {
+	@apply mr-2 h-6 w-full select-none rounded-project px-2 text-sm outline-2 outline-offset-1 
+	outline-primary-plusThree focus:outline disabled:cursor-not-allowed;
+}
+
+.ais-SearchBox-submitIcon {
+	@apply text-2xl;
+}
+
+.ais-SearchBox-reset {
+	@apply hidden;
+}
+
+.ais-PoweredBy {
+	@apply mt-1 flex h-fit w-full items-center justify-end;
+}
+
+.ais-PoweredBy-text {
+	@apply pr-1 text-sm;
+}
+
+.ais-PoweredBy-logo {
+	@apply h-[20px] w-[70px];
+}
+
+.ais-Pagination {
+	@apply mt-5;
+}
+
+.ais-Pagination .ais-Pagination-list {
+	@apply flex h-auto w-full;
+}
+
+.ais-Pagination-list {
+	@apply items-center justify-between;
+}
+
+.ais-Pagination-item--disabled {
+	@apply cursor-not-allowed brightness-90;
+}
+
+.ais-Pagination-link {
+	@apply flex h-8 w-auto cursor-pointer select-none items-center justify-center rounded-project bg-white-minusOne
+	px-3 py-2 text-lg shadow-sm;
+}

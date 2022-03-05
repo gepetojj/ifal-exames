@@ -1,0 +1,13 @@
+node_modules/
+public/build/
+api/_build/
+coverage/
+.output/
+.vercel/
+.cache/
+.yarn/
+
+.env
+*.log
+yarn.lock
+app/styles/*.css

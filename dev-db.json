@@ -1,0 +1,203 @@
+{
+	"exams": [
+		{
+			"id": "a6f1c5d6-333f-4513-936c-9d4ed4c15ff1",
+			"name": "Exame de Seleção 2022.1 - Cursos Subsequentes ao Ensino Médio",
+			"tags": [
+				{ "label": "Aberto", "color": "green" },
+				{ "label": "Gratuito", "color": "blue" }
+			],
+			"isOpen": true,
+			"isClosed": false,
+			"isFuture": false,
+			"subscriptionPeriod": {
+				"startsAt": 1635724800,
+				"endsAt": 1670803200
+			},
+			"campi": ["Arapiraca", "Maceió"],
+			"offers": ["Técnico em Administração"],
+			"level": "Médio",
+			"modality": "Subsequente",
+			"vacancies": 100,
+			"courses": [
+				{
+					"id": 0,
+					"name": "Técnico em Administraçao",
+					"campus": "Arapiraca",
+					"modality": "Subsequente",
+					"shift": "morning",
+					"vacancies": 50
+				},
+				{
+					"id": 1,
+					"name": "Técnico em Administraçao",
+					"campus": "Maceió",
+					"modality": "Subsequente",
+					"shift": "afternoon",
+					"vacancies": 50
+				}
+			],
+			"documents": [
+				{
+					"id": 0,
+					"name": "Inscrições DEFERIDAS",
+					"link": "https://google.com",
+					"createdAt": 1635724800,
+					"updatedAt": 0
+				}
+			]
+		},
+		{
+			"id": "807745a7-b3ad-4316-9268-97596a99e1d7",
+			"name": "Exame de Seleção 2022.1 - Cursos Integrados ao Ensino Médio",
+			"tags": [
+				{ "label": "Aberto", "color": "green" },
+				{ "label": "Gratuito", "color": "blue" }
+			],
+			"isOpen": true,
+			"isClosed": false,
+			"isFuture": false,
+			"subscriptionPeriod": {
+				"startsAt": 1635724800,
+				"endsAt": 1670803200
+			},
+			"campi": ["Arapiraca", "Maceió", "Maragogi"],
+			"offers": ["Técnico em Meio Ambiente", "Técnico em Química"],
+			"level": "Médio",
+			"modality": "Integrado",
+			"vacancies": 100,
+			"courses": [
+				{
+					"id": 0,
+					"name": "Técnico em Meio Ambiente",
+					"campus": "Maragogi",
+					"modality": "Integrado",
+					"shift": "morning",
+					"vacancies": 25
+				},
+				{
+					"id": 1,
+					"name": "Técnico em Meio Ambiente",
+					"campus": "Maragogi",
+					"modality": "Integrado",
+					"shift": "afternoon",
+					"vacancies": 25
+				},
+				{
+					"id": 2,
+					"name": "Técnico em Química",
+					"campus": "Maceió",
+					"modality": "Integrado",
+					"shift": "morning",
+					"vacancies": 25
+				},
+				{
+					"id": 3,
+					"name": "Técnico em Química",
+					"campus": "Arapiraca",
+					"modality": "Integrado",
+					"shift": "morning",
+					"vacancies": 25
+				}
+			],
+			"documents": [
+				{
+					"id": 0,
+					"name": "Inscrições DEFERIDAS",
+					"link": "https://google.com",
+					"createdAt": 1635724800,
+					"updatedAt": 0
+				}
+			]
+		},
+		{
+			"id": "139a763c-40b4-4927-9107-406c28093f20",
+			"name": "Exame de Seleção 2022.1 - Cursos Subsequentes ao Ensino Médio",
+			"tags": [
+				{ "label": "Aberto", "color": "green" },
+				{ "label": "Gratuito", "color": "blue" }
+			],
+			"isOpen": true,
+			"isClosed": false,
+			"isFuture": false,
+			"subscriptionPeriod": {
+				"startsAt": 1635724800,
+				"endsAt": 1670803200
+			},
+			"campi": ["Arapiraca"],
+			"offers": [
+				"Técnico em Meio Ambiente",
+				"Técnico em Química",
+				"Técnico em Eletroeletrônica"
+			],
+			"level": "Médio",
+			"modality": "Subsequente",
+			"vacancies": 10,
+			"courses": [],
+			"documents": []
+		},
+		{
+			"id": "36be9d37-ca1d-452e-96e4-ea149a68f414",
+			"name": "Exame de Seleção 2022.1 - Cursos Subsequentes ao Ensino Médio",
+			"tags": [
+				{ "label": "Fechado", "color": "red" },
+				{ "label": "Gratuito", "color": "blue" }
+			],
+			"isOpen": false,
+			"isClosed": true,
+			"isFuture": false,
+			"subscriptionPeriod": {
+				"startsAt": 1635724800,
+				"endsAt": 1639267200
+			},
+			"campi": ["Arapiraca"],
+			"offers": [],
+			"level": "Médio",
+			"modality": "Subsequente",
+			"vacancies": 10,
+			"courses": [],
+			"documents": []
+		},
+		{
+			"id": "b2d01e59-3ca5-4efc-9c36-7c66b3fce385",
+			"name": "Exame de Seleção 2022.1 - Cursos Subsequentes ao Ensino Médio",
+			"tags": [
+				{ "label": "Fechado", "color": "red" },
+				{ "label": "Gratuito", "color": "blue" }
+			],
+			"isOpen": false,
+			"isClosed": true,
+			"isFuture": false,
+			"subscriptionPeriod": {
+				"startsAt": 1635724800,
+				"endsAt": 1639267200
+			},
+			"campi": ["Maceió"],
+			"offers": [],
+			"level": "Médio",
+			"modality": "Integrado",
+			"vacancies": 10,
+			"courses": [],
+			"documents": []
+		},
+		{
+			"id": "456ee46d-899d-4583-9205-097af6b00162",
+			"name": "Exame de Seleção 2022.1 - Cursos Subsequentes ao Ensino Médio",
+			"tags": [{ "label": "Futuro", "color": "yellow" }],
+			"isOpen": false,
+			"isClosed": false,
+			"isFuture": true,
+			"subscriptionPeriod": {
+				"startsAt": 1643673600,
+				"endsAt": 0
+			},
+			"campi": [],
+			"offers": [],
+			"level": "",
+			"modality": "",
+			"vacancies": 0,
+			"courses": [],
+			"documents": []
+		}
+	]
+}

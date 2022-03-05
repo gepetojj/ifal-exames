@@ -1,0 +1,121 @@
+{
+	"$schema": "https://json.schemastore.org/web-manifest",
+	"id": "gepetojj-ifalrework",
+	"name": "Sistema de Seleção - IFAL",
+	"short_name": "Seleção IFAL",
+	"description": "Acesse o Sistema de Seleção do Instituto Federal de Alagoas.",
+	"start_url": "/exames/andamento",
+	"background_color": "#299626",
+	"display": "standalone",
+	"scope": "/",
+	"theme_color": "#299626",
+	"categories": ["education", "government"],
+	"icons": [
+		{
+			"src": "/icons/standard/48.png",
+			"type": "image/png",
+			"sizes": "48x48",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/icons/standard/72.png",
+			"type": "image/png",
+			"sizes": "72x72",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/icons/standard/96.png",
+			"type": "image/png",
+			"sizes": "96x96",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/icons/standard/128.png",
+			"type": "image/png",
+			"sizes": "128x128",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/icons/standard/384.png",
+			"type": "image/png",
+			"sizes": "384x384",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "/icons/standard/512.png",
+			"type": "image/png",
+			"sizes": "512x512",
+			"purpose": "any maskable"
+		}
+	],
+	"lang": "pt",
+	"orientation": "portrait",
+	"shortcuts": [
+		{
+			"name": "Confira os exames abertos do IFAL",
+			"short_name": "Exames abertos",
+			"description": "Veja quais exames estão abertos na seleção do IFAL.",
+			"url": "/exames/andamento",
+			"icons": [
+				{
+					"src": "/icons/exams_shortcut/16.png",
+					"type": "image/png",
+					"sizes": "16x16"
+				},
+				{
+					"src": "/icons/exams_shortcut/64.png",
+					"type": "image/png",
+					"sizes": "64x64"
+				},
+				{
+					"src": "/icons/exams_shortcut/128.png",
+					"type": "image/png",
+					"sizes": "128x128"
+				},
+				{
+					"src": "/icons/exams_shortcut/256.png",
+					"type": "image/png",
+					"sizes": "256x256"
+				},
+				{
+					"src": "/icons/exams_shortcut/512.png",
+					"type": "image/png",
+					"sizes": "512x512"
+				}
+			]
+		},
+		{
+			"name": "Perguntas frequentes do IFAL",
+			"short_name": "Perguntas frequentes",
+			"description": "Veja as perguntas mais frequentes feitas ao IFAL e tire suas dúvidas!",
+			"url": "/sac",
+			"icons": [
+				{
+					"src": "/icons/sac_shortcut/16.png",
+					"type": "image/png",
+					"sizes": "16x16"
+				},
+				{
+					"src": "/icons/sac_shortcut/64.png",
+					"type": "image/png",
+					"sizes": "64x64"
+				},
+				{
+					"src": "/icons/sac_shortcut/128.png",
+					"type": "image/png",
+					"sizes": "128x128"
+				},
+				{
+					"src": "/icons/sac_shortcut/256.png",
+					"type": "image/png",
+					"sizes": "256x256"
+				},
+				{
+					"src": "/icons/sac_shortcut/512.png",
+					"type": "image/png",
+					"sizes": "512x512"
+				}
+			]
+		}
+	]
+}
