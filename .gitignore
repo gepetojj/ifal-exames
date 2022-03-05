@@ -10,4 +10,5 @@ coverage/
 .env
 *.log
 yarn.lock
+.yarnrc.yml
 app/styles/*.css
