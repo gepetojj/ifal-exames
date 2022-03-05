@@ -1,4 +1,4 @@
-# ifal-frontend
+# ifal-exames
 
 > Releitura do website de exames do IFAL
 
@@ -12,16 +12,16 @@ Acesse a releitura usando o link: [https://ifal.vercel.app](https://ifal.vercel.
 
 ## Conteúdos
 
--   [ifal-frontend](#ifal-frontend)
-    -   [Conteúdos](#conteúdos)
-    -   [Proposta](#proposta)
-    -   [Diferenças com a versão original](#diferenças-com-a-versão-original)
-        -   [Performance](#performance)
-        -   [Segurança](#segurança)
-        -   [Acessibilidade](#acessibilidade)
-    -   [Tecnologias](#tecnologias)
-    -   [Design](#design)
-    -   [Créditos e Licensa](#créditos-e-licensa)
+- [ifal-exames](#ifal-exames)
+	- [Conteúdos](#conteúdos)
+	- [Proposta](#proposta)
+	- [Diferenças com a versão original](#diferenças-com-a-versão-original)
+		- [Performance](#performance)
+		- [Segurança](#segurança)
+		- [Acessibilidade](#acessibilidade)
+	- [Tecnologias](#tecnologias)
+	- [Design](#design)
+	- [Créditos e Licensa](#créditos-e-licensa)
 
 ## Proposta
 
@@ -39,21 +39,21 @@ Testes feitos pela [ferramenta do web.dev](https://web.dev/measure/), realizados
 
 Web Vitals da releitura (ifal.vercel.app):
 
-![WebVitals da releitura](https://github.com/gepetojj/ifal-exames-frontend/blob/main/.github/assets/webvitals-ifalrework.png?raw=true)
+![WebVitals da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/webvitals-ifalrework.png?raw=true)
 
 Web Vitals do website original (exame.ifal.edu.br):
 
-![WebVitals do website original](https://github.com/gepetojj/ifal-exames-frontend/blob/main/.github/assets/webvitals-ifaloriginal.png?raw=true)
+![WebVitals do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/webvitals-ifaloriginal.png?raw=true)
 
 Testes feitos pelo [webpagetest.org](https://webpagetest.org/), usando o servidor 'Sao Paulo - EC2' e o Chrome como navegador.
 
 Performance da releitura (ifal.vercel.app):
 
-![Performance da releitura](https://github.com/gepetojj/ifal-exames-frontend/blob/main/.github/assets/performance-ifalrework.png?raw=true)
+![Performance da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/performance-ifalrework.png?raw=true)
 
 Performance do website original (exame.ifal.edu.br):
 
-![Performance do website original](https://github.com/gepetojj/ifal-exames-frontend/blob/main/.github/assets/performance-ifaloriginal.png?raw=true)
+![Performance do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/performance-ifaloriginal.png?raw=true)
 
 ### Segurança
 
@@ -63,11 +63,11 @@ Testes feitos pelo [webpagetest.org](https://webpagetest.org/), usando o servido
 
 Segurança da releitura (ifal.vercel.app):
 
-![Segurança da releitura](https://github.com/gepetojj/ifal-exames-frontend/blob/main/.github/assets/security-ifalrework.png?raw=true)
+![Segurança da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/security-ifalrework.png?raw=true)
 
 Segurança do website original (exame.ifal.edu.br):
 
-![Segurança do website original](https://github.com/gepetojj/ifal-exames-frontend/blob/main/.github/assets/security-ifaloriginal.png?raw=true)
+![Segurança do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/security-ifaloriginal.png?raw=true)
 
 ### Acessibilidade
 
@@ -79,7 +79,7 @@ Para este projeto, escolhi o Next.js como framework mesmo usando apenas o front-
 
 O website está disponível como PWA (Progressive Web App), e pode ser instalado em seu computador e celular.
 
-Todas as libs usadas estão disponíveis [aqui](https://github.com/gepetojj/ifal-exames-frontend/blob/main/package.json).
+Todas as libs usadas estão disponíveis [aqui](https://github.com/gepetojj/ifal-exames/blob/main/package.json).
 
 ## Design
 
@@ -97,4 +97,4 @@ Para as cores adicionais, escolhi uma paleta pastel, que é mais confortável pa
 
 ## Créditos e Licensa
 
-O projeto está protegido pela licensa [MIT](https://github.com/gepetojj/ifal-exames-frontend/blob/main/LICENSE), mas é válido lembrar que foi inspirado e usa os nomes e logotipos do Instituto Federal de Alagoas. O website original foi criado pela [Diretoria de Tecnologia da Informação do IFAL](https://www.dti.ifal.edu.br/) e não é open-source.
+O projeto está protegido pela licensa [MIT](https://github.com/gepetojj/ifal-exames/blob/main/LICENSE), mas é válido lembrar que foi inspirado e usa os nomes e logotipos do Instituto Federal de Alagoas. O website original foi criado pela [Diretoria de Tecnologia da Informação do IFAL](https://www.dti.ifal.edu.br/) e não é open-source.
