@@ -25,6 +25,7 @@ import { authenticator } from "./helpers/api/users/auth.server";
 import { getUser, readSession } from "./helpers/api/users/users.server";
 import { i18n } from "./helpers/i18n.server";
 import { ILanguage } from "./helpers/translation";
+import { webFont } from "./helpers/webfont.client";
 import styles from "./styles/globals.css";
 
 interface LoaderData {
@@ -107,14 +108,6 @@ export const links: LinksFunction = () => {
 			href: "/manifest.webmanifest",
 		},
 		{
-			rel: "preconnect",
-			href: "https://fonts.googleapis.com",
-		},
-		{
-			rel: "stylesheet",
-			href: "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap",
-		},
-		{
 			rel: "stylesheet",
 			href: styles,
 		},
@@ -128,8 +121,6 @@ export const links: LinksFunction = () => {
 };
 
 export function ErrorBoundary({ error }: { error: Error }) {
-	console.error(error);
-
 	return (
 		<Layout>
 			<Header />
@@ -193,11 +184,18 @@ export function CatchBoundary() {
 export default function App() {
 	const { language, ...authState } = useLoaderData<LoaderData>();
 	const transition = useTransition();
-
-	nProgress.configure({
-		showSpinner: false,
-	});
 	useSetupTranslations(language);
+
+	useEffect(() => {
+		nProgress.configure({
+			showSpinner: false,
+		});
+		webFont.load({
+			google: {
+				families: ["Inter:300,400,500,600,700"],
+			},
+		});
+	}, []);
 
 	useEffect(() => {
 		if (transition.state === "idle") nProgress.done();

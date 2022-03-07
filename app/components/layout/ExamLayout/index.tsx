@@ -1,6 +1,6 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import type { FC } from "react";
-import { Form } from "remix";
+import { Form, useSubmit } from "remix";
 import { Alert } from "~/components/data/Alert";
 import { Exam } from "~/components/data/Exam";
 import { Searchbar } from "~/components/input/Searchbar";
@@ -13,6 +13,17 @@ export interface IExamLayoutProps {
 
 const ExamLayoutComponent: FC<IExamLayoutProps> = ({ title, search }) => {
 	const [searchValue, setSearchValue] = useState(search.query);
+	const submit = useSubmit();
+
+	useEffect(() => {
+		if (searchValue === search.query) return;
+
+		const timeout = setTimeout(() => {
+			submit({ search: searchValue }, { method: "get" });
+		}, 600);
+
+		return () => clearTimeout(timeout);
+	}, [searchValue, submit, search]);
 
 	return (
 		<div className="flex flex-col justify-start items-center md:items-start w-full max-w-[540px] h-full p-2 pt-0 mt-3 md:mt-0">

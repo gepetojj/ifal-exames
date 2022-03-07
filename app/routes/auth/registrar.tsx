@@ -161,7 +161,15 @@ export const action: ActionFunction = async ({ request }) => {
 	);
 
 	if (userCreation.isError || userCreation.errorCode) {
-		console.log(userCreation);
+		if (userCreation.errorCode === 400) {
+			return {
+				formError: {
+					label: "É possível que o email escolhido já foi cadastrado. Tente novamente.",
+					variant: "alert"
+				},
+			};
+		}
+
 		return {
 			formError: {
 				label: "Não foi possível concluir seu cadastro. Tente novamente.",

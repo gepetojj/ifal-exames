@@ -2,9 +2,9 @@
 
 > Releitura do website de exames do IFAL
 
-![DeepScan grade](https://deepscan.io/api/teams/14855/projects/19494/branches/508117/badge/grade.svg?token=a1fa0980263b30233c0ddf1e9c3ed778290db2ee)
-![DeepSource Active Issues](https://deepsource.io/gh/gepetojj/ifal-frontend.svg/?label=active+issues&show_trend=true&token=RdvqC1HuCWwS0DhEYqy--6uC)
-![DeepSource Resolved Issues](https://deepsource.io/gh/gepetojj/ifal-frontend.svg/?label=resolved+issues&show_trend=true&token=RdvqC1HuCWwS0DhEYqy--6uC)
+![DeepScan grade](https://deepscan.io/api/teams/14855/projects/20424/branches/556090/badge/grade.svg?token=a1fa0980263b30233c0ddf1e9c3ed778290db2ee)
+![DeepSource Active Issues](https://deepsource.io/gh/gepetojj/ifal-exames.svg/?label=active+issues&show_trend=true&token=muL5iQIqWNYCF0KQSd-tuPBq)
+![DeepSource Resolved Issues](https://deepsource.io/gh/gepetojj/ifal-exames.svg/?label=resolved+issues&show_trend=true&token=muL5iQIqWNYCF0KQSd-tuPBq)
 
 ![SimpleAnalytics](https://simpleanalyticsbadge.com/ifal.vercel.app?mode=dark)
 
@@ -39,21 +39,21 @@ Testes feitos pela [ferramenta do web.dev](https://web.dev/measure/), realizados
 
 Web Vitals da releitura (ifal.vercel.app):
 
-![WebVitals da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/webvitals-ifalrework.png?raw=true)
+![WebVitals da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/wv-rework.png?raw=true)
 
 Web Vitals do website original (exame.ifal.edu.br):
 
-![WebVitals do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/webvitals-ifaloriginal.png?raw=true)
+![WebVitals do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/wv-original.png?raw=true)
 
 Testes feitos pelo [webpagetest.org](https://webpagetest.org/), usando o servidor 'Sao Paulo - EC2' e o Chrome como navegador.
 
 Performance da releitura (ifal.vercel.app):
 
-![Performance da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/performance-ifalrework.png?raw=true)
+![Performance da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/performance-rework.png?raw=true)
 
 Performance do website original (exame.ifal.edu.br):
 
-![Performance do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/performance-ifaloriginal.png?raw=true)
+![Performance do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/performance-original.png?raw=true)
 
 ### Segurança
 
@@ -75,7 +75,7 @@ Como já mostrado nos testes do Web Vitals, a releitura possui um nível de aces
 
 ## Tecnologias
 
-Para este projeto, escolhi o Next.js como framework mesmo usando apenas o front-end. O Next é um framework consolidado no mercado e oferece o SSR (Server-Side Rendering), o que vai garantir muitas melhoras ao website. E claro, o Next usa o React.js.
+Para este projeto, escolhi o Remix como framework. O Remix é um framework novo no mercado, porém oference muitas melhorias e otimizações para o site, entre elas o SSR (Server-Side Rendering), o que vai garantir muitas melhoras ao website. E claro, o Remix usa o React.js.
 
 O website está disponível como PWA (Progressive Web App), e pode ser instalado em seu computador e celular.
 
