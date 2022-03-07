@@ -13,42 +13,30 @@ import {
 	ScrollRestoration,
 } from "remix";
 import type { MetaFunction, LinksFunction, LoaderFunction, HeadersFunction } from "remix";
-import { useSetupTranslations } from "remix-i18next";
 
 import { AuthProvider } from "./components/context/AuthContext";
+import type { IAuthContext } from "./components/context/AuthContext";
 import { ScrollToTop } from "./components/input/ScrollToTop";
 import { Footer } from "./components/layout/Footer";
 import { Header } from "./components/layout/Header";
 import { Layout } from "./components/layout/Layout";
-import type { Account } from "./entities/User";
 import { authenticator } from "./helpers/api/users/auth.server";
 import { getUser, readSession } from "./helpers/api/users/users.server";
-import { i18n } from "./helpers/i18n.server";
-import { ILanguage } from "./helpers/translation";
 import { webFont } from "./helpers/webfont.client";
 import styles from "./styles/globals.css";
 
-interface LoaderData {
-	language: ILanguage;
-	isLogged: boolean;
-	user?: Account;
-}
-
 export const loader: LoaderFunction = async ({ request }) => {
-	const language = await i18n.getLocale(request);
-
-	// ! Remove this line before deployment
-	if (process.env.NODE_ENV === "development") return { isLogged: false, language };
+	if (process.env.NODE_ENV === "development") return { isLogged: false };
 
 	const sessionId = await authenticator.isAuthenticated(request);
 	if (sessionId) {
 		const session = await readSession(sessionId);
-		if (session.isError || session.data === undefined) return { isLogged: false, language };
+		if (session.isError || session.data === undefined) return { isLogged: false };
 		const user = await getUser(session.data?.userId);
-		if (user.isError || user.data === undefined) return { isLogged: false, language };
-		return { isLogged: true, user: user.data, language };
+		if (user.isError || user.data === undefined) return { isLogged: false };
+		return { isLogged: true, user: user.data };
 	}
-	return { isLogged: false, language };
+	return { isLogged: false };
 };
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -182,9 +170,8 @@ export function CatchBoundary() {
 }
 
 export default function App() {
-	const { language, ...authState } = useLoaderData<LoaderData>();
+	const authState = useLoaderData<IAuthContext>();
 	const transition = useTransition();
-	useSetupTranslations(language);
 
 	useEffect(() => {
 		nProgress.configure({
@@ -203,7 +190,7 @@ export default function App() {
 	}, [transition.state]);
 
 	return (
-		<html lang={language}>
+		<html lang="pt-br">
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width,initial-scale=1" />
