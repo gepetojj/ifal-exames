@@ -2,7 +2,6 @@ import validator from "validator";
 
 export interface IComplementValidatorMessages {
 	isEmpty: string;
-	length: string;
 	regex: string;
 }
 

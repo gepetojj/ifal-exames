@@ -12,16 +12,16 @@ Acesse a releitura usando o link: [https://ifal.vercel.app](https://ifal.vercel.
 
 ## Conteúdos
 
-- [ifal-exames](#ifal-exames)
-	- [Conteúdos](#conteúdos)
-	- [Proposta](#proposta)
-	- [Diferenças com a versão original](#diferenças-com-a-versão-original)
-		- [Performance](#performance)
-		- [Segurança](#segurança)
-		- [Acessibilidade](#acessibilidade)
-	- [Tecnologias](#tecnologias)
-	- [Design](#design)
-	- [Créditos e Licensa](#créditos-e-licensa)
+-   [ifal-exames](#ifal-exames)
+    -   [Conteúdos](#conteúdos)
+    -   [Proposta](#proposta)
+    -   [Diferenças com a versão original](#diferenças-com-a-versão-original)
+        -   [Performance](#performance)
+        -   [Segurança](#segurança)
+        -   [Acessibilidade](#acessibilidade)
+    -   [Tecnologias](#tecnologias)
+    -   [Design](#design)
+    -   [Créditos e Licensa](#créditos-e-licensa)
 
 ## Proposta
 

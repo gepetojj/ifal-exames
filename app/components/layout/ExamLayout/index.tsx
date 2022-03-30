@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useState } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { Form, useSubmit } from "remix";
 import { Alert } from "~/components/data/Alert";
 import { Exam } from "~/components/data/Exam";
@@ -14,6 +15,7 @@ export interface IExamLayoutProps {
 const ExamLayoutComponent: FC<IExamLayoutProps> = ({ title, search }) => {
 	const [searchValue, setSearchValue] = useState(search.query);
 	const submit = useSubmit();
+	const { t } = useTranslation("translation");
 
 	useEffect(() => {
 		if (searchValue === search.query) return;
@@ -36,13 +38,15 @@ const ExamLayoutComponent: FC<IExamLayoutProps> = ({ title, search }) => {
 				<Form method="get">
 					<Searchbar value={searchValue} handler={setSearchValue} />
 				</Form>
-				{search.filteredExams.length ? (
+				{search.filteredExams && search.filteredExams.length ? (
 					<>
 						{search.query.length > 0 && (
 							<div className="w-full text-right pt-2">
 								<span className="text-sm italic">
-									Mostrando {search.filteredExams.length} resultado(s) de{" "}
-									{search.exams.length} devido à sua pesquisa.
+									{t("search.result", {
+										showing: search.filteredExams.length,
+										total: search.exams.length,
+									})}
 								</span>
 							</div>
 						)}
@@ -58,7 +62,7 @@ const ExamLayoutComponent: FC<IExamLayoutProps> = ({ title, search }) => {
 							))}
 						</ul>
 					</>
-				) : search.exams.length ? (
+				) : search.exams && search.exams.length ? (
 					<>
 						{search.query.length > 0 && (
 							<div className="pt-2">
@@ -78,7 +82,9 @@ const ExamLayoutComponent: FC<IExamLayoutProps> = ({ title, search }) => {
 						</ul>
 					</>
 				) : (
-					<Alert label="Não há exames disponíveis agora." variant="error" />
+					<div className="mt-4">
+						<Alert label="Não há exames disponíveis agora." variant="error" />
+					</div>
 				)}
 			</div>
 		</div>

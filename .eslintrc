@@ -10,6 +10,11 @@
 		"plugin:jsx-a11y/recommended",
 		"prettier"
 	],
+	"settings": {
+		"react": {
+			"version": "detect"
+		}
+	},
 	"env": {
 		"browser": true,
 		"es6": true

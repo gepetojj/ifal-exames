@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import type { IDocument } from "~/entities/Exam";
 import { formatTimestamp } from "~/helpers/textFormatters";
 
@@ -14,6 +15,8 @@ import { formatTimestamp } from "~/helpers/textFormatters";
  * @param {number} updatedAt Timestamp (unix epoch) da data de atualização do documento. Exemplo: `1635724800` (01/11/2021 00:00:00 GMT)
  */
 const DocumentComponent: FC<IDocument> = ({ name, createdAt, updatedAt }) => {
+	const { t, i18n } = useTranslation("translation");
+
 	return (
 		<div
 			title={name}
@@ -23,11 +26,15 @@ const DocumentComponent: FC<IDocument> = ({ name, createdAt, updatedAt }) => {
 		>
 			<h3 className="font-bold text-base truncate">{name}</h3>
 			{createdAt > 0 && (
-				<span className="text-sm truncate">Criado em: {formatTimestamp(createdAt)}</span>
+				<span className="text-sm truncate">
+					{t("document.createdAt", {
+						date: formatTimestamp(createdAt, i18n.language),
+					})}
+				</span>
 			)}
 			{updatedAt > 0 && (
 				<span className="text-sm truncate">
-					Atualizado em: {formatTimestamp(updatedAt)}
+					{t("document.updatedAt", { date: formatTimestamp(updatedAt, i18n.language) })}
 				</span>
 			)}
 		</div>

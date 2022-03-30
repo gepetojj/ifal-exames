@@ -7,20 +7,11 @@
 		"shift": "Shift:",
 		"vacancies": "Vacancies:"
 	},
-	"shifts": {
-		"morning": "Morning",
-		"afternoon": "Afternoon",
-		"night": "Night"
-	},
 	"document": {
-		"createdAt": "Created in:",
-		"updatedAt": "Updated in:"
-	},
-	"tags": {
-		"open": "Available",
-		"future": "Future",
-		"closed": "Ended",
-		"free": "Free"
+		"documents": "Document(s)",
+		"notFound": "This test has no documents.",
+		"createdAt": "Created in: {{date}}",
+		"updatedAt": "Updated in: {{date}}"
 	},
 	"exam": {
 		"subscriptionPeriod": "Registration period:",
@@ -28,110 +19,62 @@
 		"campus": "Campuses:",
 		"offers": "Offers:",
 		"level": "Level:",
-		"modalities": "Modalities:",
+		"modality": "Modality:",
 		"vacancies": "Positions available:",
-		"subscribe": "Subscribe",
-		"seeMore": "See more"
+		"subscribe": "Subscribe"
+	},
+	"exams": {
+		"loadingExams": "Loading tests",
+		"loadingError": "Error when trying to load tests",
+		"noExams": "There are no tests available now."
+	},
+	"examDetails": {
+		"description": "Check the test {{name}}, with {{offers}} course offers, provided by IFAL.",
+		"courses": "Course(s)",
+		"loadingAlt": "Loading test...",
+		"loadingErrorAlt": "An error has occurred while trying to load this test.",
+		"examNotFound": "Test not found.",
+		"noCourses": "This test has no courses available."
 	},
 	"form": {
-		"back": "Back",
 		"passwordForgot": "Forgot your password?",
 		"send": "Send",
 		"nextStep": "Next step"
 	},
-	"searchBar": {
-		"searchExams": "Look for exams:",
-		"placeholder": "Search:"
-	},
-	"examContent": {
-		"documents": "Documents",
-		"loadMore": "Load more",
-		"notFound": "This exam has no documents."
-	},
-	"examNavigation": {
-		"back": "Back"
+	"search": {
+		"searchExams": "",
+		"placeholder": "",
+		"result": "",
+		"searchNotFound": ""
 	},
 	"header": {
 		"logoAlt": "IFAL logo",
 		"title": "Selection system",
-		"exams": "Exams",
+		"exams": "Tests",
 		"account": "Your account",
 		"login": "Login",
 		"manage": "Manage",
 		"faq": "Frequently asked questions",
-		"navMenu": "Page change menu",
-		"error": "Error",
-		"wait": "Stand by..."
+		"navMenu": "Page change menu"
 	},
 	"navigation": {
-		"wait": "Stand by...",
-		"examMenu": "Exam type change Menu"
+		"examMenu": "Test type change Menu"
 	},
 	"navigationOptions": {
-		"ongoing": "Ongoing",
-		"future": "Futures",
-		"closed": "Closed",
 		"login": "Login",
 		"register": "Create account",
 		"accountData": "Personal data",
 		"accountSubs": "Subscriptions",
 		"accountConn": "Connections",
 		"logout": "Disconnect",
-		"adminExams": "Exams",
+		"adminExams": "T",
 		"adminUsers": "Users",
 		"adminFaq": "Frequently asked questions"
-	},
-	"examsLayout": {
-		"ongoingExam": "in progress",
-		"closedExam": "closed",
-		"futureExam": "future",
-		"searchResults": "Results",
-		"searchNotFound": "Your search did not match any results.",
-		"loadingExams": "Loading %v exams.",
-		"loadingError": "Error when trying to load %v exams.",
-		"examsType": "available",
-		"examsNotFound": "No %v exams available."
-	},
-	"examDetails": {
-		"description": "Check the exam %v, with %v course offers, provided by IFAL.",
-		"loading": "Loading...",
-		"loadingError": "An error has occurred.",
-		"loadingNotFound": "Not found.",
-		"courses": "Course(s)",
-		"loadingAlt": "Loading exam...",
-		"loadingErrorAlt": "An error has occurred while trying to load this exam.",
-		"examNotFound": "Exam not found.",
-		"noCourses": "This exam has no courses available."
-	},
-	"ongoingExams": {
-		"loading": "Loading...",
-		"title": "Ongoing exams"
-	},
-	"closedExams": {
-		"loading": "Loading...",
-		"title": "Closed exams"
-	},
-	"futureExams": {
-		"loading": "Loading...",
-		"title": "Future exams"
-	},
-	"app": {
-		"title": "Selection System - IFAL",
-		"description": "Participate in selections in courses of the Federal Institute of Alagoas."
-	},
-	"error": {
-		"title": "There has been an error - IFAL",
-		"imageAlt": "Error signalling",
-		"detailsTitle": "An error has occurred on this page.",
-		"detailsDescription": "If you are experiencing technical issues, please contact our team through social media or email.",
-		"detailsSubtitle": "Technical details:",
-		"errorCode": "Error code:",
-		"errorPath": "Error path:"
 	},
 	"offline": {
 		"title": "You are offline - IFAL",
 		"youreOffline": "You are offline :(",
-		"tryingToReconnect": "We will attempt to reconnect in %v seconds.",
+		"tryingToReconnect": "We will attempt to reconnect in {{seconds}} seconds.",
 		"reconnect": "Reconnect"
 	},
 	"login": {
@@ -139,7 +82,53 @@
 		"buttonName": "Login",
 		"email": "Email:",
 		"emailHelper": "Enter the email address of the account holder.",
-		"password": "Password:"
+		"password": "Password:",
+		"fillFields": "Fill in the Email and Password fields correctly."
+	},
+	"register": {
+		"title": "Create your account - IFAL",
+		"description": "Create your IFAL Selection System account to be able to participate in selections and more!",
+		"formTitle": "Create your account",
+		"formError": "There are fields that need to be corrected.",
+		"emailAlreadyExists": "It is possible that the chosen email address has already been registered. Please try again.",
+		"success": "Registration completed, check your email and login.",
+		"failed": "Your registration could not be completed. Please try again.",
+		"verifyPostalCode": "Check that this zip code is correct.",
+		"cpf": "Brazilian SSN (CPF):",
+		"cpfHelper": "Enter the candidate's brazilian SSN (CPF).",
+		"fullName": "Full Name:",
+		"birthDay": "Date of birth:",
+		"birthDayHelper": "Format: DD/MM/YYYY. Example: 01/01/2021",
+		"phone": "Phone:",
+		"phoneHelper": "Format: (00) 90000-0000",
+		"email": "Email:",
+		"emailConfirm": "Confirm the email:",
+		"emailConfirmHelper": "Please enter your email again.",
+		"postalCode": "Zip Code:",
+		"postalCodeHelper": "Format: 00.000-000",
+		"state": "State:",
+		"city": "City:",
+		"street": "Address:",
+		"neighborhood": "Neighborhood:",
+		"houseNumber": "House number:",
+		"complement": "Supplement:",
+		"complementHelper": "Example: House B, Apt 301, etc. (Not required field)",
+		"password": "Password:",
+		"passwordHelper": "The password must be at least 10 characters long, with letters and numbers.",
+		"passwordConfirm": "Confirm the password:",
+		"passwordConfirmHelper": "Re-enter your password.",
+		"alert": "By sending this form you declare, for all legal purposes, under penalty of law, that the information you submit for registration is true to the truth and consistent with the reality of the facts. You are aware, therefore, that the falsity of this statement is a crime under the Brazilian Penal Code and subject to investigation according to the Law."
+	},
+	"validator": {
+		"required": "This field must be filled in.",
+		"length": "This field must have {{length}} numbers.",
+		"numberOnly": "This field must have numbers only.",
+		"textOnly": "This field must have only letters, no accents.",
+		"emailOnly": "This field must be a valid email address.",
+		"emailEquals": "Both emails must be the same.",
+		"passwordLength": "This field must be between 10 and 64 characters long.",
+		"passwordStrong": "The password must have at least one upper and one lower case letter, one number and one special character.",
+		"passwordEquals": "Both passwords must be the same."
 	},
 	"footer": {
 		"logoAlt": "IFAL logo",

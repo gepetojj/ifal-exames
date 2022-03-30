@@ -31,7 +31,7 @@ const ScrollToTopComponent: FC = () => {
 			onClick={goToTop}
 			type="button"
 		>
-			<span className="sr-only">Clique aqui para voltar para o topo da página</span>
+			<span className="sr-only">Clique aqui para voltar para o topo da página.</span>
 			<MdArrowUpward className="text-2xl text-black-plusOne" />
 		</button>
 	);

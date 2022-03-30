@@ -1,8 +1,10 @@
 import React from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { MdArrowBack } from "react-icons/md";
 import { json, Link, useCatch, useLoaderData } from "remix";
 import type { LoaderFunction, MetaFunction } from "remix";
+import type { Language } from "remix-i18next";
 import invariant from "tiny-invariant";
 import { Alert } from "~/components/data/Alert";
 import { Course } from "~/components/data/Course";
@@ -11,19 +13,31 @@ import { Exam } from "~/components/data/Exam";
 import { ErrorDisplay } from "~/components/layout/ErrorDisplay";
 import type { Exam as IExam } from "~/entities/Exam";
 import { getExam } from "~/helpers/api/exams.server";
+import { remixI18next } from "~/helpers/i18n.server";
 
-export const loader: LoaderFunction = async ({ params }) => {
+interface LoaderData {
+	exam: IExam;
+	i18n: Record<string, Language>;
+}
+
+export const loader: LoaderFunction = async ({ request, params }): Promise<LoaderData> => {
 	invariant(params.id, "Informe o ID do exame.");
-	const exam = await getExam(params.id);
+	const { isError, errorCode, data } = await getExam(params.id);
+	const t = await remixI18next.getFixedT(request, "translation");
 
-	if (exam.isError || !exam.data)
-		throw json("Exame não encontrado.", { status: exam.errorCode || 404 });
+	if (isError || !data)
+		throw json(t("examDetails.examNotFound"), {
+			status: errorCode === 204 ? 404 : errorCode || 404,
+		});
 
-	return exam.data;
+	return {
+		exam: data,
+		i18n: await remixI18next.getTranslations(request, ["common", "translation"]),
+	};
 };
 
 export const meta: MetaFunction = ({ data }) => {
-	const exam: IExam = data;
+	const exam: IExam = data.exam;
 	const title = exam?.id ? `${exam.name} - IFAL` : `Exame não encontrado - IFAL`;
 	const description = exam?.id
 		? `${exam.name} ${
@@ -36,7 +50,7 @@ export const meta: MetaFunction = ({ data }) => {
 		: `Este exame não foi encontrado.`;
 	const url = exam?.id
 		? `https://ifal.vercel.app/exames/${exam.id}`
-		: `https://ifal.vercel.app/exames`;
+		: `https://ifal.vercel.app/exames/andamento`;
 
 	return {
 		title,
@@ -52,43 +66,72 @@ export const meta: MetaFunction = ({ data }) => {
 
 export function CatchBoundary() {
 	const caught = useCatch();
+	const { t } = useTranslation("common");
 
 	switch (caught.status) {
 		case 404:
 			return (
-				<div className="flex justify-center items-center w-full min-h-screen pt-10">
-					<ErrorDisplay title="Exame inexistente" label={caught.data} />
+				<div className="flex flex-col items-center w-full min-h-screen pt-10">
+					<ErrorDisplay title={t("examDetails.examNotFound")} label={caught.data} />
+					<div className="flex justify-end items-center w-full max-w-[540px] pt-2 px-2">
+						<Link
+							to="/exames/andamento"
+							className="text-black-minusOne text-sm hover:underline"
+						>
+							{t("goBack")}
+						</Link>
+					</div>
 				</div>
 			);
 
 		case 503:
 			return (
-				<div className="flex justify-center items-center w-full min-h-screen pt-10">
+				<div className="flex flex-col items-center w-full min-h-screen pt-10">
 					<ErrorDisplay
-						title="Houve um erro"
+						title={t("error.error")}
 						label="O servidor está offline. Tente novamente mais tarde."
 						variant="error"
 					/>
+					<div className="flex justify-end items-center w-full max-w-[540px] pt-2 px-2">
+						<Link
+							to="/exames/andamento"
+							className="text-black-minusOne text-sm hover:underline"
+						>
+							{t("goBack")}
+						</Link>
+					</div>
 				</div>
 			);
 
 		default:
 			return (
-				<div className="flex justify-center items-center w-full min-w-screen pt-10">
+				<div className="flex flex-col items-center w-full min-w-screen pt-10">
 					<ErrorDisplay
-						title="Houve um erro"
-						label="Houve um erro. Recarregue para tentar novamente."
+						title={t("error.error")}
+						label={t("error.unexpected")}
 						variant="error"
 					/>
+					<div className="flex justify-end items-center w-full max-w-[540px] pt-2 px-2">
+						<Link
+							to="/exames/andamento"
+							className="text-black-minusOne text-sm hover:underline"
+						>
+							{t("goBack")}
+						</Link>
+					</div>
 				</div>
 			);
 	}
 }
 
 const Documents: FC<IExam> = ({ documents }) => {
+	const { t } = useTranslation("translation");
+
 	return (
 		<>
-			<h2 className="text-black-plusOne font-medium text-xl mb-2">Documento(s)</h2>
+			<h2 className="text-black-plusOne font-medium text-xl mb-2">
+				{t("document.documents")}
+			</h2>
 			<ul className="w-full h-auto">
 				{documents?.length ? (
 					documents.map(document => (
@@ -97,7 +140,7 @@ const Documents: FC<IExam> = ({ documents }) => {
 						</li>
 					))
 				) : (
-					<Alert label="Este exame não possui documentos." />
+					<Alert label={t("document.notFound")} />
 				)}
 			</ul>
 		</>
@@ -105,7 +148,8 @@ const Documents: FC<IExam> = ({ documents }) => {
 };
 
 export default function ExamDetails() {
-	const exam = useLoaderData<IExam | null>();
+	const { exam } = useLoaderData<LoaderData>();
+	const { t } = useTranslation("translation");
 
 	return (
 		<main
@@ -132,7 +176,7 @@ export default function ExamDetails() {
 			<div className="flex flex-col justify-start items-center md:items-start w-full md:max-w-[540px] h-full mt-3 md:mt-0">
 				<div className="w-full mb-3">
 					<h1 className="text-center md:text-left font-medium text-3xl truncate">
-						{exam?.name ? "Detalhes do exame" : "Exame não encontrado"}
+						{exam?.name ? "Detalhes do exame" : t("examDetails.examNotFound")}
 					</h1>
 				</div>
 				{exam && (
@@ -145,16 +189,18 @@ export default function ExamDetails() {
 				)}
 				{exam && (
 					<div className="flex flex-col w-full h-fit">
-						<h2 className="text-black-plusOne font-medium text-xl mb-2">Curso(s)</h2>
+						<h2 className="text-black-plusOne font-medium text-xl mb-2">
+							{t("examDetails.courses")}
+						</h2>
 						<ul className="w-full h-auto">
-							{exam.courses.length ? (
+							{exam.courses ? (
 								exam.courses.map(course => (
 									<li key={course.id} className="my-2">
 										<Course {...course} />
 									</li>
 								))
 							) : (
-								<Alert label="Este exame não possui cursos." />
+								<Alert label={t("examDetails.noCourses")} />
 							)}
 						</ul>
 					</div>

@@ -1,49 +1,26 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
+import React, { useCallback, useState } from "react";
+import type { ChangeEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { Form, useActionData, useTransition } from "remix";
-import type { MetaFunction, ActionFunction } from "remix";
+import type { MetaFunction, ActionFunction, LoaderFunction } from "remix";
+import type { Language } from "remix-i18next";
 import { Alert } from "~/components/data/Alert";
-import type { IAlertProps } from "~/components/data/Alert";
 import { Button } from "~/components/input/Button";
 import { TextField } from "~/components/input/TextField";
 import type { CEP } from "~/entities/CEP";
-import { createUser } from "~/helpers/api/users/users.server";
-import { randomUUID } from "~/helpers/crypto.server";
-import { birthDayValidator } from "~/helpers/validators/birthDay.server";
-import { cepValidator } from "~/helpers/validators/cep.server";
-import { complementValidator } from "~/helpers/validators/complement.server";
-import { cpfValidator } from "~/helpers/validators/cpf.server";
-import { emailValidator } from "~/helpers/validators/email.server";
-import { houseNumberValidator } from "~/helpers/validators/houseNumber.server";
-import { passwordValidator } from "~/helpers/validators/password.server";
-import { phoneValidator } from "~/helpers/validators/phone.server";
-import { textValidator } from "~/helpers/validators/text.server";
+import { register } from "~/helpers/actions/register.server";
+import type { IRegisterActionData } from "~/helpers/actions/register.server";
+import { remixI18next } from "~/helpers/i18n.server";
 
-interface ActionData {
-	formError?: IAlertProps;
-	fieldErrors?: {
-		cpf?: string;
-		fullName?: string;
-		birthDay?: string;
-		phone?: string;
-		email?: string;
-		emailConfirm?: string;
-		street?: string;
-		houseNumber?: string;
-		neighborhood?: string;
-		complement?: string;
-		cep?: string;
-		state?: string;
-		city?: string;
-		password?: string;
-		passwordConfirm?: string;
-	};
-	completed?: boolean;
+interface LoaderData {
+	i18n: Record<string, Language>;
+	title: string;
+	description: string;
 }
 
-export const meta: MetaFunction = () => {
-	const title = "Crie sua conta - IFAL";
-	const description =
-		"Crie sua conta do Sistema de Seleção do IFAL para poder participar de seleções e mais!";
+export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
+	const title = data.title;
+	const description = data.description;
 	const url = "https://ifal.vercel.app/auth/registrar";
 
 	return {
@@ -58,132 +35,21 @@ export const meta: MetaFunction = () => {
 	};
 };
 
-export const action: ActionFunction = async ({ request }) => {
-	const body = await request.formData();
-	const cpf = body.get("cpf")?.toString();
-	const fullName = body.get("fullName")?.toString();
-	const birthDay = body.get("birthDay")?.toString();
-	const phone = body.get("phone")?.toString();
-	const email = body.get("email")?.toString();
-	const emailConfirm = body.get("emailConfirm")?.toString();
-	const cep = body.get("cep")?.toString();
-	const houseNumber = body.get("houseNumber")?.toString();
-	const complement = body.get("complement")?.toString();
-	const password = body.get("password")?.toString();
-	const passwordConfirm = body.get("passwordConfirm")?.toString();
+export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
+	const i18n = await remixI18next.getTranslations(request, ["common", "translation"]);
+	const t = await remixI18next.getFixedT(request, "translation");
+	return { i18n, title: t("register.title"), description: t("register.description") };
+};
 
-	const cpfErr = cpfValidator(cpf);
-	const nameErr = textValidator(fullName);
-	const birthDayErr = birthDayValidator(birthDay);
-	const phoneErr = phoneValidator(phone);
-	const emailErr = emailValidator(email, emailConfirm);
-	const emailConfirmErr = emailValidator(emailConfirm, email);
-	const cepErr = cepValidator(cep);
-	const houseNumberErr = houseNumberValidator(houseNumber);
-	const complementErr = complementValidator(complement);
-	const passwordErr = passwordValidator(password, passwordConfirm);
-	const passwordConfirmErr = passwordValidator(passwordConfirm, password);
-
-	const errors = [
-		cpfErr,
-		nameErr,
-		birthDayErr,
-		phoneErr,
-		emailErr,
-		emailConfirmErr,
-		cepErr,
-		houseNumberErr,
-		complementErr,
-		passwordErr,
-		passwordConfirmErr,
-	];
-
-	if (errors.find(error => error !== undefined)) {
-		return {
-			formError: {
-				label: "Há campos que necessitam ser corrigidos.",
-				variant: "alert",
-			},
-			fieldErrors: {
-				cpf: cpfErr,
-				fullName: nameErr,
-				birthDay: birthDayErr,
-				phone: phoneErr,
-				email: emailErr,
-				emailConfirm: emailConfirmErr,
-				cep: cepErr,
-				houseNumber: houseNumberErr,
-				complement: complementErr,
-				password: passwordErr,
-				passwordConfirm: passwordConfirmErr,
-			},
-		};
-	}
-
-	const userCreation = await createUser(
-		{
-			id: randomUUID(),
-			// @ts-expect-error (`Username` não pode ser `undefined`, já foi verificado.)
-			username: email,
-			// @ts-expect-error (`Email` não pode ser `undefined`, já foi verificado.)
-			email,
-			profile: {
-				// @ts-expect-error (`CPF` não pode ser `undefined`, já foi verificado.)
-				cpf,
-				// @ts-expect-error (`FullName` não pode ser `undefined`, já foi verificado.)
-				fullName,
-				// @ts-expect-error (`BirthDay` não pode ser `undefined`, já foi verificado.)
-				birthDay,
-				gender: "undefined",
-				ethnicity: "undefined",
-				birthState: "",
-				birthCity: "",
-				responsiblePersonFullName: undefined,
-				responsiblePersonKinship: undefined,
-				// @ts-expect-error (`Phone` não pode ser `undefined`, já foi verificado.)
-				phone,
-				// @ts-expect-error (`Email` não pode ser `undefined`, já foi verificado.)
-				email,
-				street: "",
-				// @ts-expect-error (`HouseNumber` não pode ser `undefined`, já foi verificado.)
-				houseNumber,
-				neighborhood: "",
-				// @ts-expect-error (`Complement` não pode ser `undefined`, já foi verificado.)
-				complement,
-				// @ts-expect-error (`CEP` não pode ser `undefined`, já foi verificado.)
-				cep,
-				state: "",
-				city: "",
-				role: "student",
-			},
-		},
-		password
-	);
-
-	if (userCreation.isError || userCreation.errorCode) {
-		if (userCreation.errorCode === 400) {
-			return {
-				formError: {
-					label: "É possível que o email escolhido já foi cadastrado. Tente novamente.",
-					variant: "alert"
-				},
-			};
-		}
-
-		return {
-			formError: {
-				label: "Não foi possível concluir seu cadastro. Tente novamente.",
-				variant: "error",
-			},
-		};
-	}
-
-	return { completed: true };
+export const action: ActionFunction = async ({ request }): Promise<IRegisterActionData> => {
+	return await register(request);
 };
 
 export default function Register() {
-	const actionData = useActionData<ActionData>();
+	const actionData = useActionData<IRegisterActionData>();
 	const transition = useTransition();
+	const i18n = useTranslation("common");
+	const { t } = useTranslation("translation");
 
 	const totalPages = 3;
 	const [currentPage, setCurrentPage] = useState(0);
@@ -238,7 +104,7 @@ export default function Register() {
 				const data: CEP = await response.json();
 				return data;
 			}
-			setCEPErr("Verifique se este CEP está correto.");
+			setCEPErr(t("register.verifyPostalCode"));
 			setState("");
 			setCity("");
 			setStreet("");
@@ -248,34 +114,30 @@ export default function Register() {
 
 		if (cep && cep.length === 10) {
 			getData().then(data => {
-				if (data) {
-					setState(data.state);
-					setCity(data.city);
-					setStreet(data.street);
-					setNeighborhood(data.neighborhood);
-				}
+				if (!data) return;
+				setState(data.state);
+				setCity(data.city);
+				setStreet(data.street);
+				setNeighborhood(data.neighborhood);
 			});
 		}
-	}, [cep]);
+	}, [cep, t]);
 
 	return (
 		<div className="flex flex-col justify-start items-center md:items-start w-full max-w-[540px] h-full p-2 pt-0 mt-3 md:mt-0">
 			<div className="w-full h-auto mb-1">
 				<h2 className="text-black-plusOne font-medium text-3xl text-center md:text-left w-full h-12 max-w-full truncate">
-					Crie sua conta
+					{t("register.formTitle")}
 				</h2>
 			</div>
-			{actionData?.formError && (
+			{actionData?.formError && !actionData.completed && (
 				<div className="flex justify-center items-center w-full h-auto mb-2">
-					<Alert {...actionData?.formError} />
+					<Alert {...actionData.formError} />
 				</div>
 			)}
 			{actionData?.completed && (
 				<div className="flex justify-center items-center w-full h-auto mb-2">
-					<Alert
-						label="Registro concluído, verifique seu email e faça login."
-						variant="info"
-					/>
+					<Alert label={t("register.success")} variant="info" />
 				</div>
 			)}
 			<div className="w-full h-fit bg-white-minusOne rounded-project p-5 shadow-sm">
@@ -283,10 +145,10 @@ export default function Register() {
 					<div className={`${currentPage === 0 ? "flex" : "hidden"} flex-col w-full`}>
 						<TextField
 							name="cpf"
-							label="CPF:"
+							label={t("register.cpf")}
 							isSensitive
-							helperText="Informe o CPF do candidato."
-							isError={Boolean(actionData?.fieldErrors?.cpf)}
+							helperText={t("register.cpfHelper")}
+							isError={!!actionData?.fieldErrors?.cpf}
 							errorMessage={actionData?.fieldErrors?.cpf}
 							options={{
 								blocks: [3, 3, 3, 2],
@@ -296,16 +158,16 @@ export default function Register() {
 						/>
 						<TextField
 							name="fullName"
-							label="Nome completo:"
-							isError={Boolean(actionData?.fieldErrors?.fullName)}
+							label={t("register.fullName")}
+							isError={!!actionData?.fieldErrors?.fullName}
 							errorMessage={actionData?.fieldErrors?.fullName}
 							disableCleave
 						/>
 						<TextField
 							name="birthDay"
-							label="Data de nascimento:"
-							helperText="Formato: DD/MM/AAAA. Exemplo: 01/01/2021"
-							isError={Boolean(actionData?.fieldErrors?.birthDay)}
+							label={t("register.birthDay")}
+							helperText={t("register.birthDayHelper")}
+							isError={!!actionData?.fieldErrors?.birthDay}
 							errorMessage={actionData?.fieldErrors?.birthDay}
 							options={{
 								date: true,
@@ -317,9 +179,9 @@ export default function Register() {
 					<div className={`${currentPage === 1 ? "flex" : "hidden"} flex-col w-full`}>
 						<TextField
 							name="phone"
-							label="Telefone:"
-							helperText="Formato: (00) 90000-0000"
-							isError={Boolean(actionData?.fieldErrors?.phone)}
+							label={t("register.phone")}
+							helperText={t("register.phoneHelper")}
+							isError={!!actionData?.fieldErrors?.phone}
 							errorMessage={actionData?.fieldErrors?.phone}
 							options={{
 								blocks: [2, 5, 4],
@@ -329,24 +191,24 @@ export default function Register() {
 						/>
 						<TextField
 							name="email"
-							label="Email:"
-							isError={Boolean(actionData?.fieldErrors?.email)}
+							label={t("register.email")}
+							isError={!!actionData?.fieldErrors?.email}
 							errorMessage={actionData?.fieldErrors?.email}
 						/>
 						<TextField
 							name="emailConfirm"
-							label="Confirme o email:"
-							helperText="Digite seu Email novamente."
-							isError={Boolean(actionData?.fieldErrors?.emailConfirm)}
+							label={t("register.emailConfirm")}
+							helperText={t("register.emailConfirmHelper")}
+							isError={!!actionData?.fieldErrors?.emailConfirm}
 							errorMessage={actionData?.fieldErrors?.emailConfirm}
 						/>
 					</div>
 					<div className={`${currentPage === 2 ? "flex" : "hidden"} flex-col w-full`}>
 						<TextField
 							name="cep"
-							label="CEP:"
-							helperText="Formato: 00.000-000"
-							isError={Boolean(actionData?.fieldErrors?.cep) || Boolean(cepErr)}
+							label={t("register.postalCode")}
+							helperText={t("register.postalCodeHelper")}
+							isError={!!actionData?.fieldErrors?.cep || !!cepErr}
 							errorMessage={actionData?.fieldErrors?.cep || cepErr}
 							value={cep}
 							onChange={handleFieldChange}
@@ -359,8 +221,8 @@ export default function Register() {
 						/>
 						<TextField
 							name="state"
-							label="Estado:"
-							isError={Boolean(actionData?.fieldErrors?.state)}
+							label={t("register.state")}
+							isError={!!actionData?.fieldErrors?.state}
 							errorMessage={actionData?.fieldErrors?.state}
 							value={state}
 							onChange={handleFieldChange}
@@ -369,8 +231,8 @@ export default function Register() {
 						/>
 						<TextField
 							name="city"
-							label="Cidade:"
-							isError={Boolean(actionData?.fieldErrors?.city)}
+							label={t("register.city")}
+							isError={!!actionData?.fieldErrors?.city}
 							errorMessage={actionData?.fieldErrors?.city}
 							value={city}
 							onChange={handleFieldChange}
@@ -379,8 +241,8 @@ export default function Register() {
 						/>
 						<TextField
 							name="street"
-							label="Logradouro:"
-							isError={Boolean(actionData?.fieldErrors?.street)}
+							label={t("register.street")}
+							isError={!!actionData?.fieldErrors?.street}
 							errorMessage={actionData?.fieldErrors?.street}
 							value={street}
 							onChange={handleFieldChange}
@@ -389,8 +251,8 @@ export default function Register() {
 						/>
 						<TextField
 							name="neighborhood"
-							label="Bairro:"
-							isError={Boolean(actionData?.fieldErrors?.neighborhood)}
+							label={t("register.neighborhood")}
+							isError={!!actionData?.fieldErrors?.neighborhood}
 							errorMessage={actionData?.fieldErrors?.neighborhood}
 							value={neighborhood}
 							onChange={handleFieldChange}
@@ -399,8 +261,8 @@ export default function Register() {
 						/>
 						<TextField
 							name="houseNumber"
-							label="Número:"
-							isError={Boolean(actionData?.fieldErrors?.houseNumber)}
+							label={t("register.houseNumber")}
+							isError={!!actionData?.fieldErrors?.houseNumber}
 							errorMessage={actionData?.fieldErrors?.houseNumber}
 							options={{
 								numericOnly: true,
@@ -408,9 +270,9 @@ export default function Register() {
 						/>
 						<TextField
 							name="complement"
-							label="Complemento:"
-							helperText="Exemplo: Casa B, Apto. 301, etc. (Campo não obrigatório)"
-							isError={Boolean(actionData?.fieldErrors?.complement)}
+							label={t("register.complement")}
+							helperText={t("register.complementHelper")}
+							isError={!!actionData?.fieldErrors?.complement}
 							errorMessage={actionData?.fieldErrors?.complement}
 							disableCleave
 						/>
@@ -418,35 +280,33 @@ export default function Register() {
 					<div className={`${currentPage === 3 ? "flex" : "hidden"} flex-col w-full`}>
 						<TextField
 							name="password"
-							label="Senha:"
-							helperText="A senha deve ter no mínimo 10 caracteres, com letras e números."
+							label={t("register.password")}
+							helperText={t("register.passwordHelper")}
 							isSensitive
-							isError={Boolean(actionData?.fieldErrors?.password)}
+							isError={!!actionData?.fieldErrors?.password}
 							errorMessage={actionData?.fieldErrors?.password}
 						/>
 						<TextField
 							name="passwordConfirm"
-							label="Confirme a senha:"
-							helperText="Digite sua senha novamente."
+							label={t("register.passwordConfirm")}
+							helperText={t("register.passwordConfirmHelper")}
 							isSensitive
-							isError={Boolean(actionData?.fieldErrors?.passwordConfirm)}
+							isError={!!actionData?.fieldErrors?.passwordConfirm}
 							errorMessage={actionData?.fieldErrors?.passwordConfirm}
 						/>
 						<div className="w-full pt-4">
-							<Alert
-								label="Ao enviar este formulário você declara, para os fins de direito, 
-								sob as penas da lei, que as informações que apresenta para o cadastro, 
-								são fiéis à verdade e condizentes com a realidade dos fatos. Fica ciente, 
-								portanto, que a falsidade desta declaração configura-se em crime previsto 
-								no Código Penal Brasileiro e passível de apuração na forma da Lei."
-							/>
+							<Alert label={t("register.alert")} />
 						</div>
 					</div>
 					<div className="flex justify-between items-center w-full px-1 pt-8">
 						{currentPage > 0 && (
 							<div className="flex justify-start items-center w-full">
 								<Button
-									label={transition.state === "idle" ? "Voltar" : "Carregando..."}
+									label={
+										transition.state === "idle"
+											? i18n.t("goBack")
+											: i18n.t("loading")
+									}
 									variant="blue"
 									type="button"
 									onClick={goPrevious}
@@ -459,8 +319,8 @@ export default function Register() {
 								<Button
 									label={
 										transition.state === "idle"
-											? "Próxima etapa"
-											: "Carregando..."
+											? t("form.nextStep")
+											: i18n.t("loading")
 									}
 									variant="blue"
 									type="button"
@@ -472,8 +332,8 @@ export default function Register() {
 								<Button
 									label={
 										transition.state === "idle"
-											? "Criar conta"
-											: "Carregando..."
+											? t("navigationOptions.register")
+											: i18n.t("loading")
 									}
 									variant="green"
 									type={transition.state === "idle" ? "submit" : "button"}

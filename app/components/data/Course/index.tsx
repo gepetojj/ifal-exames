@@ -1,5 +1,6 @@
 import React, { memo, useState } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import type { ICourse } from "~/entities/Exam";
 
 /**
@@ -16,10 +17,12 @@ import type { ICourse } from "~/entities/Exam";
  * @param {number} vacancies Vagas do curso. Exemplo: `100`
  */
 const CourseComponent: FC<ICourse> = ({ id, name, campus, modality, shift, vacancies }) => {
+	const { t } = useTranslation("common");
+	const i18n = useTranslation("translation");
 	const [shifts] = useState({
-		morning: "Manhã",
-		afternoon: "Tarde",
-		night: "Noite",
+		morning: t("shifts.morning"),
+		afternoon: t("shifts.afternoon"),
+		night: t("shifts.night"),
 	});
 
 	return (
@@ -28,22 +31,22 @@ const CourseComponent: FC<ICourse> = ({ id, name, campus, modality, shift, vacan
 			shadow-sm px-5 py-3 duration-200"
 		>
 			<span className="text-sm truncate">
-				Código: <strong>{id}</strong>
+				{i18n.t("course.id")} <strong>{id}</strong>
 			</span>
 			<span className="text-sm truncate">
-				Campus: <strong>{campus}</strong>
+				{i18n.t("course.campus")} <strong>{campus}</strong>
 			</span>
 			<span className="text-sm truncate">
-				Modalidade: <strong>{modality}</strong>
+				{i18n.t("course.modality")} <strong>{modality}</strong>
 			</span>
 			<span className="text-sm truncate">
-				Curso: <strong>{name}</strong>
+				{i18n.t("course.name")} <strong>{name}</strong>
 			</span>
 			<span className="text-sm truncate">
-				Turno: <strong>{shifts[shift]}</strong>
+				{i18n.t("course.shift")} <strong>{shifts[shift]}</strong>
 			</span>
 			<span className="text-sm truncate">
-				Vagas: <strong>{vacancies}</strong>
+				{i18n.t("course.vacancies")} <strong>{vacancies}</strong>
 			</span>
 		</div>
 	);

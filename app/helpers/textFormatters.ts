@@ -1,13 +1,11 @@
-export const formatTimestamp = (timestamp: number, locale?: "br" | "en"): string => {
+export const formatTimestamp = (timestamp: number, locale?: string): string => {
 	const date = new Date(timestamp * 1000);
-	const day = date.getUTCDate() < 10 ? `0${date.getUTCDate()}` : date.getUTCDate().toString();
-	const month =
-		date.getUTCMonth() + 1 < 10
-			? `0${date.getUTCMonth() + 1}`
-			: (date.getUTCMonth() + 1).toString();
-
-	if (locale === "br") return `${day}/${month}/${date.getUTCFullYear()}`;
-	return `${month}/${day}/${date.getUTCFullYear()}`;
+	const formattedDate = date.toLocaleDateString(locale, {
+		day: "2-digit",
+		month: "2-digit",
+		year: "numeric",
+	});
+	return formattedDate;
 };
 
 export const formatDate = (date?: string): number => {

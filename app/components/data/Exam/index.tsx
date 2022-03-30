@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "~/components/context/AuthContext";
 import { Button } from "~/components/input/Button";
 import type { Exam as IExam } from "~/entities/Exam";
@@ -23,11 +24,12 @@ export interface IExamProps extends IExam {
  */
 const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 	const { isLogged } = useAuth();
+	const { t, i18n } = useTranslation("translation");
 
 	return (
 		<>
 			<h2 className="font-bold text-xl mb-2">{props.name}</h2>
-			{Boolean(props.tags) && (
+			{!!props.tags && (
 				<div className="flex items-center w-full h-auto pb-2">
 					{props.tags.map(tag => (
 						<div key={tag.label} className="pr-1">
@@ -37,36 +39,43 @@ const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 				</div>
 			)}
 			<div className="flex flex-col mb-2">
-				{Boolean(props.subscriptionPeriod.startsAt) && (
+				{!!props.subscriptionPeriod && !!props.subscriptionPeriod.startsAt && (
 					<span className="text-sm break-words">
-						Período de inscrição:{" "}
+						{t("exam.subscriptionPeriod")}{" "}
 						<strong>
 							{props.isFuture
-								? `abre em ${formatTimestamp(props.subscriptionPeriod.startsAt)}`
+								? `abre em ${formatTimestamp(
+										props.subscriptionPeriod.startsAt,
+										i18n.language
+								  )}`
 								: `${formatTimestamp(
-										props.subscriptionPeriod.startsAt
-								  )} até ${formatTimestamp(props.subscriptionPeriod.endsAt)}`}
+										props.subscriptionPeriod.startsAt,
+										i18n.language
+								  )} ${t("exam.until")} ${formatTimestamp(
+										props.subscriptionPeriod.endsAt,
+										i18n.language
+								  )}`}
 						</strong>
 					</span>
 				)}
-				{Boolean(props.campi.length) && (
+				{!!props.campi && (
 					<span className="text-sm break-words">
-						Campi: <strong>{formatArray(props.campi)}</strong>
+						{t("exam.campus")} <strong>{formatArray(props.campi)}</strong>
 					</span>
 				)}
-				{Boolean(props.offers.length) && (
+				{!!props.offers && (
 					<span className="text-sm break-words">
-						Ofertas: <strong>{formatArray(props.offers)}</strong>
+						{t("exam.offers")} <strong>{formatArray(props.offers)}</strong>
 					</span>
 				)}
-				{Boolean(props.level) && (
+				{!!props.level && (
 					<span className="text-sm break-words">
-						Nível: <strong>{props.level}</strong>
+						{t("exam.level")} <strong>{props.level}</strong>
 					</span>
 				)}
-				{Boolean(props.modality) && (
+				{!!props.modality && (
 					<span className="flex items-center text-sm break-words">
-						Modalidade:&nbsp;<strong>{props.modality}</strong>
+						{t("exam.modality")}&nbsp;<strong>{props.modality}</strong>
 						<Popover
 							title="O que isto significa?"
 							content={
@@ -84,9 +93,9 @@ const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 						/>
 					</span>
 				)}
-				{Boolean(props.vacancies) && (
+				{!!props.vacancies && (
 					<span className="text-sm break-words">
-						Vagas disponíveis: <strong>{props.vacancies}</strong>
+						{t("exam.vacancies")} <strong>{props.vacancies}</strong>
 					</span>
 				)}
 			</div>
@@ -97,7 +106,7 @@ const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 					)}
 					<div className="pl-2">
 						<Button
-							label="Inscrever-se"
+							label={t("exam.subscribe")}
 							href={isLogged ? undefined : `/auth/login?continue=/exames/${props.id}`}
 						/>
 					</div>

@@ -1,8 +1,8 @@
 import { Role } from "./Role";
 
-export type IGender = "male" | "female" | "other" | "undefined";
+export type IGender = "male" | "female" | "other" | "noinfo";
 
-export type IEthnicity = "branco" | "preto" | "pardo" | "indigena" | "amarelo" | "undefined";
+export type IEthnicity = "branco" | "preto" | "pardo" | "indigena" | "amarelo" | "noinfo";
 
 export type IKinship =
 	| "mother"
@@ -10,7 +10,7 @@ export type IKinship =
 	| "grandmother"
 	| "grandfather"
 	| "responsible"
-	| "undefined";
+	| "noinfo";
 
 export interface User {
 	id: string;

@@ -34,7 +34,7 @@ const FooterComponent: FC = () => {
 						<img
 							width={244}
 							height={86}
-							src="/images/ifal-horizontal-branca.png"
+							src="/images/ifal-horizontal-branca.webp"
 							alt="Logo horizontal do IFAL"
 						/>
 					</div>
@@ -101,7 +101,7 @@ const FooterComponent: FC = () => {
 					target="_blank"
 					rel="noreferrer"
 				>
-					© 2021 - Gepetojj
+					© {new Date().getFullYear()} - Gepetojj
 				</a>
 				<a
 					className="break-words min-w-[215px] select-none text-center hover:underline"

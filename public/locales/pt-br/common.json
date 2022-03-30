@@ -1,0 +1,51 @@
+{
+	"uppercase": {
+		"exam_one": "Exame",
+		"exam_other": "Exames",
+		"ongoingExams": "Exames em andamento",
+		"futureExams": "Exames futuros",
+		"closedExams": "Exames encerrados",
+		"ongoing": "Em andamento",
+		"future": "Futuros",
+		"closed": "Encerrados"
+	},
+	"lowercase": {
+		"exam_one": "exame",
+		"exam_other": "exames",
+		"ongoingExams": "exames em andamento",
+		"futureExams": "exames futuros",
+		"closedExams": "exames encerrados",
+		"ongoing": "em andamento",
+		"future": "futuros",
+		"closed": "encerrados"
+	},
+	"shifts": {
+		"morning": "Manhã",
+		"afternoon": "Tarde",
+		"night": "Noite"
+	},
+	"tags": {
+		"open": "Aberto",
+		"future": "Futuro",
+		"closed": "Fechado",
+		"free": "Gratuito"
+	},
+	"error": {
+		"unexpected": "Algo deu errado. Tente novamente.",
+		"common": "Houve um erro. Recarregue para tentar novamente.",
+		"error": "Erro",
+
+		"title": "Houve um erro - IFAL",
+		"imageAlt": "Sinalização de erro",
+		"detailsTitle": "Ocorreu um erro nesta página.",
+		"detailsDescription": "Caso esteja enfrentando problemas técnicos, entre em contato com nossa equipe, por meio das redes sociais ou por email.",
+		"detailsSubtitle": "Detalhes técnicos:",
+		"errorCode": "Código do erro:",
+		"errorPath": "Caminho do erro:"
+	},
+	"title": "Sistema de Seleção - IFAL",
+	"description": "Participe de seleções em cursos do Instituto Federal de Alagoas.",
+	"goBack": "Voltar",
+	"wait": "Aguarde...",
+	"loading": "Carregando..."
+}

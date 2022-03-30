@@ -1,15 +1,19 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Form, Link, useActionData, useCatch, useLoaderData, useTransition } from "remix";
 import type { MetaFunction, ActionFunction, LoaderFunction } from "remix";
 import { AuthorizationError } from "remix-auth";
+import type { Language } from "remix-i18next";
 import { Alert } from "~/components/data/Alert";
 import type { IAlertProps } from "~/components/data/Alert";
 import { Button } from "~/components/input/Button";
 import { TextField } from "~/components/input/TextField";
 import { authenticator } from "~/helpers/api/users/auth.server";
+import { remixI18next } from "~/helpers/i18n.server";
 
 interface LoaderData {
 	redirectTo?: string;
+	i18n: Record<string, Language>;
 }
 
 interface ActionData {
@@ -38,15 +42,19 @@ export const meta: MetaFunction = () => {
 	};
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
+export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
 	const url = new URL(request.url);
 	const redirectTo = url.searchParams.get("continue") || "";
-	return { redirectTo };
+	return {
+		redirectTo,
+		i18n: await remixI18next.getTranslations(request, ["common", "translation"]),
+	};
 };
 
 export const action: ActionFunction = async ({ request }) => {
 	const url = new URL(request.url);
 	const redirectTo = url.searchParams.get("continue") || "";
+	const t = await remixI18next.getFixedT(request, "common");
 
 	try {
 		return await authenticator.authenticate("login", request, {
@@ -71,7 +79,7 @@ export const action: ActionFunction = async ({ request }) => {
 
 				default:
 					return {
-						formError: { label: "Houve um erro. Tente novamente.", variant: "error" },
+						formError: { label: t("error.unexpected"), variant: "error" },
 					};
 			}
 		}
@@ -80,22 +88,24 @@ export const action: ActionFunction = async ({ request }) => {
 
 export function CatchBoundary() {
 	const { status, data } = useCatch();
+	const i18n = useTranslation("common");
+	const { t } = useTranslation("translation");
 
 	return (
 		<div className="flex flex-col justify-start items-center md:items-start w-full max-w-[540px] h-full p-2 pt-0 mt-3 md:mt-0">
 			<div className="w-full h-auto mb-1">
 				<h2 className="text-black-plusOne font-medium text-3xl text-center md:text-left w-full h-12 max-w-full truncate">
-					Entre no sistema
+					{t("login.title")}
 				</h2>
 			</div>
 			<div className="w-full h-full">
 				<Alert
-					label={data.message || "Houve um erro. Tente novamente."}
+					label={data.message || i18n.t("error.unexpected")}
 					variant={status === 401 ? "alert" : "error"}
 				/>
 				<div className="flex justify-end items-center mt-4">
 					<Link to="/auth/login" className="text-black-minusOne text-sm hover:underline">
-						Voltar
+						{i18n.t("back")}
 					</Link>
 				</div>
 			</div>
@@ -107,12 +117,14 @@ export default function Login() {
 	const loaderData = useLoaderData<LoaderData>();
 	const actionData = useActionData<ActionData>();
 	const transition = useTransition();
+	const i18n = useTranslation("common");
+	const { t } = useTranslation("translation");
 
 	return (
 		<div className="flex flex-col justify-start items-center md:items-start w-full max-w-[540px] h-full p-2 pt-0 mt-3 md:mt-0">
 			<div className="w-full h-auto mb-1">
 				<h2 className="text-black-plusOne font-medium text-3xl text-center md:text-left w-full h-12 max-w-full truncate">
-					Entre no sistema
+					{t("login.title")}
 				</h2>
 				{loaderData.redirectTo && (
 					<p className="max-w-full text-xs truncate mb-3">
@@ -129,14 +141,14 @@ export default function Login() {
 				<Form method="post">
 					<TextField
 						name="email"
-						label="Email:"
-						helperText="Informe o email do titular da conta."
+						label={t("login.email")}
+						helperText={t("login.emailHelper")}
 						isError={Boolean(actionData?.fieldErrors?.email)}
 						errorMessage={actionData?.fieldErrors?.email}
 					/>
 					<TextField
 						name="password"
-						label="Senha:"
+						label={t("login.password")}
 						isSensitive
 						isError={Boolean(actionData?.fieldErrors?.password)}
 						errorMessage={actionData?.fieldErrors?.password}
@@ -146,15 +158,15 @@ export default function Login() {
 							to="/recuperar/senha"
 							className="text-alt-blue text-xs hover:underline"
 						>
-							Esqueceu sua senha?
+							{t("form.passwordForgot")}
 						</Link>
 						<Button
 							label={
 								transition.state === "idle"
-									? "Entrar"
+									? t("login.buttonName")
 									: transition.state === "loading"
 									? "Concluído!"
-									: "Carregando..."
+									: i18n.t("loading")
 							}
 							type="submit"
 							disabled={transition.state === "submitting"}

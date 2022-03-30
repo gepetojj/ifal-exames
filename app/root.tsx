@@ -11,8 +11,10 @@ import {
 	Meta,
 	Scripts,
 	ScrollRestoration,
+	useMatches,
 } from "remix";
 import type { MetaFunction, LinksFunction, LoaderFunction, HeadersFunction } from "remix";
+import { useSetupTranslations } from "remix-i18next";
 
 import { AuthProvider } from "./components/context/AuthContext";
 import type { IAuthContext } from "./components/context/AuthContext";
@@ -22,21 +24,49 @@ import { Header } from "./components/layout/Header";
 import { Layout } from "./components/layout/Layout";
 import { authenticator } from "./helpers/api/users/auth.server";
 import { getUser, readSession } from "./helpers/api/users/users.server";
+import { decrypt } from "./helpers/crypto.server";
+import { remixI18next } from "./helpers/i18n.server";
 import { webFont } from "./helpers/webfont.client";
 import styles from "./styles/globals.css";
 
-export const loader: LoaderFunction = async ({ request }) => {
-	if (process.env.NODE_ENV === "development") return { isLogged: false };
+interface LoaderData {
+	locale: string;
+	auth: IAuthContext;
+}
+
+export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
+	const locale = await remixI18next.getLocale(request);
+
+	// ! Remove to enable user verification at every render
+	if (process.env.NODE_ENV === "development") return { auth: { isLogged: false }, locale };
 
 	const sessionId = await authenticator.isAuthenticated(request);
 	if (sessionId) {
 		const session = await readSession(sessionId);
-		if (session.isError || session.data === undefined) return { isLogged: false };
+		if (session.isError || session.data === undefined) {
+			return { locale, auth: { isLogged: false } };
+		}
 		const user = await getUser(session.data?.userId);
-		if (user.isError || user.data === undefined) return { isLogged: false };
-		return { isLogged: true, user: user.data };
+		if (user.isError || user.data === undefined) return { locale, auth: { isLogged: false } };
+		return {
+			locale,
+			auth: {
+				isLogged: true,
+				user: {
+					...user.data,
+					profile: {
+						...user.data.profile,
+						cpf: decrypt(user.data.email, user.data.profile.cpf),
+						cep: decrypt(user.data.email, user.data.profile.cep),
+						state: decrypt(user.data.email, user.data.profile.state),
+						city: decrypt(user.data.email, user.data.profile.city),
+						neighborhood: decrypt(user.data.email, user.data.profile.neighborhood),
+					},
+				},
+			},
+		};
 	}
-	return { isLogged: false };
+	return { locale, auth: { isLogged: false } };
 };
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -65,7 +95,7 @@ export const meta: MetaFunction = () => {
 		"apple-mobile-web-app-capable": "yes",
 		"apple-mobile-web-app-status-bar-style": "black-translucent",
 		"apple-mobile-web-app-title": defaultTitle,
-		"apple-touch-icon": "/icons/standard/192.png",
+		"apple-touch-icon": "https://ifal.vercel.app/icons/standard/192.png",
 		"mobile-web-app-capable": "yes",
 		"msapplication-TileColor": defaultColor,
 		"msapplication-tap-highlight": "no",
@@ -100,8 +130,13 @@ export const links: LinksFunction = () => {
 			href: styles,
 		},
 		{
+			rel: "preconnect",
+			href: "https://fonts.googleapis.com",
+			crossOrigin: "anonymous",
+		},
+		{
 			rel: "preload",
-			href: "/images/ifal-vertical-branca.png",
+			href: "/images/ifal-vertical-branca.webp",
 			as: "image",
 			type: "image/png",
 		},
@@ -133,6 +168,7 @@ export function ErrorBoundary({ error }: { error: Error }) {
 					</div>
 				</div>
 			</main>
+			<Footer />
 		</Layout>
 	);
 }
@@ -165,13 +201,16 @@ export function CatchBoundary() {
 					</div>
 				</div>
 			</main>
+			<Footer />
 		</Layout>
 	);
 }
 
 export default function App() {
-	const authState = useLoaderData<IAuthContext>();
+	const { locale, auth } = useLoaderData<LoaderData>();
 	const transition = useTransition();
+	const matches = useMatches();
+	useSetupTranslations(locale);
 
 	useEffect(() => {
 		nProgress.configure({
@@ -179,7 +218,7 @@ export default function App() {
 		});
 		webFont.load({
 			google: {
-				families: ["Inter:300,400,500,600,700"],
+				families: ["Inter:300,400,500,600,700&display=swap"],
 			},
 		});
 	}, []);
@@ -190,15 +229,21 @@ export default function App() {
 	}, [transition.state]);
 
 	return (
-		<html lang="pt-br">
+		<html lang={locale}>
 			<head>
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width,initial-scale=1" />
 				<Meta />
+				{!!matches && (
+					<link
+						rel="canonical"
+						href={`https://ifal.vercel.app${matches[matches.length - 1]?.pathname}`}
+					/>
+				)}
 				<Links />
 			</head>
 			<body className="antialiased scroll-smooth overflow-x-hidden">
-				<AuthProvider {...authState}>
+				<AuthProvider {...auth}>
 					<Header />
 					<Outlet />
 					<Footer />

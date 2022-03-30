@@ -2,7 +2,7 @@ import validator from "validator";
 
 export interface IHouseNumberValidatorMessages {
 	isEmpty: string;
-	length: string;
+	length?: string;
 	regex: string;
 }
 

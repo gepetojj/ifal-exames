@@ -1,0 +1,50 @@
+{
+	"uppercase": {
+		"exam_one": "Test",
+		"exam_other": "Tests",
+		"ongoingExams": "Ongoing tests",
+		"futureExams": "Future tests",
+		"closedExams": "Closed tests",
+		"ongoing": "In progress",
+		"future": "Future",
+		"closed": "Closed"
+	},
+	"lowercase": {
+		"exam_one": "test",
+		"exam_other": "tests",
+		"ongoingExams": "ongoing tests",
+		"futureExams": "future tests",
+		"closedExams": "closed tests",
+		"ongoing": "in progress",
+		"future": "future",
+		"closed": "closed"
+	},
+	"shifts": {
+		"morning": "Morning",
+		"afternoon": "Afternoon",
+		"night": "Night"
+	},
+	"tags": {
+		"open": "Available",
+		"future": "Future",
+		"closed": "Ended",
+		"free": "Free"
+	},
+	"error": {
+		"unexpected": "Something went wrong. Try again.",
+		"common": "There was an error. Please reload to try again.",
+		"error": "Error",
+		"title": "There has been an error - IFAL",
+		"imageAlt": "Error signalling",
+		"detailsTitle": "An error has occurred on this page.",
+		"detailsDescription": "If you are experiencing technical issues, please contact our team through social media or email.",
+		"detailsSubtitle": "Technical details:",
+		"errorCode": "Error code:",
+		"errorPath": "Error path:"
+	},
+	"title": "Selection System - IFAL",
+	"description": "Participate in selections in courses of the Federal Institute of Alagoas.",
+	"goBack": "Back",
+	"wait": "Stand by...",
+	"loading": "Loading..."
+}

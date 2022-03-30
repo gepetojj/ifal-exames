@@ -1,6 +1,7 @@
 import React, { memo, useCallback } from "react";
 import type { HTMLProps, Dispatch, SetStateAction, ChangeEvent } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { MdSearch, MdSearchOff } from "react-icons/md";
 
 export interface ISearchbarProps extends HTMLProps<HTMLInputElement> {
@@ -18,6 +19,8 @@ export interface ISearchbarProps extends HTMLProps<HTMLInputElement> {
  * @param {HTMLProps<HTMLInputElement>} props Props nativas do elemento também podem ser passadas para este
  */
 const SearchbarComponent: FC<ISearchbarProps> = ({ value, handler, ...props }) => {
+	const { t } = useTranslation("translation");
+
 	const changeValue = useCallback(
 		({ target }: ChangeEvent<HTMLInputElement>) => {
 			handler(target.value);
@@ -38,7 +41,7 @@ const SearchbarComponent: FC<ISearchbarProps> = ({ value, handler, ...props }) =
 				id="searchbar"
 				name="search"
 				type="search"
-				placeholder="Pesquise:"
+				placeholder={t("search.placeholder")}
 				className="w-full text-sm h-6 px-2 mr-2 select-none rounded-project outline-2 outline-offset-1 
 				outline-primary-plusThree focus:outline disabled:cursor-not-allowed"
 				value={value}

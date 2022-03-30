@@ -26,8 +26,8 @@ const HeaderComponent: FC = props => {
 				<div className="flex items-center">
 					<img
 						width={80}
-						height={92}
-						src="/images/ifal-vertical-branca.png"
+						height={93}
+						src="/images/ifal-vertical-branca.webp"
 						alt="Logo do IFAL"
 					/>
 					<h1 className="text-3xl font-semibold pl-8 print:text-black-main">

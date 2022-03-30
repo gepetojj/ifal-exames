@@ -30,7 +30,7 @@ authenticator.use(
 					throw new Error("Houve um erro. Verifique seu email.");
 
 				default:
-					throw new Error("Houve um erro.");
+					throw new Error("Houve um erro. Verifique seu email.");
 			}
 		}
 
