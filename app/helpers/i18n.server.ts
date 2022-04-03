@@ -1,6 +1,6 @@
 import { RemixI18Next, FileSystemBackend } from "remix-i18next";
 
-import { i18nOptions } from "./i18nOptions";
+import { i18nOptions } from "../config/i18n.config";
 
 const backend = new FileSystemBackend("./public/locales");
 

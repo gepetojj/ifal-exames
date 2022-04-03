@@ -12,8 +12,8 @@ import { Document } from "~/components/data/Document";
 import { Exam } from "~/components/data/Exam";
 import { ErrorDisplay } from "~/components/layout/ErrorDisplay";
 import type { Exam as IExam } from "~/entities/Exam";
-import { getExam } from "~/helpers/api/exams.server";
 import { remixI18next } from "~/helpers/i18n.server";
+import { ExamsRepo } from "~/repositories/implementations/ExamsRepo.server";
 
 interface LoaderData {
 	exam: IExam;
@@ -22,16 +22,15 @@ interface LoaderData {
 
 export const loader: LoaderFunction = async ({ request, params }): Promise<LoaderData> => {
 	invariant(params.id, "Informe o ID do exame.");
-	const { isError, errorCode, data } = await getExam(params.id);
+
+	const examsRepo = new ExamsRepo();
+	const exam = await examsRepo.findById(params.id);
 	const t = await remixI18next.getFixedT(request, "translation");
 
-	if (isError || !data)
-		throw json(t("examDetails.examNotFound"), {
-			status: errorCode === 204 ? 404 : errorCode || 404,
-		});
+	if (!exam) throw json(t("examDetails.examNotFound"), { status: 404 });
 
 	return {
-		exam: data,
+		exam,
 		i18n: await remixI18next.getTranslations(request, ["common", "translation"]),
 	};
 };

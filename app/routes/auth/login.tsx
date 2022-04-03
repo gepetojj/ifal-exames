@@ -8,8 +8,8 @@ import { Alert } from "~/components/data/Alert";
 import type { IAlertProps } from "~/components/data/Alert";
 import { Button } from "~/components/input/Button";
 import { TextField } from "~/components/input/TextField";
-import { authenticator } from "~/helpers/api/users/auth.server";
 import { remixI18next } from "~/helpers/i18n.server";
+import { AuthProvider } from "~/providers/implementations/AuthProvider.server";
 
 interface LoaderData {
 	redirectTo?: string;
@@ -57,8 +57,9 @@ export const action: ActionFunction = async ({ request }) => {
 	const t = await remixI18next.getFixedT(request, "common");
 
 	try {
+		const authenticator = new AuthProvider().handler;
 		return await authenticator.authenticate("login", request, {
-			successRedirect: redirectTo || "/conta",
+			successRedirect: redirectTo || "/conta?action=login",
 		});
 	} catch (err) {
 		if (err instanceof Response) throw err;
@@ -105,7 +106,7 @@ export function CatchBoundary() {
 				/>
 				<div className="flex justify-end items-center mt-4">
 					<Link to="/auth/login" className="text-black-minusOne text-sm hover:underline">
-						{i18n.t("back")}
+						{i18n.t("goBack")}
 					</Link>
 				</div>
 			</div>

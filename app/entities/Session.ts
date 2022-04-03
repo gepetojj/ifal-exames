@@ -1,6 +1,7 @@
 export interface Session {
 	id: string;
 	userId: string;
-	createdAt: string;
-	expiresAt: string;
+	createdAt: number;
+	expiresAt: number;
+	revoked: boolean;
 }

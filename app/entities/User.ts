@@ -2,7 +2,7 @@ import { Role } from "./Role";
 
 export type IGender = "male" | "female" | "other" | "noinfo";
 
-export type IEthnicity = "branco" | "preto" | "pardo" | "indigena" | "amarelo" | "noinfo";
+export type IEthnicity = "white" | "black" | "mulatto" | "indigenous" | "yellow" | "noinfo";
 
 export type IKinship =
 	| "mother"
@@ -14,27 +14,26 @@ export type IKinship =
 
 export interface User {
 	id: string;
-	username: string;
 	email: string;
+	passwordHash: string;
 	profile: {
 		cpf: string;
 		fullName: string;
 		birthDay: string;
 		gender: IGender;
 		ethnicity: IEthnicity;
-		birthState: string; // State ID
-		birthCity: string; // City ID
-		responsiblePersonFullName?: string;
-		responsiblePersonKinship?: IKinship;
+		birthState: string;
+		birthCity: string;
+		responsiblePersonFullName: string | null;
+		responsiblePersonKinship: IKinship | null;
 		phone: string;
-		email: string;
 		street: string;
 		houseNumber: string;
 		neighborhood: string;
 		complement: string;
 		cep: string;
-		state: string; // State ID
-		city: string; // City ID
+		state: string;
+		city: string;
 		role: Role;
 	};
 }

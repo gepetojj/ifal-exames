@@ -8,6 +8,7 @@ import { ExamLayout } from "~/components/layout/ExamLayout";
 import { remixI18next } from "~/helpers/i18n.server";
 import { searchExams } from "~/helpers/search.server";
 import type { ISearchExamsResult } from "~/helpers/search.server";
+import { ExamsRepo } from "~/repositories/implementations/ExamsRepo.server";
 
 interface LoaderData {
 	search: ISearchExamsResult;
@@ -32,8 +33,12 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
-	const search = await searchExams(request, exam => exam.isOpen);
-	return { search, i18n: await remixI18next.getTranslations(request, ["common", "translation"]) };
+	const examsRepo = new ExamsRepo();
+	const search = await searchExams(request, examsRepo.getOngoing);
+	return {
+		search,
+		i18n: await remixI18next.getTranslations(request, ["common", "translation"]),
+	};
 };
 
 export function CatchBoundary() {

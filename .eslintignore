@@ -1,3 +1,4 @@
+emulator_data/
 node_modules/
 public/build/
 api/_build/
@@ -8,6 +9,7 @@ coverage/
 .yarn/
 
 .env
-*.js
 *.log
 yarn.lock
+.yarnrc.yml
+app/styles/*.css

@@ -16,17 +16,18 @@ import {
 import type { MetaFunction, LinksFunction, LoaderFunction, HeadersFunction } from "remix";
 import { useSetupTranslations } from "remix-i18next";
 
-import { AuthProvider } from "./components/context/AuthContext";
+import { AuthProvider as AuthProviderContext } from "./components/context/AuthContext";
 import type { IAuthContext } from "./components/context/AuthContext";
 import { ScrollToTop } from "./components/input/ScrollToTop";
 import { Footer } from "./components/layout/Footer";
 import { Header } from "./components/layout/Header";
 import { Layout } from "./components/layout/Layout";
-import { authenticator } from "./helpers/api/users/auth.server";
-import { getUser, readSession } from "./helpers/api/users/users.server";
 import { decrypt } from "./helpers/crypto.server";
 import { remixI18next } from "./helpers/i18n.server";
 import { webFont } from "./helpers/webfont.client";
+import { AuthProvider } from "./providers/implementations/AuthProvider.server";
+import { SessionsRepo } from "./repositories/implementations/SessionsRepo.server";
+import { UsersRepo } from "./repositories/implementations/UsersRepo.server";
 import styles from "./styles/globals.css";
 
 interface LoaderData {
@@ -38,35 +39,39 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 	const locale = await remixI18next.getLocale(request);
 
 	// ! Remove to enable user verification at every render
-	if (process.env.NODE_ENV === "development") return { auth: { isLogged: false }, locale };
+	//if (process.env.NODE_ENV === "development") return { auth: { isLogged: false }, locale };
+
+	const authenticator = new AuthProvider().handler;
+	const usersRepo = new UsersRepo();
+	const sessionsRepo = new SessionsRepo();
 
 	const sessionId = await authenticator.isAuthenticated(request);
-	if (sessionId) {
-		const session = await readSession(sessionId);
-		if (session.isError || session.data === undefined) {
-			return { locale, auth: { isLogged: false } };
-		}
-		const user = await getUser(session.data?.userId);
-		if (user.isError || user.data === undefined) return { locale, auth: { isLogged: false } };
-		return {
-			locale,
-			auth: {
-				isLogged: true,
-				user: {
-					...user.data,
-					profile: {
-						...user.data.profile,
-						cpf: decrypt(user.data.email, user.data.profile.cpf),
-						cep: decrypt(user.data.email, user.data.profile.cep),
-						state: decrypt(user.data.email, user.data.profile.state),
-						city: decrypt(user.data.email, user.data.profile.city),
-						neighborhood: decrypt(user.data.email, user.data.profile.neighborhood),
-					},
+	if (!sessionId) return { locale, auth: { isLogged: false } };
+
+	const session = await sessionsRepo.findById(sessionId);
+	if (!session) return { locale, auth: { isLogged: false } };
+
+	const user = await usersRepo.findById(session.userId);
+	if (!user) return { locale, auth: { isLogged: false } };
+
+	return {
+		locale,
+		auth: {
+			isLogged: true,
+			user: {
+				...user,
+				passwordHash: "",
+				profile: {
+					...user.profile,
+					cpf: decrypt(user.email, user.profile.cpf),
+					cep: decrypt(user.email, user.profile.cep),
+					state: decrypt(user.email, user.profile.state),
+					city: decrypt(user.email, user.profile.city),
+					neighborhood: decrypt(user.email, user.profile.neighborhood),
 				},
 			},
-		};
-	}
-	return { locale, auth: { isLogged: false } };
+		},
+	};
 };
 
 export const headers: HeadersFunction = ({ loaderHeaders }) => {
@@ -243,11 +248,11 @@ export default function App() {
 				<Links />
 			</head>
 			<body className="antialiased scroll-smooth overflow-x-hidden">
-				<AuthProvider {...auth}>
+				<AuthProviderContext {...auth}>
 					<Header />
 					<Outlet />
 					<Footer />
-				</AuthProvider>
+				</AuthProviderContext>
 				<ScrollToTop />
 				<ScrollRestoration />
 				{process.env.NODE_ENV === "production" && (

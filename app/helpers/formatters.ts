@@ -1,13 +1,3 @@
-export const formatTimestamp = (timestamp: number, locale?: string): string => {
-	const date = new Date(timestamp * 1000);
-	const formattedDate = date.toLocaleDateString(locale, {
-		day: "2-digit",
-		month: "2-digit",
-		year: "numeric",
-	});
-	return formattedDate;
-};
-
 export const formatDate = (date?: string): number => {
 	const timestamp = Date.parse(date || new Date().toDateString()) / 1000;
 	return timestamp;

@@ -21,7 +21,7 @@
 			"vacancies": 100,
 			"courses": [
 				{
-					"id": 0,
+					"id": "a6f1c5d6-333f-4513-936c-9d4ed4c15ff2",
 					"name": "Técnico em Administraçao",
 					"campus": "Arapiraca",
 					"modality": "Subsequente",
@@ -29,7 +29,7 @@
 					"vacancies": 50
 				},
 				{
-					"id": 1,
+					"id": "a6f1c5d6-333f-4513-936c-9d4ed4c15ff3",
 					"name": "Técnico em Administraçao",
 					"campus": "Maceió",
 					"modality": "Subsequente",
@@ -39,7 +39,7 @@
 			],
 			"documents": [
 				{
-					"id": 0,
+					"id": "a6f1c5d6-333f-4513-936c-9d4ed4c15ff4",
 					"name": "Inscrições DEFERIDAS",
 					"link": "https://google.com",
 					"createdAt": 1635724800,

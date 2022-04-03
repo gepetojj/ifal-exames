@@ -1,11 +1,11 @@
 import i18next from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import React from "react";
-import { hydrate } from "react-dom";
+import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { RemixBrowser } from "remix";
 
-import { i18nOptions } from "./helpers/i18nOptions";
+import { i18nOptions } from "./config/i18n.config";
 
 if ("serviceWorker" in navigator) {
 	window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js"));
@@ -16,14 +16,14 @@ i18next
 	.use(initReactI18next)
 	.init(i18nOptions)
 	.then(() => {
-		return hydrate(
+		return hydrateRoot(
+			document,
 			<I18nextProvider i18n={i18next}>
 				<RemixBrowser />
-			</I18nextProvider>,
-			document
+			</I18nextProvider>
 		);
 	})
 	.catch(() => {
 		console.error("Não foi possível carregar as traduções!");
-		return hydrate(<RemixBrowser />, document);
+		return hydrateRoot(document, <RemixBrowser />);
 	});

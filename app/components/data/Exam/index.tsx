@@ -4,7 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useAuth } from "~/components/context/AuthContext";
 import { Button } from "~/components/input/Button";
 import type { Exam as IExam } from "~/entities/Exam";
-import { formatArray, formatTimestamp } from "~/helpers/textFormatters";
+import { formatArray } from "~/helpers/formatters";
+import { useTimestampToDate } from "~/hooks/useTimestampToDate";
 
 import { Popover } from "../Popover";
 import { Tag } from "../Tag";
@@ -24,7 +25,11 @@ export interface IExamProps extends IExam {
  */
 const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 	const { isLogged } = useAuth();
-	const { t, i18n } = useTranslation("translation");
+	const i18n = useTranslation("common");
+	const { t } = useTranslation("translation");
+
+	const subPeriodStartsAt = useTimestampToDate(props.subscriptionPeriod?.startsAt);
+	const subPeriodEndsAt = useTimestampToDate(props.subscriptionPeriod?.endsAt);
 
 	return (
 		<>
@@ -32,8 +37,11 @@ const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 			{!!props.tags && (
 				<div className="flex items-center w-full h-auto pb-2">
 					{props.tags.map(tag => (
-						<div key={tag.label} className="pr-1">
-							<Tag label={tag.label} variant={tag.color as ITagProps["variant"]} />
+						<div key={tag.type} className="pr-1">
+							<Tag
+								label={i18n.t(`tags.${tag.type}`)}
+								variant={tag.color as ITagProps["variant"]}
+							/>
 						</div>
 					))}
 				</div>
@@ -44,17 +52,8 @@ const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 						{t("exam.subscriptionPeriod")}{" "}
 						<strong>
 							{props.isFuture
-								? `abre em ${formatTimestamp(
-										props.subscriptionPeriod.startsAt,
-										i18n.language
-								  )}`
-								: `${formatTimestamp(
-										props.subscriptionPeriod.startsAt,
-										i18n.language
-								  )} ${t("exam.until")} ${formatTimestamp(
-										props.subscriptionPeriod.endsAt,
-										i18n.language
-								  )}`}
+								? `abre em ${subPeriodStartsAt}`
+								: `${subPeriodStartsAt} ${t("exam.until")} ${subPeriodEndsAt}`}
 						</strong>
 					</span>
 				)}

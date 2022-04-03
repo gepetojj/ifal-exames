@@ -43,7 +43,7 @@
 	},
 	"search": {
 		"searchExams": "",
-		"placeholder": "",
+		"placeholder": "Search:",
 		"result": "",
 		"searchNotFound": ""
 	},

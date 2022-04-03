@@ -134,7 +134,7 @@ const TextFieldComponent: FC<ITextFieldProps> = ({
 							}`}
 						onClick={toggleVisibility}
 						role="button"
-						tabIndex={0}
+						tabIndex={-1}
 						onKeyDown={keyboardHandler}
 					>
 						{isVisible ? (

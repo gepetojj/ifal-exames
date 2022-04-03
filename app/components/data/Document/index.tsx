@@ -2,7 +2,7 @@ import React, { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import type { IDocument } from "~/entities/Exam";
-import { formatTimestamp } from "~/helpers/textFormatters";
+import { useTimestampToDate } from "~/hooks/useTimestampToDate";
 
 /**
  * Retorna os dados de um documento de um exame.
@@ -17,6 +17,9 @@ import { formatTimestamp } from "~/helpers/textFormatters";
 const DocumentComponent: FC<IDocument> = ({ name, createdAt, updatedAt }) => {
 	const { t, i18n } = useTranslation("translation");
 
+	const createdAtString = useTimestampToDate(createdAt, i18n.language);
+	const updatedAtString = useTimestampToDate(updatedAt, i18n.language);
+
 	return (
 		<div
 			title={name}
@@ -27,14 +30,12 @@ const DocumentComponent: FC<IDocument> = ({ name, createdAt, updatedAt }) => {
 			<h3 className="font-bold text-base truncate">{name}</h3>
 			{createdAt > 0 && (
 				<span className="text-sm truncate">
-					{t("document.createdAt", {
-						date: formatTimestamp(createdAt, i18n.language),
-					})}
+					{t("document.createdAt", { date: createdAtString })}
 				</span>
 			)}
 			{updatedAt > 0 && (
 				<span className="text-sm truncate">
-					{t("document.updatedAt", { date: formatTimestamp(updatedAt, i18n.language) })}
+					{t("document.updatedAt", { date: updatedAtString })}
 				</span>
 			)}
 		</div>

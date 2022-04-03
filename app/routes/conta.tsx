@@ -3,9 +3,10 @@ import { Outlet } from "remix";
 import type { LoaderFunction } from "remix";
 import { SideNavigation } from "~/components/layout/SideNavigation";
 import type { NavigationItem } from "~/entities/NavigationItem";
-import { authenticator } from "~/helpers/api/users/auth.server";
+import { AuthProvider } from "~/providers/implementations/AuthProvider.server";
 
 export const loader: LoaderFunction = async ({ request }) => {
+	const authenticator = new AuthProvider().handler;
 	await authenticator.isAuthenticated(request, {
 		failureRedirect: "/auth/login?continue=/conta",
 	});

@@ -1,6 +1,9 @@
+export type ITagType = "open" | "closed" | "future" | "free";
+export type ITagColor = "red" | "green" | "blue" | "yellow";
+
 export interface ITag {
-	label: string;
-	color: string;
+	type: ITagType;
+	color: ITagColor;
 }
 
 export interface IPeriod {
@@ -9,18 +12,20 @@ export interface IPeriod {
 }
 
 export type IShift = "morning" | "afternoon" | "night";
+export type IModality = "integraded" | "subsequent";
+export type ILevel = "mid" | "higher";
 
 export interface ICourse {
-	id: number;
+	id: string;
 	name: string;
 	campus: string;
-	modality: string;
+	modality: IModality;
 	shift: IShift;
 	vacancies: number;
 }
 
 export interface IDocument {
-	id: number;
+	id: string;
 	name: string;
 	link: string;
 	createdAt: number;
@@ -38,8 +43,8 @@ export interface Exam {
 	resourcesPeriod: IPeriod;
 	campi: string[];
 	offers: string[];
-	level: string;
-	modality: string;
+	level: ILevel;
+	modality: IModality;
 	vacancies: number;
 	courses: ICourse[];
 	documents: IDocument[];

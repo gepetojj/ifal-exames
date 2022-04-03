@@ -1,7 +1,7 @@
+import bcrypt from "bcrypt";
 import { v4 as uuid } from "uuid";
 import type { IAlertProps } from "~/components/data/Alert";
 import type { CEP } from "~/entities/CEP";
-import { createUser } from "~/helpers/api/users/users.server";
 import { remixI18next } from "~/helpers/i18n.server";
 import {
 	birthDayValidator,
@@ -14,6 +14,7 @@ import {
 	phoneValidator,
 	textValidator,
 } from "~/helpers/validators/index.server";
+import { UsersRepo } from "~/repositories/implementations/UsersRepo.server";
 
 import { encrypt } from "../crypto.server";
 
@@ -43,17 +44,18 @@ export async function register(req: Request): Promise<IRegisterActionData> {
 	const t = await remixI18next.getFixedT(req, "translation");
 	const form = await req.formData();
 
-	const cpf = form.get("cpf")?.toString();
-	const fullName = form.get("fullName")?.toString();
-	const birthDay = form.get("birthDay")?.toString();
-	const phone = form.get("phone")?.toString();
-	const email = form.get("email")?.toString();
-	const emailConfirm = form.get("emailConfirm")?.toString();
-	const cep = form.get("cep")?.toString();
-	const houseNumber = form.get("houseNumber")?.toString();
-	const complement = form.get("complement")?.toString();
-	const password = form.get("password")?.toString();
-	const passwordConfirm = form.get("passwordConfirm")?.toString();
+	// Forçando que sejam strings para evitar problemas depois da verificação. Não afeta a validação do input.
+	const cpf = form.get("cpf")?.toString() as string;
+	const fullName = form.get("fullName")?.toString() as string;
+	const birthDay = form.get("birthDay")?.toString() as string;
+	const phone = form.get("phone")?.toString() as string;
+	const email = form.get("email")?.toString() as string;
+	const emailConfirm = form.get("emailConfirm")?.toString() as string;
+	const cep = form.get("cep")?.toString() as string;
+	const houseNumber = form.get("houseNumber")?.toString() as string;
+	const complement = form.get("complement")?.toString() as string;
+	const password = form.get("password")?.toString() as string;
+	const passwordConfirm = form.get("passwordConfirm")?.toString() as string;
 
 	const cpfErr = cpfValidator(cpf, {
 		isEmpty: t("validator.required"),
@@ -124,7 +126,7 @@ export async function register(req: Request): Promise<IRegisterActionData> {
 		passwordConfirmErr,
 	];
 
-	if (errors.find(error => error !== undefined)) {
+	if (errors.find(error => !!error)) {
 		return {
 			formError: {
 				label: t("register.formError"),
@@ -155,65 +157,55 @@ export async function register(req: Request): Promise<IRegisterActionData> {
 	}
 	const { state, city, street, neighborhood }: CEP = await response.json();
 
-	// @ts-expect-error (`Email` nem `CPF` podem ser `undefined`, já foi verificado.)
 	const secureCPF = encrypt(email, cpf);
-	// @ts-expect-error (`Email` nem `CEP` podem ser `undefined`, já foi verificado.)
 	const secureCEP = encrypt(email, cep);
-	// @ts-expect-error (`Email` nem `State` podem ser `undefined`, já foi verificado.)
 	const secureState = encrypt(email, state);
-	// @ts-expect-error (`Email` nem `City` podem ser `undefined`, já foi verificado.)
 	const secureCity = encrypt(email, city);
-	// @ts-expect-error (`Email` nem `Neighborhood` podem ser `undefined`, já foi verificado.)
 	const secureNeighborhood = encrypt(email, neighborhood);
 
-	const userCreation = await createUser(
-		{
+	const usersRepo = new UsersRepo();
+	const emailExists = await usersRepo.emailExists(email);
+	if (emailExists) {
+		return {
+			formError: {
+				label: t("register.emailAlreadyExists"),
+				variant: "alert",
+			},
+			fieldErrors: {
+				email: t("register.emailAlreadyExists"),
+			},
+		};
+	}
+
+	const passwordHash = await bcrypt.hash(password as string, 12);
+
+	try {
+		await usersRepo.createNew({
 			id: uuid(),
-			// @ts-expect-error (`Username` não pode ser `undefined`, já foi verificado.)
-			username: email,
-			// @ts-expect-error (`Email` não pode ser `undefined`, já foi verificado.)
 			email,
+			passwordHash,
 			profile: {
 				cpf: secureCPF,
-				// @ts-expect-error (`FullName` não pode ser `undefined`, já foi verificado.)
 				fullName,
-				// @ts-expect-error (`BirthDay` não pode ser `undefined`, já foi verificado.)
 				birthDay,
 				gender: "noinfo",
 				ethnicity: "noinfo",
 				birthState: "",
 				birthCity: "",
-				responsiblePersonFullName: undefined,
-				responsiblePersonKinship: undefined,
-				// @ts-expect-error (`Phone` não pode ser `undefined`, já foi verificado.)
+				responsiblePersonFullName: null,
+				responsiblePersonKinship: null,
 				phone,
-				// @ts-expect-error (`Email` não pode ser `undefined`, já foi verificado.)
-				email,
 				street,
-				// @ts-expect-error (`HouseNumber` não pode ser `undefined`, já foi verificado.)
 				houseNumber,
 				neighborhood: secureNeighborhood,
-				// @ts-expect-error (`Complement` não pode ser `undefined`, já foi verificado.)
 				complement,
 				cep: secureCEP,
 				state: secureState,
 				city: secureCity,
 				role: "student",
 			},
-		},
-		password
-	);
-
-	if (userCreation.isError || userCreation.errorCode) {
-		if (userCreation.errorCode === 400) {
-			return {
-				formError: {
-					label: t("register.emailAlreadyExists"),
-					variant: "alert",
-				},
-			};
-		}
-
+		});
+	} catch (err) {
 		return {
 			formError: {
 				label: t("register.failed"),

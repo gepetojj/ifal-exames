@@ -6,7 +6,7 @@ import { I18nextProvider, initReactI18next } from "react-i18next";
 import { RemixServer } from "remix";
 import type { EntryContext } from "remix";
 
-import { i18nOptions } from "./helpers/i18nOptions";
+import { i18nOptions } from "./config/i18n.config";
 
 export default async function handleRequest(
 	request: Request,

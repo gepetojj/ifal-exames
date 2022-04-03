@@ -2,6 +2,7 @@ import React from "react";
 import type { MetaFunction } from "remix";
 import { useAuth } from "~/components/context/AuthContext";
 import { Button } from "~/components/input/Button";
+import { Combobox } from "~/components/input/Combobox";
 import { TextField } from "~/components/input/TextField";
 
 export const meta: MetaFunction = () => {
@@ -49,10 +50,30 @@ export default function AccountData() {
 					<div className="pt-2 px-2">
 						<div className="flex">
 							<div className="w-full mr-3">
-								<TextField label="Sexo:" value={user?.profile.gender} />
+								<Combobox
+									label="Sexo:"
+									valueId={user?.profile.gender}
+									items={[
+										{ id: "noinfo", label: "Não informar" },
+										{ id: "male", label: "Masculino" },
+										{ id: "female", label: "Feminino" },
+										{ id: "other", label: "Outro" },
+									]}
+								/>
 							</div>
 							<div className="w-full ml-3">
-								<TextField label="Etnia:" value={user?.profile.ethnicity} />
+								<Combobox
+									label="Etnia:"
+									valueId={user?.profile.ethnicity}
+									items={[
+										{ id: "noinfo", label: "Não informar" },
+										{ id: "white", label: "Branco" },
+										{ id: "black", label: "Negro" },
+										{ id: "mulatto", label: "Pardo" },
+										{ id: "indigenous", label: "Indígena" },
+										{ id: "yellow", label: "Amarelo" },
+									]}
+								/>
 							</div>
 						</div>
 						<div className="flex">
@@ -74,25 +95,38 @@ export default function AccountData() {
 								<TextField
 									label="Nome do(a) responsável:"
 									value={user?.profile.responsiblePersonFullName || ""}
+									disableCleave
 								/>
 							</div>
 							<div className="w-2/4 ml-2">
-								<TextField
+								<Combobox
 									label="Parentesco do(a) responsável:"
-									value={user?.profile.responsiblePersonKinship || ""}
+									valueId={user?.profile.responsiblePersonKinship || ""}
+									items={[
+										{ id: "noinfo", label: "Não informar" },
+										{ id: "grandfather", label: "Avô" },
+										{ id: "grandmother", label: "Avó" },
+										{ id: "father", label: "Pai" },
+										{ id: "mother", label: "Mãe" },
+										{ id: "responsible", label: "Responsável legal" },
+									]}
 								/>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div className="flex flex-col justify-start items-start w-full h-fit pb-3">
-					<h3 className="text-lg text-black-plusOne">Contato</h3>
+					<h3 className="text-lg text-black-plusOne mb-1">Contato</h3>
 					<div className="flex px-2">
 						<div className="w-full mr-3">
 							<TextField
 								label="Telefone:"
 								value={user?.profile.phone}
-								options={{ phone: true, phoneRegionCode: "BR" }}
+								options={{
+									blocks: [2, 5, 4],
+									delimiters: [" ", "-"],
+									numericOnly: true,
+								}}
 							/>
 						</div>
 						<div className="w-full ml-3">
@@ -101,11 +135,15 @@ export default function AccountData() {
 					</div>
 				</div>
 				<div className="flex flex-col justify-start items-start w-full h-fit pb-3">
-					<h3 className="text-lg text-black-plusOne">Endereço</h3>
+					<h3 className="text-lg text-black-plusOne mb-1">Endereço</h3>
 					<div className="px-2">
 						<div className="flex">
 							<div className="w-3/4 mr-2">
-								<TextField label="Logradouro:" value={user?.profile.street} />
+								<TextField
+									label="Logradouro:"
+									value={user?.profile.street}
+									disableCleave
+								/>
 							</div>
 							<div className="w-1/4 ml-2">
 								<TextField
@@ -117,7 +155,11 @@ export default function AccountData() {
 						</div>
 						<div className="flex">
 							<div className="w-full mr-3">
-								<TextField label="Bairro:" value={user?.profile.neighborhood} />
+								<TextField
+									label="Bairro:"
+									value={user?.profile.neighborhood}
+									disableCleave
+								/>
 							</div>
 							<div className="w-full ml-3">
 								<TextField
@@ -135,6 +177,7 @@ export default function AccountData() {
 							label="Complemento:"
 							value={user?.profile.complement || ""}
 							helperText="Campo não obrigatório."
+							disableCleave
 						/>
 					</div>
 				</div>

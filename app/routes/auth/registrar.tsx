@@ -113,13 +113,15 @@ export default function Register() {
 		};
 
 		if (cep && cep.length === 10) {
-			getData().then(data => {
-				if (!data) return;
-				setState(data.state);
-				setCity(data.city);
-				setStreet(data.street);
-				setNeighborhood(data.neighborhood);
-			});
+			getData()
+				.then(data => {
+					if (!data) return;
+					setState(data.state);
+					setCity(data.city);
+					setStreet(data.street);
+					setNeighborhood(data.neighborhood);
+				})
+				.catch(() => setCEPErr("Não foi possível verificar seu CEP."));
 		}
 	}, [cep, t]);
 

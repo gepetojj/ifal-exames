@@ -7,6 +7,7 @@ import { ErrorDisplay } from "~/components/layout/ErrorDisplay";
 import { ExamLayout } from "~/components/layout/ExamLayout";
 import { remixI18next } from "~/helpers/i18n.server";
 import { ISearchExamsResult, searchExams } from "~/helpers/search.server";
+import { ExamsRepo } from "~/repositories/implementations/ExamsRepo.server";
 
 interface LoaderData {
 	search: ISearchExamsResult;
@@ -31,7 +32,8 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
-	const search = await searchExams(request, exam => exam.isClosed);
+	const examsRepo = new ExamsRepo();
+	const search = await searchExams(request, examsRepo.getClosed);
 	return { search, i18n: await remixI18next.getTranslations(request, "common") };
 };
 
