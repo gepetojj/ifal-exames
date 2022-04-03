@@ -33,10 +33,12 @@ import styles from "./styles/globals.css";
 interface LoaderData {
 	locale: string;
 	auth: IAuthContext;
+	i18n: Record<string, object>;
 }
 
 export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
 	const locale = await remixI18next.getLocale(request);
+	const i18n = await remixI18next.getTranslations(request, ["common", "translation"]);
 
 	// ! Remove to enable user verification at every render
 	//if (process.env.NODE_ENV === "development") return { auth: { isLogged: false }, locale };
@@ -46,13 +48,13 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 	const sessionsRepo = new SessionsRepo();
 
 	const sessionId = await authenticator.isAuthenticated(request);
-	if (!sessionId) return { locale, auth: { isLogged: false } };
+	if (!sessionId) return { locale, auth: { isLogged: false }, i18n };
 
 	const session = await sessionsRepo.findById(sessionId);
-	if (!session) return { locale, auth: { isLogged: false } };
+	if (!session) return { locale, auth: { isLogged: false }, i18n };
 
 	const user = await usersRepo.findById(session.userId);
-	if (!user) return { locale, auth: { isLogged: false } };
+	if (!user) return { locale, auth: { isLogged: false }, i18n };
 
 	return {
 		locale,
@@ -71,6 +73,7 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 				},
 			},
 		},
+		i18n,
 	};
 };
 

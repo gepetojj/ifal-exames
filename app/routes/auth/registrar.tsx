@@ -3,7 +3,6 @@ import type { ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { Form, useActionData, useTransition } from "remix";
 import type { MetaFunction, ActionFunction, LoaderFunction } from "remix";
-import type { Language } from "remix-i18next";
 import { Alert } from "~/components/data/Alert";
 import { Button } from "~/components/input/Button";
 import { TextField } from "~/components/input/TextField";
@@ -13,7 +12,6 @@ import type { IRegisterActionData } from "~/helpers/actions/register.server";
 import { remixI18next } from "~/helpers/i18n.server";
 
 interface LoaderData {
-	i18n: Record<string, Language>;
 	title: string;
 	description: string;
 }
@@ -36,9 +34,8 @@ export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
 };
 
 export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
-	const i18n = await remixI18next.getTranslations(request, ["common", "translation"]);
 	const t = await remixI18next.getFixedT(request, "translation");
-	return { i18n, title: t("register.title"), description: t("register.description") };
+	return { title: t("register.title"), description: t("register.description") };
 };
 
 export const action: ActionFunction = async ({ request }): Promise<IRegisterActionData> => {

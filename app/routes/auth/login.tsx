@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { Form, Link, useActionData, useCatch, useLoaderData, useTransition } from "remix";
 import type { MetaFunction, ActionFunction, LoaderFunction } from "remix";
 import { AuthorizationError } from "remix-auth";
-import type { Language } from "remix-i18next";
 import { Alert } from "~/components/data/Alert";
 import type { IAlertProps } from "~/components/data/Alert";
 import { Button } from "~/components/input/Button";
@@ -13,7 +12,6 @@ import { AuthProvider } from "~/providers/implementations/AuthProvider.server";
 
 interface LoaderData {
 	redirectTo?: string;
-	i18n: Record<string, Language>;
 }
 
 interface ActionData {
@@ -47,7 +45,6 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 	const redirectTo = url.searchParams.get("continue") || "";
 	return {
 		redirectTo,
-		i18n: await remixI18next.getTranslations(request, ["common", "translation"]),
 	};
 };
 

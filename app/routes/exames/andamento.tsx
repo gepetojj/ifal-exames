@@ -2,17 +2,14 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useCatch, useLoaderData } from "remix";
 import type { MetaFunction, LoaderFunction } from "remix";
-import type { Language } from "remix-i18next";
 import { ErrorDisplay } from "~/components/layout/ErrorDisplay";
 import { ExamLayout } from "~/components/layout/ExamLayout";
-import { remixI18next } from "~/helpers/i18n.server";
 import { searchExams } from "~/helpers/search.server";
 import type { ISearchExamsResult } from "~/helpers/search.server";
 import { ExamsRepo } from "~/repositories/implementations/ExamsRepo.server";
 
 interface LoaderData {
 	search: ISearchExamsResult;
-	i18n: Record<string, Language>;
 }
 
 export const meta: MetaFunction = () => {
@@ -35,10 +32,7 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
 	const examsRepo = new ExamsRepo();
 	const search = await searchExams(request, examsRepo.getOngoing);
-	return {
-		search,
-		i18n: await remixI18next.getTranslations(request, ["common", "translation"]),
-	};
+	return { search };
 };
 
 export function CatchBoundary() {
