@@ -1,9 +1,10 @@
-import { RemixI18Next, FileSystemBackend } from "remix-i18next";
+import { RemixI18Next } from "remix-i18next";
+import { I18NextProvider } from "~/providers/implementations/I18NextProvider.server";
 
 import { i18nOptions } from "../config/i18n.config";
 
-const backend = new FileSystemBackend(
-	process.env.NODE_ENV === "development" ? "./public/locales" : "../locales"
+const backend = new I18NextProvider(
+	process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://ifal.vercel.app"
 );
 
 export const remixI18next = new RemixI18Next(backend, {
