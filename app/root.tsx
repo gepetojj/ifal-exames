@@ -152,6 +152,24 @@ export const links: LinksFunction = () => {
 };
 
 export function ErrorBoundary({ error }: { error: Error }) {
+	const transition = useTransition();
+
+	useEffect(() => {
+		nProgress.configure({
+			showSpinner: false,
+		});
+		webFont.load({
+			google: {
+				families: ["Inter:300,400,500,600,700&display=swap"],
+			},
+		});
+	}, []);
+
+	useEffect(() => {
+		if (transition.state === "idle") nProgress.done();
+		else nProgress.start();
+	}, [transition.state]);
+
 	return (
 		<Layout>
 			<Header />
@@ -184,6 +202,23 @@ export function ErrorBoundary({ error }: { error: Error }) {
 export function CatchBoundary() {
 	const caught = useCatch();
 	const location = useLocation();
+	const transition = useTransition();
+
+	useEffect(() => {
+		nProgress.configure({
+			showSpinner: false,
+		});
+		webFont.load({
+			google: {
+				families: ["Inter:300,400,500,600,700&display=swap"],
+			},
+		});
+	}, []);
+
+	useEffect(() => {
+		if (transition.state === "idle") nProgress.done();
+		else nProgress.start();
+	}, [transition.state]);
 
 	return (
 		<Layout>
