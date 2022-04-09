@@ -34,7 +34,7 @@ const SearchbarComponent: FC<ISearchbarProps> = ({ value, handler, ...props }) =
 			bg-white-minusOne print:hidden ${props.disabled ? "brightness-95 cursor-not-allowed" : ""}`}
 		>
 			<label htmlFor="searchbar" className="sr-only">
-				Pesquise por um exame:
+				{t("search.searchExams")}
 			</label>
 			<input
 				{...props}
@@ -48,7 +48,7 @@ const SearchbarComponent: FC<ISearchbarProps> = ({ value, handler, ...props }) =
 				onChange={changeValue}
 			/>
 			<button className="disabled:cursor-not-allowed" disabled={props.disabled} type="submit">
-				<span className="sr-only">Clique aqui para pesquisar</span>
+				<span className="sr-only">{t("search.submit")}</span>
 				{props.disabled ? (
 					<MdSearchOff className="text-black-main text-2xl" />
 				) : (

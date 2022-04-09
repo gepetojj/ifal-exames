@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { MdMenu } from "react-icons/md";
 import { useAuth } from "~/components/context/AuthContext";
 import type { NavigationItem } from "~/entities/NavigationItem";
@@ -16,6 +17,7 @@ const NavDropdownComponent: FC<INavDropdownProps> = ({ defaultItens, authItens }
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeItem, setActiveItem] = useState("Página");
 	const { isLogged, user } = useAuth();
+	const { t } = useTranslation("common");
 
 	const toggleVisibility = useCallback(() => {
 		setIsOpen(isOpen => !isOpen);
@@ -37,7 +39,7 @@ const NavDropdownComponent: FC<INavDropdownProps> = ({ defaultItens, authItens }
 
 	return (
 		<div className="flex relative justify-center items-center w-full h-auto" ref={dropdownRef}>
-			<span className="sr-only">Menu para trocar a página</span>
+			<span className="sr-only">{t("header.navMenu")}</span>
 			<button
 				className="flex relative justify-center items-center w-full max-w-[450px] font-medium
 					md:text-lg h-12 mx-4 duration-200 bg-primary-minusOne rounded-project hover:brightness-110"

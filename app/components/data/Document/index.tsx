@@ -30,12 +30,12 @@ const DocumentComponent: FC<IDocument> = ({ name, createdAt, updatedAt }) => {
 			<h3 className="font-bold text-base truncate">{name}</h3>
 			{createdAt > 0 && (
 				<span className="text-sm truncate">
-					{t("document.createdAt", { date: createdAtString })}
+					{t("exam.documents.createdAt", { date: createdAtString })}
 				</span>
 			)}
 			{updatedAt > 0 && (
 				<span className="text-sm truncate">
-					{t("document.updatedAt", { date: updatedAtString })}
+					{t("exam.documents.updatedAt", { date: updatedAtString })}
 				</span>
 			)}
 		</div>

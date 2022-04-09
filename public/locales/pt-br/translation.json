@@ -7,60 +7,56 @@
 		"shift": "Turno:",
 		"vacancies": "Vagas:"
 	},
-	"document": {
-		"documents": "Documento(s)",
-		"notFound": "Este exame não possui documentos.",
-		"createdAt": "Criado em: {{date}}",
-		"updatedAt": "Atualizado em: {{date}}"
-	},
 	"exam": {
+		"title": "Detalhes do exame",
 		"subscriptionPeriod": "Período de inscrição:",
-		"until": "até",
-		"campus": "Campi:",
+		"date": "{{dateOne}} até {{dateTwo}}",
+		"willOpen": "abre em {{date}}",
+		"campi": "Campi:",
 		"offers": "Ofertas:",
 		"level": "Nível:",
 		"modality": "Modalidade:",
 		"vacancies": "Vagas disponíveis:",
-		"subscribe": "Inscrever-se"
+		"tooltip": {
+			"title": "O que isto significa?",
+			"integrated": {
+				"title": "Integrado:",
+				"meaning": "para quem concluiu o ensino fundamental."
+			},
+			"subsequent": {
+				"title": "Subsequente:",
+				"meaning": "para quem concluiu o ensino médio."
+			}
+		},
+		"documents": {
+			"title": "Documento(s)",
+			"createdAt": "Criado em: {{date}}",
+			"updatedAt": "Atualizado em: {{date}}"
+		},
+		"courses": {
+			"title": "Curso(s)",
+			"description": "Confira o exame {{name}}, com {{offers}} ofertas de cursos, disponibilizados pelo IFAL."
+		},
+		"errors": {
+			"loading": "Ocorreu um erro ao tentar carregar este exame.",
+			"noDocuments": "Este exame não possui documentos.",
+			"noCourses": "Este exame não tem cursos disponíveis.",
+			"notFound": "Exame não encontrado."
+		}
 	},
 	"exams": {
-		"loadingExams": "Carregando exames",
-		"loadingError": "Erro ao tentar carregar os exames",
-		"noExams": "Não há exames disponíveis agora."
-	},
-	"examDetails": {
-		"description": "Confira o exame {{name}}, com {{offers}} ofertas de cursos, disponibilizados pelo IFAL.",
-		"courses": "Curso(s)",
-		"loadingAlt": "Carregando exame...",
-		"loadingErrorAlt": "Ocorreu um erro ao tentar carregar este exame.",
-		"examNotFound": "Exame não encontrado.",
-		"noCourses": "Este exame não tem cursos disponíveis."
-	},
-	"form": {
-		"passwordForgot": "Esqueceu sua senha?",
-		"send": "Enviar",
-		"nextStep": "Próxima etapa"
+		"loading": "Carregando exames",
+		"error": "Erro ao tentar carregar os exames",
+		"notFound": "Não há exames disponíveis agora."
 	},
 	"search": {
-		"searchExams": "Procure exames:",
+		"searchExams": "Pesquise por um exame:",
 		"placeholder": "Pesquise:",
 		"result": "Mostrando {{showing}} resultado(s) de {{total}} devido à sua pesquisa.",
-		"searchNotFound": "Sua pesquisa não encontrou resultados."
-	},
-	"header": {
-		"logoAlt": "Logo do IFAL",
-		"title": "Sistema de seleção",
-		"exams": "Exames",
-		"account": "Sua conta",
-		"login": "Entrar",
-		"manage": "Gerenciar",
-		"faq": "Perguntas frequentes",
-		"navMenu": "Menu de troca de páginas"
+		"notFound": "Sua pesquisa não encontrou resultados.",
+		"submit": "Clique aqui para pesquisar."
 	},
 	"navigation": {
-		"examMenu": "Menu de troca de tipo de exame"
-	},
-	"navigationOptions": {
 		"login": "Entrar",
 		"register": "Criar conta",
 		"accountData": "Dados pessoais",
@@ -69,36 +65,33 @@
 		"logout": "Desconectar",
 		"adminExams": "Exames",
 		"adminUsers": "Usuários",
-		"adminFaq": "Perguntas frequentes"
-	},
-	"offline": {
-		"title": "Você está offline - IFAL",
-		"youreOffline": "Você está offline :(",
-		"tryingToReconnect": "Tentaremos reconectar em {{seconds}} segundos.",
-		"reconnect": "Reconectar"
+		"adminFaq": "Perguntas frequentes",
+		"menu": "Menu de troca de categoria"
 	},
 	"login": {
-		"title": "Entre no sistema",
-		"buttonName": "Entrar",
+		"title": "Faça login - IFAL",
+		"description": "Entre em sua conta do IFAL, ou crie uma nova para poder participar de seleções.",
+		"formTitle": "Entre no sistema",
 		"email": "Email:",
 		"emailHelper": "Informe o email do titular da conta.",
 		"password": "Senha:",
-		"fillFields": "Preencha os campos Email e Senha corretamente."
+		"passwordForgot": "Esqueceu sua senha?",
+		"proceed": "Faça login para acessar:",
+		"errors": {
+			"fillFields": "Preencha os campos Email e Senha corretamente.",
+			"verifyPassword": "Verifique sua senha e tente novamente."
+		}
 	},
 	"register": {
 		"title": "Crie sua conta - IFAL",
 		"description": "Crie sua conta do Sistema de Seleção do IFAL para poder participar de seleções e mais!",
 		"formTitle": "Crie sua conta",
-		"formError": "Há campos que necessitam ser corrigidos.",
-		"emailAlreadyExists": "É possível que o email escolhido já foi cadastrado. Tente novamente.",
 		"success": "Registro concluído, verifique seu email e faça login.",
-		"failed": "Não foi possível concluir seu cadastro. Tente novamente.",
-		"verifyPostalCode": "Verifique se este CEP está correto.",
 		"cpf": "CPF:",
 		"cpfHelper": "Informe o CPF do candidato.",
 		"fullName": "Nome completo:",
 		"birthDay": "Data de nascimento:",
-		"birthDayHelper": "Formato: DD/MM/AAAA. Exemplo: 01/01/2021",
+		"birthDayHelper": "Formato: DD/MM/AAAA. Exemplo: 02/03/2021",
 		"phone": "Telefone:",
 		"phoneHelper": "Formato: (00) 90000-0000",
 		"email": "Email:",
@@ -117,7 +110,14 @@
 		"passwordHelper": "A senha deve ter no mínimo 10 caracteres, com letras e números.",
 		"passwordConfirm": "Confirme a senha:",
 		"passwordConfirmHelper": "Digite sua senha novamente.",
-		"alert": "Ao enviar este formulário você declara, para os fins de direito, sob as penas da lei, que as informações que apresenta para o cadastro, são fiéis à verdade e condizentes com a realidade dos fatos. Fica ciente, portanto, que a falsidade desta declaração configura-se em crime previsto no Código Penal Brasileiro e passível de apuração na forma da Lei."
+		"alert": "Ao enviar este formulário você declara, para os fins de direito, sob as penas da lei, que as informações que apresenta para o cadastro, são fiéis à verdade e condizentes com a realidade dos fatos. Fica ciente, portanto, que a falsidade desta declaração configura-se em crime previsto no Código Penal Brasileiro e passível de apuração na forma da Lei.",
+		"errors": {
+			"form": "Há campos que necessitam ser corrigidos.",
+			"emailAlreadyExists": "É possível que o email escolhido já foi cadastrado. Tente novamente.",
+			"failed": "Não foi possível concluir seu cadastro. Tente novamente.",
+			"verifyPostalCode": "Verifique se este CEP está correto.",
+			"couldntVerifyPostalCode": "Não foi possível verificar seu CEP."
+		}
 	},
 	"validator": {
 		"required": "Este campo deve ser preenchido.",
@@ -130,17 +130,12 @@
 		"passwordStrong": "A senha deve ter ao menos uma letra maiúscula e minúscula, um número e um caracter especial.",
 		"passwordEquals": "Ambas as senhas devem ser iguais."
 	},
-	"footer": {
-		"logoAlt": "Logo do IFAL",
-		"socialMedia": "Mídias Sociais",
-		"related": "Relacionados",
-		"originalSite": "Site original",
-		"blog": "Blog do IFAL",
-		"goToProject": "Ver o projeto",
-		"contacts": "Contatos",
-		"dsi": "DSI",
-		"postgraduate": "Pós Grad.",
-		"copyright": "© 2021 - Gepetojj",
-		"mention": "Originalmente por Diretoria de Tecnologia da Informação - IFAL"
-	}
+	"account": {
+		"data": {
+			"title": "Dados pessoais - IFAL",
+			"description": "Veja e controle os dados pessoais da sua conta."
+		}
+	},
+	"backToTop": "Clique aqui para voltar para o topo da página.",
+	"backToPrevious": "Clique aqui para voltar à página anterior."
 }

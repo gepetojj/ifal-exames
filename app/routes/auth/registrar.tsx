@@ -118,7 +118,7 @@ export default function Register() {
 					setStreet(data.street);
 					setNeighborhood(data.neighborhood);
 				})
-				.catch(() => setCEPErr("Não foi possível verificar seu CEP."));
+				.catch(() => setCEPErr(t("register.couldntVerifyPostalCode")));
 		}
 	}, [cep, t]);
 
@@ -303,7 +303,7 @@ export default function Register() {
 								<Button
 									label={
 										transition.state === "idle"
-											? i18n.t("goBack")
+											? i18n.t("controls.goBack")
 											: i18n.t("loading")
 									}
 									variant="blue"
@@ -318,7 +318,7 @@ export default function Register() {
 								<Button
 									label={
 										transition.state === "idle"
-											? t("form.nextStep")
+											? i18n.t("controls.nextStep")
 											: i18n.t("loading")
 									}
 									variant="blue"
@@ -331,7 +331,7 @@ export default function Register() {
 								<Button
 									label={
 										transition.state === "idle"
-											? t("navigationOptions.register")
+											? i18n.t("controls.register")
 											: i18n.t("loading")
 									}
 									variant="green"

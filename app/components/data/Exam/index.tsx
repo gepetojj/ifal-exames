@@ -52,14 +52,17 @@ const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 						{t("exam.subscriptionPeriod")}{" "}
 						<strong>
 							{props.isFuture
-								? `abre em ${subPeriodStartsAt}`
-								: `${subPeriodStartsAt} ${t("exam.until")} ${subPeriodEndsAt}`}
+								? t("exam.willOpen", { date: subPeriodStartsAt })
+								: t("exam.date", {
+										dateOne: subPeriodStartsAt,
+										dateTwo: subPeriodEndsAt,
+								  })}
 						</strong>
 					</span>
 				)}
 				{!!props.campi && (
 					<span className="text-sm break-words">
-						{t("exam.campus")} <strong>{formatArray(props.campi)}</strong>
+						{t("exam.campi")} <strong>{formatArray(props.campi)}</strong>
 					</span>
 				)}
 				{!!props.offers && (
@@ -69,23 +72,24 @@ const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 				)}
 				{!!props.level && (
 					<span className="text-sm break-words">
-						{t("exam.level")} <strong>{props.level}</strong>
+						{t("exam.level")} <strong>{i18n.t(`levels.${props.level}`)}</strong>
 					</span>
 				)}
 				{!!props.modality && (
 					<span className="flex items-center text-sm break-words">
-						{t("exam.modality")}&nbsp;<strong>{props.modality}</strong>
+						{t("exam.modality")}&nbsp;
+						<strong>{i18n.t(`modalities.${props.modality}`)}</strong>
 						<Popover
-							title="O que isto significa?"
+							title={t("exam.tooltip.title")}
 							content={
 								<>
 									<p className="text-xs break-words">
-										<strong>Integrado:</strong> para quem concluiu o ensino
-										fundamental.
+										<strong>{t("exam.tooltip.integrated.title")}</strong>{" "}
+										{t("exam.tooltip.integrated.meaning")}
 									</p>
 									<p className="text-xs break-words pl-2">
-										<strong>Subsequente:</strong> para quem concluiu o ensino
-										médio.
+										<strong>{t("exam.tooltip.subsequent.title")}</strong>{" "}
+										{t("exam.tooltip.subsequent.meaning")}
 									</p>
 								</>
 							}
@@ -101,18 +105,26 @@ const ExamComponent: FC<IExamProps> = ({ isExposing, ...props }) => {
 			{props.isOpen ? (
 				<div className="flex justify-end items-center w-full h-auto print:hidden">
 					{!isExposing && (
-						<Button label="Ver mais" variant="blue" href={`/exames/${props.id}`} />
+						<Button
+							label={i18n.t("controls.seeMore")}
+							variant="blue"
+							href={`/exames/${props.id}`}
+						/>
 					)}
 					<div className="pl-2">
 						<Button
-							label={t("exam.subscribe")}
+							label={i18n.t("controls.subscribe")}
 							href={isLogged ? undefined : `/auth/login?continue=/exames/${props.id}`}
 						/>
 					</div>
 				</div>
 			) : props.isClosed && !isExposing ? (
 				<div className="flex justify-end items-center w-full h-auto print:hidden">
-					<Button label="Ver mais" variant="blue" href={`/exames/${props.id}`} />
+					<Button
+						label={i18n.t("controls.seeMore")}
+						variant="blue"
+						href={`/exames/${props.id}`}
+					/>
 				</div>
 			) : null}
 		</>

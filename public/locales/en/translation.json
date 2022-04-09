@@ -7,117 +7,117 @@
 		"shift": "Shift:",
 		"vacancies": "Vacancies:"
 	},
-	"document": {
-		"documents": "Document(s)",
-		"notFound": "This test has no documents.",
-		"createdAt": "Created in: {{date}}",
-		"updatedAt": "Updated in: {{date}}"
-	},
 	"exam": {
+		"title": "Exam Details",
 		"subscriptionPeriod": "Registration period:",
-		"until": "to",
-		"campus": "Campuses:",
+		"date": "{{dateOne}} to {{dateTwo}}",
+		"willOpen": "opens in {{date}}",
+		"campi": "Campuses:",
 		"offers": "Offers:",
 		"level": "Level:",
 		"modality": "Modality:",
 		"vacancies": "Positions available:",
-		"subscribe": "Subscribe"
+		"tooltip": {
+			"title": "What does this mean?",
+			"integrated": {
+				"title": "Integrated:",
+				"meaning": "for those who have completed elementary school."
+			},
+			"subsequent": {
+				"title": "Subsequent:",
+				"meaning": "for those who have completed high school."
+			}
+		},
+		"documents": {
+			"title": "Document(s)",
+			"createdAt": "Created in: {{date}}",
+			"updatedAt": "Updated: {{date}}"
+		},
+		"courses": {
+			"title": "Course(s)",
+			"description": "Check the {{name}} exam, with {{offers}} course offerings, made available by IFAL."
+		},
+		"errors": {
+			"loading": "An error has occurred while trying to load this exam.",
+			"noDocuments": "This test has no documents available.",
+			"noCourses": "This test has no courses available.",
+			"notFound": "Test not found."
+		}
 	},
 	"exams": {
-		"loadingExams": "Loading tests",
-		"loadingError": "Error when trying to load tests",
-		"noExams": "There are no tests available now."
-	},
-	"examDetails": {
-		"description": "Check the test {{name}}, with {{offers}} course offers, provided by IFAL.",
-		"courses": "Course(s)",
-		"loadingAlt": "Loading test...",
-		"loadingErrorAlt": "An error has occurred while trying to load this test.",
-		"examNotFound": "Test not found.",
-		"noCourses": "This test has no courses available."
-	},
-	"form": {
-		"passwordForgot": "Forgot your password?",
-		"send": "Send",
-		"nextStep": "Next step"
+		"loading": "Loading tests",
+		"error": "Error when trying to load tests",
+		"notFound": "There are no tests available now."
 	},
 	"search": {
-		"searchExams": "",
+		"searchExams": "Search for a test:",
 		"placeholder": "Search:",
-		"result": "",
-		"searchNotFound": ""
-	},
-	"header": {
-		"logoAlt": "IFAL logo",
-		"title": "Selection system",
-		"exams": "Tests",
-		"account": "Your account",
-		"login": "Login",
-		"manage": "Manage",
-		"faq": "Frequently asked questions",
-		"navMenu": "Page change menu"
+		"result": "Showing {{showing}} result(s) from {{total}} due to your search.",
+		"notFound": "Your search did not match any results.",
+		"submit": "Click here to search."
 	},
 	"navigation": {
-		"examMenu": "Test type change Menu"
-	},
-	"navigationOptions": {
 		"login": "Login",
 		"register": "Create account",
 		"accountData": "Personal data",
 		"accountSubs": "Subscriptions",
 		"accountConn": "Connections",
 		"logout": "Disconnect",
-		"adminExams": "T",
+		"adminExams": "Tests",
 		"adminUsers": "Users",
-		"adminFaq": "Frequently asked questions"
-	},
-	"offline": {
-		"title": "You are offline - IFAL",
-		"youreOffline": "You are offline :(",
-		"tryingToReconnect": "We will attempt to reconnect in {{seconds}} seconds.",
-		"reconnect": "Reconnect"
+		"adminFaq": "Frequently asked questions",
+		"menu": "Category switching menu"
 	},
 	"login": {
-		"title": "Log in",
-		"buttonName": "Login",
+		"title": "Log in - IFAL",
+		"description": "Log in to your IFAL account, or create a new one, to be able to participate in selections.",
+		"formTitle": "Enter the system",
 		"email": "Email:",
 		"emailHelper": "Enter the email address of the account holder.",
 		"password": "Password:",
-		"fillFields": "Fill in the Email and Password fields correctly."
+		"passwordForgot": "Forgot your password?",
+		"proceed": "Log in to access:",
+		"errors": {
+			"fillFields": "Fill in the Email and Password fields correctly.",
+			"verifyPassword": "Check your password and try again."
+		}
 	},
 	"register": {
 		"title": "Create your account - IFAL",
 		"description": "Create your IFAL Selection System account to be able to participate in selections and more!",
 		"formTitle": "Create your account",
-		"formError": "There are fields that need to be corrected.",
-		"emailAlreadyExists": "It is possible that the chosen email address has already been registered. Please try again.",
 		"success": "Registration completed, check your email and login.",
-		"failed": "Your registration could not be completed. Please try again.",
-		"verifyPostalCode": "Check that this zip code is correct.",
 		"cpf": "Brazilian SSN (CPF):",
 		"cpfHelper": "Enter the candidate's brazilian SSN (CPF).",
 		"fullName": "Full Name:",
 		"birthDay": "Date of birth:",
-		"birthDayHelper": "Format: DD/MM/YYYY. Example: 01/01/2021",
+		"birthDayHelper": "Format: DD/MM/YYYY. Example: 03/02/2021",
 		"phone": "Phone:",
 		"phoneHelper": "Format: (00) 90000-0000",
 		"email": "Email:",
 		"emailConfirm": "Confirm the email:",
 		"emailConfirmHelper": "Please enter your email again.",
-		"postalCode": "Zip Code:",
+		"postalCode": "Postal Code:",
 		"postalCodeHelper": "Format: 00.000-000",
 		"state": "State:",
 		"city": "City:",
 		"street": "Address:",
 		"neighborhood": "Neighborhood:",
 		"houseNumber": "House number:",
-		"complement": "Supplement:",
+		"complement": "Complement:",
 		"complementHelper": "Example: House B, Apt 301, etc. (Not required field)",
 		"password": "Password:",
-		"passwordHelper": "The password must be at least 10 characters long, with letters and numbers.",
+		"passwordHelper": "The password must be at least ten characters long, with letters and numbers.",
 		"passwordConfirm": "Confirm the password:",
 		"passwordConfirmHelper": "Re-enter your password.",
-		"alert": "By sending this form you declare, for all legal purposes, under penalty of law, that the information you submit for registration is true to the truth and consistent with the reality of the facts. You are aware, therefore, that the falsity of this statement is a crime under the Brazilian Penal Code and subject to investigation according to the Law."
+		"alert": "By sending this form you declare, for all legal purposes, under penalty of law, that the information you submit for registration is true to the truth and consistent with the reality of the facts. You are aware, therefore, that the falsity of this statement is a crime under the Brazilian Penal Code and subject to investigation according to the Law.",
+		"errors": {
+			"form": "There are fields that need to be corrected.",
+			"emailAlreadyExists": "It is possible that the chosen email address has already been registered. Please try again.",
+			"failed": "Your registration could not be completed. Please try again.",
+			"verifyPostalCode": "Check that this postal code is correct.",
+			"couldntVerifyPostalCode": "We were unable to verify your postal code."
+		}
 	},
 	"validator": {
 		"required": "This field must be filled in.",
@@ -130,17 +130,11 @@
 		"passwordStrong": "The password must have at least one upper and one lower case letter, one number and one special character.",
 		"passwordEquals": "Both passwords must be the same."
 	},
-	"footer": {
-		"logoAlt": "IFAL logo",
-		"socialMedia": "Social Media",
-		"related": "Related",
-		"originalSite": "Original site",
-		"blog": "IFAL Blog",
-		"goToProject": "See the project",
-		"contacts": "Contacts",
-		"dsi": "DSI",
-		"postgraduate": "Postgraduate",
-		"copyright": "© 2021 - Gepetojj",
-		"mention": "Originally by Information Technology Board - IFAL"
-	}
+	"account": {
+		"data": {
+			"title": "Personal Data - IFAL",
+			"description": "View and control the personal data in your account."
+		}
+	},
+	"backToTop": "Click here to return to the top of the page."
 }

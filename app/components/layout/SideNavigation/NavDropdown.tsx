@@ -1,5 +1,6 @@
 import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { MdMenu } from "react-icons/md";
 
 import { ISideNavigationProps } from ".";
@@ -9,6 +10,7 @@ const NavDropdownComponent: FC<ISideNavigationProps> = ({ itens }) => {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeItem, setActiveItem] = useState("Página");
+	const { t } = useTranslation("translation");
 
 	const toggleVisibility = useCallback(() => {
 		setIsOpen(isOpen => !isOpen);
@@ -30,7 +32,7 @@ const NavDropdownComponent: FC<ISideNavigationProps> = ({ itens }) => {
 
 	return (
 		<div className="flex relative justify-center items-center w-full h-auto" ref={dropdownRef}>
-			<span className="sr-only">Menu para trocar o tipo de página</span>
+			<span className="sr-only">{t("navigation.menu")}</span>
 			<button
 				className="flex relative justify-center items-center w-full max-w-[450px] font-medium
 				md:text-lg h-12 duration-200 bg-white-minusTwo rounded-project hover:brightness-95"

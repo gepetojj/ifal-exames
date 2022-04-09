@@ -2,6 +2,7 @@ import { Combobox as HUICombobox } from "@headlessui/react";
 
 import React, { memo, useCallback, useEffect, useState } from "react";
 import type { FC, ChangeEvent } from "react";
+import { useTranslation } from "react-i18next";
 import { HiSelector } from "react-icons/hi";
 import { MdDone } from "react-icons/md";
 
@@ -17,12 +18,23 @@ export interface IComboboxProps {
 	items: IComboboxItem[];
 }
 
+/**
+ * Retorna um combobox (select com autocomplete).
+ *
+ * @see {@link IComboboxProps}
+ *
+ * @param {string} label Placeholder do input. Exemplo: `Estado de nascimento:`
+ * @param {string} valueId (Opcional) Id do valor padrão para o input. Se nenhum for especificado, o primeiro da lista será escolhido. Exemplo: `Alagoas`
+ * @param {string} helperText (Opcional) Texto de ajuda do input, ficará abaixo dele. Exemplo: `Insira o email do titular da conta.`
+ * @param {IComboboxItem[]} items Array de itens possíveis neste autocomplete. Exemplo: `["Alagoas", "Pernambuco", "Bahia"]`
+ */
 const ComboboxComponent: FC<IComboboxProps> = ({ label, valueId, items }) => {
 	const [query, setQuery] = useState("");
 	const [selectedItem, setSelectedItem] = useState(
 		(valueId && items.find(item => item.id === valueId)) || items[0]
 	);
 	const [filteredItems, setFilteredItems] = useState<IComboboxItem[]>(items);
+	const { t } = useTranslation("common");
 
 	useEffect(() => {
 		if (query) {
@@ -51,7 +63,7 @@ const ComboboxComponent: FC<IComboboxProps> = ({ label, valueId, items }) => {
 					displayValue={item => (item as IComboboxItem).label}
 				/>
 				<HiSelector className="absolute right-1 top-6" />
-				<HUICombobox.Options className="absolute w-full bg-white-minusThree rounded-project p-2 mt-2 top-12 z-10">
+				<HUICombobox.Options className="absolute w-full max-h-[12rem] bg-white-minusThree rounded-project p-2 mt-2 top-12 z-10 overflow-y-auto">
 					{filteredItems.map(item => (
 						<HUICombobox.Option key={item.id} value={item}>
 							{({ active, selected }) => (
@@ -68,7 +80,7 @@ const ComboboxComponent: FC<IComboboxProps> = ({ label, valueId, items }) => {
 					))}
 					{!filteredItems.length && (
 						<div className="flex flex-row justify-between items-center px-2 rounded-project duration-200">
-							Opção inválida
+							{t("error.invalidOption")}
 						</div>
 					)}
 				</HUICombobox.Options>

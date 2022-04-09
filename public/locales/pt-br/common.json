@@ -30,22 +30,75 @@
 		"closed": "Fechado",
 		"free": "Gratuito"
 	},
+	"modalities": {
+		"integrated": "Integrado",
+		"subsequent": "Subsequente"
+	},
+	"levels": {
+		"mid": "Médio",
+		"higher": "Superior"
+	},
 	"error": {
 		"unexpected": "Algo deu errado. Tente novamente.",
 		"common": "Houve um erro. Recarregue para tentar novamente.",
 		"error": "Erro",
-
 		"title": "Houve um erro - IFAL",
 		"imageAlt": "Sinalização de erro",
 		"detailsTitle": "Ocorreu um erro nesta página.",
 		"detailsDescription": "Caso esteja enfrentando problemas técnicos, entre em contato com nossa equipe, por meio das redes sociais ou por email.",
 		"detailsSubtitle": "Detalhes técnicos:",
-		"errorCode": "Código do erro:",
-		"errorPath": "Caminho do erro:"
+		"code": "Código do erro:",
+		"path": "Caminho do erro:",
+		"invalidOption": "Opção inválida"
+	},
+	"offline": {
+		"title": "Você está offline - IFAL",
+		"youreOffline": "Você está offline :(",
+		"tryingToReconnect": "Tentaremos reconectar em {{seconds}} segundos.",
+		"reconnect": "Reconectar",
+		"server": "O servidor parece estar offline. Tente novamente mais tarde."
+	},
+	"header": {
+		"logo": "Logo do IFAL",
+		"title": "Sistema de seleção",
+		"exams": "Exames",
+		"login": "Entrar",
+		"account": "Sua conta",
+		"faq": "Perguntas frequentes",
+		"manage": "Gerenciar",
+		"navMenu": "Menu de troca de páginas",
+		"greetings": "Olá"
+	},
+	"footer": {
+		"logo": "Logo do IFAL",
+		"socialMedia": "Mídias sociais",
+		"related": {
+			"title": "Relacionados",
+			"originalWebsite": "Site original",
+			"blog": "Blog",
+			"goToProject": "Veja o projeto"
+		},
+		"contact": {
+			"title": "Contatos",
+			"dsi": "DSI",
+			"postgraduate": "Pós Graduação"
+		},
+		"copyright": "© {{year}} - Gepetojj",
+		"credits": "Originalmente por Diretoria de Tecnologia da Informação - IFAL"
+	},
+	"controls": {
+		"seeMore": "Ver mais",
+		"subscribe": "Inscrever-se",
+		"goBack": "Voltar",
+		"send": "Enviar",
+		"nextStep": "Próxima etapa",
+		"login": "Entrar",
+		"register": "Criar conta",
+		"save": "Salvar"
 	},
 	"title": "Sistema de Seleção - IFAL",
 	"description": "Participe de seleções em cursos do Instituto Federal de Alagoas.",
-	"goBack": "Voltar",
 	"wait": "Aguarde...",
-	"loading": "Carregando..."
+	"loading": "Carregando...",
+	"done": "Concluído!"
 }

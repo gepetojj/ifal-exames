@@ -37,26 +37,17 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 
 export function CatchBoundary() {
 	const caught = useCatch();
-	const { t } = useTranslation();
+	const { t } = useTranslation("common");
 
 	switch (caught.status) {
 		case 404:
 			return <ErrorDisplay title={t("uppercase.ongoingExams")} label={caught.data} />;
 
-		case 503:
-			return (
-				<ErrorDisplay
-					title={t("uppercase.ongoingExams")}
-					label="O servidor está offline. Tente novamente mais tarde."
-					variant="error"
-				/>
-			);
-
 		default:
 			return (
 				<ErrorDisplay
 					title={t("uppercase.ongoingExams")}
-					label="Houve um erro. Recarregue para tentar novamente."
+					label={t("error.common")}
 					variant="error"
 				/>
 			);

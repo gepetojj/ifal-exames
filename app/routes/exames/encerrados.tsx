@@ -42,20 +42,11 @@ export function CatchBoundary() {
 		case 404:
 			return <ErrorDisplay title={t("uppercase.closedExams")} label={caught.data} />;
 
-		case 503:
-			return (
-				<ErrorDisplay
-					title={t("uppercase.closedExams")}
-					label="O servidor está offline. Tente novamente mais tarde."
-					variant="error"
-				/>
-			);
-
 		default:
 			return (
 				<ErrorDisplay
 					title={t("uppercase.closedExams")}
-					label="Houve um erro. Recarregue para tentar novamente."
+					label={t("error.common")}
 					variant="error"
 				/>
 			);

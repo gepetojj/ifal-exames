@@ -66,7 +66,7 @@ const ExamLayoutComponent: FC<IExamLayoutProps> = ({ title, search }) => {
 					<>
 						{search.query.length > 0 && (
 							<div className="pt-2">
-								<Alert label="Sua pesquisa não encontrou resultados." />
+								<Alert label={t("search.notFound")} />
 							</div>
 						)}
 						<ul className="w-full h-full">
@@ -83,7 +83,7 @@ const ExamLayoutComponent: FC<IExamLayoutProps> = ({ title, search }) => {
 					</>
 				) : (
 					<div className="mt-4">
-						<Alert label="Não há exames disponíveis agora." variant="error" />
+						<Alert label={t("exams.notFound")} variant="error" />
 					</div>
 				)}
 			</div>

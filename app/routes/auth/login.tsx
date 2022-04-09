@@ -2,7 +2,6 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { Form, Link, useActionData, useCatch, useLoaderData, useTransition } from "remix";
 import type { MetaFunction, ActionFunction, LoaderFunction } from "remix";
-import { AuthorizationError } from "remix-auth";
 import { Alert } from "~/components/data/Alert";
 import type { IAlertProps } from "~/components/data/Alert";
 import { Button } from "~/components/input/Button";
@@ -12,6 +11,8 @@ import { AuthProvider } from "~/providers/implementations/AuthProvider.server";
 
 interface LoaderData {
 	redirectTo?: string;
+	title: string;
+	description: string;
 }
 
 interface ActionData {
@@ -22,10 +23,9 @@ interface ActionData {
 	formError?: IAlertProps;
 }
 
-export const meta: MetaFunction = () => {
-	const title = "Faça login - IFAL";
-	const description =
-		"Entre na sua conta do Sistema de Seleção do IFAL para poder inscrever-se em seleções.";
+export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
+	const title = data.title;
+	const description = data.description;
 	const url = "https://ifal.vercel.app/auth/login";
 
 	return {
@@ -43,45 +43,23 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
 	const url = new URL(request.url);
 	const redirectTo = url.searchParams.get("continue") || "";
+	const t = await remixI18next.getFixedT(request, "translation");
+
 	return {
 		redirectTo,
+		title: t("login.title"),
+		description: t("login.description"),
 	};
 };
 
 export const action: ActionFunction = async ({ request }) => {
 	const url = new URL(request.url);
 	const redirectTo = url.searchParams.get("continue") || "";
-	const t = await remixI18next.getFixedT(request, "common");
 
-	try {
-		const authenticator = new AuthProvider().handler;
-		return await authenticator.authenticate("login", request, {
-			successRedirect: redirectTo || "/conta?action=login",
-		});
-	} catch (err) {
-		if (err instanceof Response) throw err;
-		if (err instanceof AuthorizationError) {
-			switch (err.message) {
-				case "invalid_credentials":
-					return {
-						formError: { label: "Seu email ou senha são inválidos.", variant: "alert" },
-					};
-
-				case "error_or_invalid_email":
-					return {
-						formError: {
-							label: "Houve um erro. Verifique se seu email foi digitado corretamente.",
-							variant: "error",
-						},
-					};
-
-				default:
-					return {
-						formError: { label: t("error.unexpected"), variant: "error" },
-					};
-			}
-		}
-	}
+	const authenticator = new AuthProvider().handler;
+	return await authenticator.authenticate("login", request, {
+		successRedirect: redirectTo || "/conta?action=login",
+	});
 };
 
 export function CatchBoundary() {
@@ -93,7 +71,7 @@ export function CatchBoundary() {
 		<div className="flex flex-col justify-start items-center md:items-start w-full max-w-[540px] h-full p-2 pt-0 mt-3 md:mt-0">
 			<div className="w-full h-auto mb-1">
 				<h2 className="text-black-plusOne font-medium text-3xl text-center md:text-left w-full h-12 max-w-full truncate">
-					{t("login.title")}
+					{t("login.formTitle")}
 				</h2>
 			</div>
 			<div className="w-full h-full">
@@ -103,7 +81,7 @@ export function CatchBoundary() {
 				/>
 				<div className="flex justify-end items-center mt-4">
 					<Link to="/auth/login" className="text-black-minusOne text-sm hover:underline">
-						{i18n.t("goBack")}
+						{i18n.t("controls.goBack")}
 					</Link>
 				</div>
 			</div>
@@ -122,11 +100,11 @@ export default function Login() {
 		<div className="flex flex-col justify-start items-center md:items-start w-full max-w-[540px] h-full p-2 pt-0 mt-3 md:mt-0">
 			<div className="w-full h-auto mb-1">
 				<h2 className="text-black-plusOne font-medium text-3xl text-center md:text-left w-full h-12 max-w-full truncate">
-					{t("login.title")}
+					{t("login.formTitle")}
 				</h2>
 				{loaderData.redirectTo && (
 					<p className="max-w-full text-xs truncate mb-3">
-						Faça login para acessar: <strong>{loaderData.redirectTo}</strong>
+						{t("login.proceed")} <strong>{loaderData.redirectTo}</strong>
 					</p>
 				)}
 			</div>
@@ -156,14 +134,14 @@ export default function Login() {
 							to="/recuperar/senha"
 							className="text-alt-blue text-xs hover:underline"
 						>
-							{t("form.passwordForgot")}
+							{t("login.passwordForgot")}
 						</Link>
 						<Button
 							label={
 								transition.state === "idle"
-									? t("login.buttonName")
+									? i18n.t("controls.login")
 									: transition.state === "loading"
-									? "Concluído!"
+									? i18n.t("done")
 									: i18n.t("loading")
 							}
 							type="submit"

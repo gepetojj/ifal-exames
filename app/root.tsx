@@ -1,5 +1,6 @@
 import nProgress from "nprogress";
 import React, { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import {
 	Outlet,
 	useTransition,
@@ -34,27 +35,30 @@ interface LoaderData {
 	locale: string;
 	auth: IAuthContext;
 	i18n: Record<string, object>;
+	title: string;
+	description: string;
 }
 
 export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> => {
 	const locale = await remixI18next.getLocale(request);
 	const i18n = await remixI18next.getTranslations(request, ["common", "translation"]);
+	const t = await remixI18next.getFixedT(request, "common");
 
-	// ! Remove to enable user verification at every render
-	//if (process.env.NODE_ENV === "development") return { auth: { isLogged: false }, locale };
+	const title = t("title");
+	const description = t("description");
 
 	const authenticator = new AuthProvider().handler;
 	const usersRepo = new UsersRepo();
 	const sessionsRepo = new SessionsRepo();
 
 	const sessionId = await authenticator.isAuthenticated(request);
-	if (!sessionId) return { locale, auth: { isLogged: false }, i18n };
+	if (!sessionId) return { locale, auth: { isLogged: false }, i18n, title, description };
 
 	const session = await sessionsRepo.findById(sessionId);
-	if (!session) return { locale, auth: { isLogged: false }, i18n };
+	if (!session) return { locale, auth: { isLogged: false }, i18n, title, description };
 
 	const user = await usersRepo.findById(session.userId);
-	if (!user) return { locale, auth: { isLogged: false }, i18n };
+	if (!user) return { locale, auth: { isLogged: false }, i18n, title, description };
 
 	return {
 		locale,
@@ -74,6 +78,8 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 			},
 		},
 		i18n,
+		title,
+		description,
 	};
 };
 
@@ -88,9 +94,10 @@ export const headers: HeadersFunction = ({ loaderHeaders }) => {
 	};
 };
 
-export const meta: MetaFunction = () => {
-	const defaultTitle = "Sistema de Seleção - IFAL";
-	const defaultDesc = "Participe de seleções em cursos do Instituto Federal de Alagoas.";
+export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
+	const defaultTitle = data?.title || "Sistema de Seleção - IFAL";
+	const defaultDesc =
+		data?.description || "Participe de seleções em cursos do Instituto Federal de Alagoas.";
 	const defaultUrl = "https://ifal.vercel.app/";
 	const defaultImage = "/images/ifal-horizontal-colorida.png";
 	const defaultImageAlt = "Logo do IFAL";
@@ -153,6 +160,7 @@ export const links: LinksFunction = () => {
 
 export function ErrorBoundary({ error }: { error: Error }) {
 	const transition = useTransition();
+	const { t } = useTranslation("common");
 
 	useEffect(() => {
 		nProgress.configure({
@@ -177,17 +185,18 @@ export function ErrorBoundary({ error }: { error: Error }) {
 				<img src="/images/ifal-errorwave.svg" alt="Imagem sinalizando erro" />
 				<div className="flex justify-center items-center w-full h-full px-4">
 					<div className="flex flex-col max-w-[26rem] h-auto bg-white-minusOne p-4 rounded-project">
-						<h1 className="font-bold text-center">Ocorreu um erro nesta página.</h1>
+						<h1 className="font-bold text-center">{t("error.detailsTitle")}</h1>
 						<p className="text-sm leading-tight pt-2 break-words">
-							Caso esteja enfrentando problemas técnicos, entre em contato com nossa
-							equipe, por meio das redes sociais ou por email.
+							{t("error.detailsDescription")}
 						</p>
 						<div className="pt-2">
-							<h2 className="text-sm font-bold">Detalhes técnicos:</h2>
+							<h2 className="text-sm font-bold">{t("error.detailsSubtitle")}</h2>
 							<div className="flex flex-col pt-1 pl-2">
-								<p className="text-sm truncate">Código do erro: Erro inesperado</p>
 								<p className="text-sm truncate">
-									Mensagem do erro: {error.message}
+									{t("error.code")} Erro inesperado
+								</p>
+								<p className="text-sm truncate">
+									{t("error.path")} {error.message}
 								</p>
 							</div>
 						</div>
@@ -203,6 +212,7 @@ export function CatchBoundary() {
 	const caught = useCatch();
 	const location = useLocation();
 	const transition = useTransition();
+	const { t } = useTranslation("common");
 
 	useEffect(() => {
 		nProgress.configure({
@@ -227,17 +237,18 @@ export function CatchBoundary() {
 				<img src="/images/ifal-errorwave.svg" alt="Imagem sinalizando erro" />
 				<div className="flex justify-center items-center w-full h-full px-4">
 					<div className="flex flex-col max-w-[26rem] h-auto bg-white-minusOne p-4 rounded-project">
-						<h1 className="font-bold text-center">Ocorreu um erro nesta página.</h1>
+						<h1 className="font-bold text-center">{t("error.detailsTitle")}</h1>
 						<p className="text-sm leading-tight pt-2 break-words">
-							Caso esteja enfrentando problemas técnicos, entre em contato com nossa
-							equipe, por meio das redes sociais ou por email.
+							{t("error.detailsDescription")}
 						</p>
 						<div className="pt-2">
-							<h2 className="text-sm font-bold">Detalhes técnicos:</h2>
+							<h2 className="text-sm font-bold">{t("error.detailsSubtitle")}</h2>
 							<div className="flex flex-col pt-1 pl-2">
-								<p className="text-sm truncate">Código do erro: {caught.status}</p>
 								<p className="text-sm truncate">
-									Caminho do erro: {location.pathname}
+									{t("error.code")} {caught.status}
+								</p>
+								<p className="text-sm truncate">
+									{t("error.path")} {location.pathname}
 								</p>
 							</div>
 						</div>

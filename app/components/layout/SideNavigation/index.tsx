@@ -14,14 +14,12 @@ const SideNavigationComponent: FC<ISideNavigationProps> = ({ itens }) => {
 		<>
 			<nav
 				id="mobile-side-navigation"
-				title="Menu para trocar o tipo de exame"
 				className="flex justify-center items-center w-full h-auto md:hidden print:hidden"
 			>
 				<NavDropdown itens={itens} />
 			</nav>
 			<nav
 				id="desktop-side-navigation"
-				title="Menu para trocar o tipo de exame"
 				className="hidden md:flex flex-col w-full h-full justify-start items-end"
 			>
 				<aside className="flex flex-col border border-white-minusOne rounded-project p-2">

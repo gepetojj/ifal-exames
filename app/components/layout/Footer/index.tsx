@@ -1,5 +1,6 @@
 import React, { memo } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import type { IconType } from "react-icons";
 import { BiLinkExternal } from "react-icons/bi";
 import { BsYoutube, BsInstagram, BsTwitter, BsGithub } from "react-icons/bs";
@@ -26,6 +27,8 @@ const Link: FC<ILinkProps> = ({ label, Icon, to }) => {
 };
 
 const FooterComponent: FC = () => {
+	const { t } = useTranslation("common");
+
 	return (
 		<footer className="flex flex-col w-screen h-auto bg-primary-main p-8 mt-5">
 			<div className="flex flex-col footer:flex-row mb-2">
@@ -35,14 +38,14 @@ const FooterComponent: FC = () => {
 							width={244}
 							height={86}
 							src="/images/ifal-horizontal-branca.webp"
-							alt="Logo horizontal do IFAL"
+							alt={t("footer.logo")}
 						/>
 					</div>
 				</div>
 				<div className="flex flex-col footer:flex-row justify-center footer:justify-end w-full mt-4 footer:mt-0 footer:w-1/2 pt-3">
 					<div className="mx-4">
 						<h2 className="text-black-plusOne mb-2 font-medium text-center truncate">
-							Mídias sociais
+							{t("footer.socialMedia")}
 						</h2>
 						<Link
 							label="Youtube"
@@ -67,27 +70,35 @@ const FooterComponent: FC = () => {
 					</div>
 					<div className="mx-4 mt-4 footer:mt-0">
 						<h2 className="text-black-plusOne mb-2 font-medium text-center truncate">
-							Relacionados
+							{t("footer.related.title")}
 						</h2>
 						<Link
-							label="Site original"
+							label={t("footer.related.originalWebsite")}
 							to="https://exame.ifal.edu.br"
 							Icon={BiLinkExternal}
 						/>
-						<Link label="Blog" to="https://www2.ifal.edu.br" Icon={BiLinkExternal} />
 						<Link
-							label="Veja o projeto"
+							label={t("footer.related.blog")}
+							to="https://www2.ifal.edu.br"
+							Icon={BiLinkExternal}
+						/>
+						<Link
+							label={t("footer.related.goToProject")}
 							to="https://github.com/gepetojj/ifal-exames"
 							Icon={BsGithub}
 						/>
 					</div>
 					<div className="mx-4 mt-4 footer:mt-0">
 						<h2 className="text-black-plusOne mb-2 font-medium text-center truncate">
-							Contatos
+							{t("footer.contact.title")}
 						</h2>
-						<Link label="DSI" to="mailto:dsi.copes@ifal.edu.br" Icon={MdEmail} />
 						<Link
-							label="Pós Graduação"
+							label={t("footer.contact.dsi")}
+							to="mailto:dsi.copes@ifal.edu.br"
+							Icon={MdEmail}
+						/>
+						<Link
+							label={t("footer.contact.postgraduate")}
 							to="mailto:posgraduacao@ifal.edu.br"
 							Icon={MdEmail}
 						/>
@@ -101,7 +112,7 @@ const FooterComponent: FC = () => {
 					target="_blank"
 					rel="noreferrer"
 				>
-					© {new Date().getFullYear()} - Gepetojj
+					{t("footer.copyright", { year: new Date().getFullYear() })}
 				</a>
 				<a
 					className="break-words min-w-[215px] select-none text-center hover:underline"
@@ -109,7 +120,7 @@ const FooterComponent: FC = () => {
 					target="_blank"
 					rel="noreferrer"
 				>
-					Originalmente por Diretoria de Tecnologia da Informação - IFAL
+					{t("footer.credits")}
 				</a>
 			</div>
 		</footer>

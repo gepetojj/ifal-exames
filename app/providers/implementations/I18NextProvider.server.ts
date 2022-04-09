@@ -7,12 +7,21 @@ export class I18NextProvider implements Backend {
 		this.url = new URL(url);
 	}
 
+	buildUrl(locale: string, namespace: string): string {
+		return new URL(`locales/${locale}/${namespace}.json`, this.url).toString();
+	}
+
 	async getTranslations(namespace: string, locale: string): Promise<Language> {
-		const url = new URL(`locales/${locale}/${namespace}.json`, this.url);
-		const response = await fetch(url.toString(), { headers: { accept: "application/json" } });
+		let url = this.buildUrl(locale, namespace);
+		let response = await fetch(url, { headers: { accept: "application/json" } });
 
 		if (!response.ok) {
-			throw new Error(`Não foi possível retornar a tradução '${locale}/${namespace}'.`);
+			url = this.buildUrl(locale.toLowerCase(), namespace.toLowerCase());
+			response = await fetch(url, { headers: { accept: "application/json" } });
+
+			if (!response.ok) {
+				throw new Error(`Não foi possível retornar a tradução '${locale}/${namespace}'.`);
+			}
 		}
 
 		return response.json();

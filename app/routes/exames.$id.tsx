@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 import { MdArrowBack } from "react-icons/md";
 import { json, Link, useCatch, useLoaderData } from "remix";
 import type { LoaderFunction, MetaFunction } from "remix";
-import type { Language } from "remix-i18next";
 import invariant from "tiny-invariant";
 import { Alert } from "~/components/data/Alert";
 import { Course } from "~/components/data/Course";
@@ -17,26 +16,21 @@ import { ExamsRepo } from "~/repositories/implementations/ExamsRepo.server";
 
 interface LoaderData {
 	exam: IExam;
-	i18n: Record<string, Language>;
 }
 
 export const loader: LoaderFunction = async ({ request, params }): Promise<LoaderData> => {
-	invariant(params.id, "Informe o ID do exame.");
+	invariant(params.id);
 
 	const examsRepo = new ExamsRepo();
 	const exam = await examsRepo.findById(params.id);
 	const t = await remixI18next.getFixedT(request, "translation");
 
-	if (!exam) throw json(t("examDetails.examNotFound"), { status: 404 });
-
-	return {
-		exam,
-		i18n: await remixI18next.getTranslations(request, ["common", "translation"]),
-	};
+	if (!exam) throw json(t("exam.errors.notFound"), { status: 404 });
+	return { exam };
 };
 
-export const meta: MetaFunction = ({ data }) => {
-	const exam: IExam = data.exam;
+export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {
+	const exam: IExam = data?.exam;
 	const title = exam?.id ? `${exam.name} - IFAL` : `Exame não encontrado - IFAL`;
 	const description = exam?.id
 		? `${exam.name} ${
@@ -66,37 +60,19 @@ export const meta: MetaFunction = ({ data }) => {
 export function CatchBoundary() {
 	const caught = useCatch();
 	const { t } = useTranslation("common");
+	const i18n = useTranslation("translation");
 
 	switch (caught.status) {
 		case 404:
 			return (
 				<div className="flex flex-col items-center w-full min-h-screen pt-10">
-					<ErrorDisplay title={t("examDetails.examNotFound")} label={caught.data} />
+					<ErrorDisplay title={i18n.t("exam.errors.notFound")} label={caught.data} />
 					<div className="flex justify-end items-center w-full max-w-[540px] pt-2 px-2">
 						<Link
 							to="/exames/andamento"
 							className="text-black-minusOne text-sm hover:underline"
 						>
-							{t("goBack")}
-						</Link>
-					</div>
-				</div>
-			);
-
-		case 503:
-			return (
-				<div className="flex flex-col items-center w-full min-h-screen pt-10">
-					<ErrorDisplay
-						title={t("error.error")}
-						label="O servidor está offline. Tente novamente mais tarde."
-						variant="error"
-					/>
-					<div className="flex justify-end items-center w-full max-w-[540px] pt-2 px-2">
-						<Link
-							to="/exames/andamento"
-							className="text-black-minusOne text-sm hover:underline"
-						>
-							{t("goBack")}
+							{t("controls.goBack")}
 						</Link>
 					</div>
 				</div>
@@ -115,7 +91,7 @@ export function CatchBoundary() {
 							to="/exames/andamento"
 							className="text-black-minusOne text-sm hover:underline"
 						>
-							{t("goBack")}
+							{t("controls.goBack")}
 						</Link>
 					</div>
 				</div>
@@ -129,7 +105,7 @@ const Documents: FC<IExam> = ({ documents }) => {
 	return (
 		<>
 			<h2 className="text-black-plusOne font-medium text-xl mb-2">
-				{t("document.documents")}
+				{t("exam.documents.title")}
 			</h2>
 			<ul className="w-full h-auto">
 				{documents?.length ? (
@@ -139,7 +115,7 @@ const Documents: FC<IExam> = ({ documents }) => {
 						</li>
 					))
 				) : (
-					<Alert label={t("document.notFound")} />
+					<Alert label={t("exam.errors.noDocuments")} />
 				)}
 			</ul>
 		</>
@@ -162,7 +138,7 @@ export default function ExamDetails() {
 						prefetch="intent"
 						className="flex justify-center items-center w-fit p-1 bg-white-minusOne rounded-project shadow-sm"
 					>
-						<span className="sr-only">Clique aqui para voltar à página anterior</span>
+						<span className="sr-only">{t("backToPrevious")}</span>
 						<MdArrowBack className="text-3xl text-black-plusOne" />
 					</Link>
 					{exam && (
@@ -175,7 +151,7 @@ export default function ExamDetails() {
 			<div className="flex flex-col justify-start items-center md:items-start w-full md:max-w-[540px] h-full mt-3 md:mt-0">
 				<div className="w-full mb-3">
 					<h1 className="text-center md:text-left font-medium text-3xl truncate">
-						{exam?.name ? "Detalhes do exame" : t("examDetails.examNotFound")}
+						{exam?.name ? t("exam.title") : t("exam.errors.notFound")}
 					</h1>
 				</div>
 				{exam && (
@@ -189,7 +165,7 @@ export default function ExamDetails() {
 				{exam && (
 					<div className="flex flex-col w-full h-fit">
 						<h2 className="text-black-plusOne font-medium text-xl mb-2">
-							{t("examDetails.courses")}
+							{t("exam.courses.title")}
 						</h2>
 						<ul className="w-full h-auto">
 							{exam.courses ? (
@@ -199,7 +175,7 @@ export default function ExamDetails() {
 									</li>
 								))
 							) : (
-								<Alert label={t("examDetails.noCourses")} />
+								<Alert label={t("exam.errors.noCourses")} />
 							)}
 						</ul>
 					</div>

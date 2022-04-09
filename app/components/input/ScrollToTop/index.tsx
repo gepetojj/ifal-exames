@@ -1,5 +1,6 @@
 import React, { memo, useState, useEffect, useCallback } from "react";
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { MdArrowUpward } from "react-icons/md";
 
 /**
@@ -7,6 +8,7 @@ import { MdArrowUpward } from "react-icons/md";
  */
 const ScrollToTopComponent: FC = () => {
 	const [isVisible, setIsVisible] = useState(false);
+	const { t } = useTranslation("translation");
 
 	useEffect(() => {
 		const toggleIsVisible = () => {
@@ -31,7 +33,7 @@ const ScrollToTopComponent: FC = () => {
 			onClick={goToTop}
 			type="button"
 		>
-			<span className="sr-only">Clique aqui para voltar para o topo da página.</span>
+			<span className="sr-only">{t("backToTop")}</span>
 			<MdArrowUpward className="text-2xl text-black-plusOne" />
 		</button>
 	);

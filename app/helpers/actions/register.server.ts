@@ -129,7 +129,7 @@ export async function register(req: Request): Promise<IRegisterActionData> {
 	if (errors.find(error => !!error)) {
 		return {
 			formError: {
-				label: t("register.formError"),
+				label: t("register.errors.form"),
 				variant: "alert",
 			},
 			fieldErrors: {
@@ -151,8 +151,8 @@ export async function register(req: Request): Promise<IRegisterActionData> {
 	const response = await fetch(`https://brasilapi.com.br/api/cep/v2/${cep}`);
 	if (!response.ok) {
 		return {
-			formError: { label: t("register.formError"), variant: "alert" },
-			fieldErrors: { cep: t("register.verifyPostalCode") },
+			formError: { label: t("register.errors.form"), variant: "alert" },
+			fieldErrors: { cep: t("register.errors.verifyPostalCode") },
 		};
 	}
 	const { state, city, street, neighborhood }: CEP = await response.json();
@@ -168,11 +168,11 @@ export async function register(req: Request): Promise<IRegisterActionData> {
 	if (emailExists) {
 		return {
 			formError: {
-				label: t("register.emailAlreadyExists"),
+				label: t("register.errors.emailAlreadyExists"),
 				variant: "alert",
 			},
 			fieldErrors: {
-				email: t("register.emailAlreadyExists"),
+				email: t("register.errors.emailAlreadyExists"),
 			},
 		};
 	}
@@ -208,7 +208,7 @@ export async function register(req: Request): Promise<IRegisterActionData> {
 	} catch (err) {
 		return {
 			formError: {
-				label: t("register.failed"),
+				label: t("register.errors.failed"),
 				variant: "error",
 			},
 		};

@@ -5,7 +5,7 @@
 		"ongoingExams": "Ongoing tests",
 		"futureExams": "Future tests",
 		"closedExams": "Closed tests",
-		"ongoing": "In progress",
+		"ongoing": "Ongoing",
 		"future": "Future",
 		"closed": "Closed"
 	},
@@ -15,7 +15,7 @@
 		"ongoingExams": "ongoing tests",
 		"futureExams": "future tests",
 		"closedExams": "closed tests",
-		"ongoing": "in progress",
+		"ongoing": "ongoing",
 		"future": "future",
 		"closed": "closed"
 	},
@@ -25,10 +25,18 @@
 		"night": "Night"
 	},
 	"tags": {
-		"open": "Available",
+		"open": "Open",
 		"future": "Future",
-		"closed": "Ended",
+		"closed": "Closed",
 		"free": "Free"
+	},
+	"modalities": {
+		"integrated": "Integrated",
+		"subsequent": "Subsequent"
+	},
+	"levels": {
+		"mid": "Mid",
+		"higher": "Higher"
 	},
 	"error": {
 		"unexpected": "Something went wrong. Try again.",
@@ -39,12 +47,57 @@
 		"detailsTitle": "An error has occurred on this page.",
 		"detailsDescription": "If you are experiencing technical issues, please contact our team through social media or email.",
 		"detailsSubtitle": "Technical details:",
-		"errorCode": "Error code:",
-		"errorPath": "Error path:"
+		"code": "Error code:",
+		"path": "Error path:",
+		"invalidOption": "Invalid option"
+	},
+	"offline": {
+		"title": "You are offline - IFAL",
+		"youreOffline": "You are offline :(",
+		"tryingToReconnect": "We will try to reconnect in {{seconds}} seconds.",
+		"reconnect": "Reconnect",
+		"server": "The server seems to be offline. Please try again later."
+	},
+	"header": {
+		"logo": "IFAL Logo",
+		"title": "Selection System",
+		"exams": "Tests",
+		"login": "Login",
+		"account": "Your account",
+		"faq": "Frequently asked questions",
+		"manage": "Manage",
+		"navMenu": "Page change menu",
+		"greetings": "Hello"
+	},
+	"footer": {
+		"logo": "IFAL Logo",
+		"socialMedia": "Social Media",
+		"related": {
+			"title": "Related",
+			"originalWebsite": "Original site",
+			"blog": "Blog",
+			"goToProject": "See the project"
+		},
+		"contact": {
+			"title": "Contacts",
+			"dsi": "DSI",
+			"postgraduate": "Post Graduation"
+		},
+		"copyright": "© {{year}} - Gepetojj",
+		"credits": "Originally by Directory of Information Technology - IFAL"
+	},
+	"controls": {
+		"seeMore": "See more",
+		"subscribe": "Subscribe",
+		"goBack": "Back",
+		"send": "Send",
+		"nextStep": "Next step",
+		"login": "Login",
+		"register": "Create account"
 	},
 	"title": "Selection System - IFAL",
 	"description": "Participate in selections in courses of the Federal Institute of Alagoas.",
-	"goBack": "Back",
 	"wait": "Stand by...",
-	"loading": "Loading..."
+	"loading": "Loading...",
+	"done": "Done!"
 }

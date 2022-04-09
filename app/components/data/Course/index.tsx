@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import type { ICourse } from "~/entities/Exam";
@@ -19,11 +19,6 @@ import type { ICourse } from "~/entities/Exam";
 const CourseComponent: FC<ICourse> = ({ name, campus, modality, shift, vacancies }) => {
 	const { t } = useTranslation("common");
 	const i18n = useTranslation("translation");
-	const [shifts] = useState({
-		morning: t("shifts.morning"),
-		afternoon: t("shifts.afternoon"),
-		night: t("shifts.night"),
-	});
 
 	return (
 		<div
@@ -40,7 +35,7 @@ const CourseComponent: FC<ICourse> = ({ name, campus, modality, shift, vacancies
 				{i18n.t("course.name")} <strong>{name}</strong>
 			</span>
 			<span className="text-sm truncate">
-				{i18n.t("course.shift")} <strong>{shifts[shift]}</strong>
+				{i18n.t("course.shift")} <strong>{t(`shifts.${shift}`)}</strong>
 			</span>
 			<span className="text-sm truncate">
 				{i18n.t("course.vacancies")} <strong>{vacancies}</strong>
