@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import { firestore } from "~/config/firebase.config";
+import { firestore } from "~/config/firebase.config.server";
 import type { User, Account } from "~/entities/User";
 
 import type { IUsersRepo } from "../IUsersRepo";

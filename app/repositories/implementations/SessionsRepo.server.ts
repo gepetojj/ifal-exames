@@ -1,4 +1,4 @@
-import { firestore } from "~/config/firebase.config";
+import { firestore } from "~/config/firebase.config.server";
 import type { Session } from "~/entities/Session";
 
 import type { ISessionsRepo } from "../ISessionsRepo";

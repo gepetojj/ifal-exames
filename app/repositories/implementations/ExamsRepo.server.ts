@@ -1,4 +1,4 @@
-import { firestore } from "~/config/firebase.config";
+import { firestore } from "~/config/firebase.config.server";
 import type { Exam } from "~/entities/Exam";
 
 import type { IExamsRepo } from "../IExamsRepo";

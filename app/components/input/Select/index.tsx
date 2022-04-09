@@ -1,10 +1,9 @@
-import { Listbox } from "@headlessui/react";
-
 import React, { memo, useState, useEffect } from "react";
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { HiSelector } from "react-icons/hi";
 import { MdDone } from "react-icons/md";
+import { Listbox } from "~/helpers/headlessui.client";
 
 export interface ISelectItem {
 	id: string;

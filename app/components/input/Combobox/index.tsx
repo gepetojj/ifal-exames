@@ -1,10 +1,9 @@
-import { Combobox as HUICombobox } from "@headlessui/react";
-
 import React, { memo, useCallback, useEffect, useState } from "react";
 import type { FC, ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { HiSelector } from "react-icons/hi";
 import { MdDone } from "react-icons/md";
+import { Combobox as HUICombobox } from "~/helpers/headlessui.client";
 
 export interface IComboboxItem {
 	id: string;
