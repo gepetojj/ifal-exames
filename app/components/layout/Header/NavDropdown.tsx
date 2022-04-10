@@ -8,11 +8,10 @@ import type { NavigationItem } from "~/entities/NavigationItem";
 import { NavButton } from "./NavButton";
 
 export interface INavDropdownProps {
-	defaultItens: NavigationItem[];
-	authItens: NavigationItem[];
+	items: NavigationItem[];
 }
 
-const NavDropdownComponent: FC<INavDropdownProps> = ({ defaultItens, authItens }) => {
+const NavDropdownComponent: FC<INavDropdownProps> = ({ items }) => {
 	const dropdownRef = useRef<HTMLDivElement>(null);
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeItem, setActiveItem] = useState("Página");
@@ -58,12 +57,11 @@ const NavDropdownComponent: FC<INavDropdownProps> = ({ defaultItens, authItens }
 						border-white-main/20 rounded-project shadow bg-primary-main"
 				>
 					{isLogged
-						? authItens
+						? items
 								.filter(item =>
-									user?.profile.role === "admin"
-										? true
-										: item.isRoleBased === false
+									user?.profile.role === "admin" ? true : !item.isRoleBased
 								)
+								.filter(item => item.to !== "auth")
 								.map(item => (
 									<NavButton
 										key={item.label.toLowerCase()}
@@ -71,13 +69,15 @@ const NavDropdownComponent: FC<INavDropdownProps> = ({ defaultItens, authItens }
 										onActive={setActive}
 									/>
 								))
-						: defaultItens.map(item => (
-								<NavButton
-									key={item.label.toLowerCase()}
-									{...item}
-									onActive={setActive}
-								/>
-						  ))}
+						: items
+								.filter(item => !item.needsAuth)
+								.map(item => (
+									<NavButton
+										key={item.label.toLowerCase()}
+										{...item}
+										onActive={setActive}
+									/>
+								))}
 				</div>
 			</div>
 		</div>

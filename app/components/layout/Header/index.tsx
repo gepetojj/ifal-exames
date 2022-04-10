@@ -53,11 +53,7 @@ const HeaderComponent: FC = props => {
 				title={t("header.navMenu")}
 				className="flex justify-center items-center w-full h-auto mb-4 md:hidden print:hidden"
 			>
-				<NavDropdown
-					defaultItens={items.filter(item => !item.isRoleBased)}
-					authItens={items}
-					{...props}
-				/>
+				<NavDropdown items={items} {...props} />
 			</nav>
 			<nav
 				id="desktop-header"
