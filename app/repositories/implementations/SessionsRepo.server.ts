@@ -16,10 +16,13 @@ export class SessionsRepo implements ISessionsRepo {
 		return query.data() as Session;
 	}
 
-	async findByUserId(userId: string): Promise<Session | null> {
+	async findByUserId(userId: string): Promise<Session[]> {
 		const query = await this.collection.where("userId", "==", userId).get();
-		if (query.empty || !query.docs?.length) return null;
-		return query.docs[0].data() as Session;
+		if (query.empty || !query.docs?.length) return [];
+
+		const sessions: Session[] = [];
+		for (const session of query.docs) sessions.push(session.data() as Session);
+		return sessions;
 	}
 
 	async isExpired(id: string): Promise<boolean> {
@@ -28,7 +31,7 @@ export class SessionsRepo implements ISessionsRepo {
 
 		const now = new Date().valueOf();
 		const expiresAt = session.expiresAt;
-		if (now > expiresAt * 1000) return true;
+		if (now > expiresAt) return true;
 		return false;
 	}
 

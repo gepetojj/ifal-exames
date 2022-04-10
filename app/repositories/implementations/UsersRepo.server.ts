@@ -40,7 +40,7 @@ export class UsersRepo implements IUsersRepo {
 		if (emailVerification) throw new Error("Este email já existe. Tente novamente.");
 		await this.collection.doc(user.id).create({
 			...user,
-			createdAt: new Date().valueOf() / 1000,
+			createdAt: new Date().valueOf(),
 			updatedAt: 0,
 			verified: false,
 			verifiedAt: 0,

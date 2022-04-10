@@ -122,9 +122,9 @@ export default function AccountData() {
 							<strong>{user?.profile.birthDay || "00/00/0000"}</strong>
 						</span>
 					</div>
-					<div className="pt-2 px-2">
-						<div className="flex mb-1">
-							<div className="w-full mr-3">
+					<div className="w-full pt-2 px-2">
+						<div className="flex flex-col mb-1 md:flex-row">
+							<div className="w-full md:mr-3">
 								<Select
 									label="Sexo:"
 									valueId={user?.profile.gender}
@@ -136,7 +136,7 @@ export default function AccountData() {
 									]}
 								/>
 							</div>
-							<div className="w-full ml-3">
+							<div className="w-full md:ml-3">
 								<Select
 									label="Etnia:"
 									valueId={user?.profile.ethnicity}
@@ -151,8 +151,8 @@ export default function AccountData() {
 								/>
 							</div>
 						</div>
-						<div className="flex mb-1">
-							<div className="w-full mr-3">
+						<div className="flex flex-col mb-1 md:flex-row">
+							<div className="w-full md:mr-3">
 								<Select
 									label="Estado de nascimento:"
 									valueId={user?.profile.birthState}
@@ -160,7 +160,7 @@ export default function AccountData() {
 									onChange={item => setSelectedState(item?.id || "")}
 								/>
 							</div>
-							<div className="w-full ml-3">
+							<div className="w-full md:ml-3">
 								<Select
 									label="Cidade de nascimento:"
 									valueId={user?.profile.birthCity}
@@ -168,15 +168,15 @@ export default function AccountData() {
 								/>
 							</div>
 						</div>
-						<div className="flex">
-							<div className="w-3/4 mr-2">
+						<div className="flex flex-col md:flex-row">
+							<div className="w-full md:w-3/4 md:mr-2">
 								<TextField
 									label="Nome do(a) responsável:"
 									value={user?.profile.responsiblePersonFullName || ""}
 									disableCleave
 								/>
 							</div>
-							<div className="w-2/4 ml-2">
+							<div className="w-full md:w-2/4 md:ml-2">
 								<Select
 									label="Parentesco do(a) responsável:"
 									valueId={user?.profile.responsiblePersonKinship || ""}
@@ -195,8 +195,8 @@ export default function AccountData() {
 				</div>
 				<div className="flex flex-col justify-start items-start w-full h-fit pb-3">
 					<h3 className="text-lg text-black-plusOne mb-1">Contato</h3>
-					<div className="flex px-2">
-						<div className="w-full mr-3">
+					<div className="flex flex-col w-full px-2 md:flex-row">
+						<div className="w-full md:mr-3">
 							<TextField
 								label={t("register.phone")}
 								value={user?.profile.phone}
@@ -207,23 +207,24 @@ export default function AccountData() {
 								}}
 							/>
 						</div>
-						<div className="w-full ml-3">
+						<div className="w-full md:ml-3">
 							<TextField label={t("register.email")} value={user?.email} />
 						</div>
 					</div>
 				</div>
 				<div className="flex flex-col justify-start items-start w-full h-fit pb-3">
 					<h3 className="text-lg text-black-plusOne mb-1">Endereço</h3>
-					<div className="px-2">
-						<div className="flex mb-1">
-							<div className="w-3/4 mr-2">
+					<div className="w-full px-2">
+						<div className="flex flex-col mb-1 md:flex-row">
+							<div className="w-full md:w-3/4 md:mr-2">
 								<TextField
 									label={t("register.street")}
 									value={user?.profile.street}
 									disableCleave
+									disabled
 								/>
 							</div>
-							<div className="w-1/4 ml-2">
+							<div className="w-full md:w-1/4 md:ml-2">
 								<TextField
 									label={t("register.houseNumber")}
 									value={user?.profile.houseNumber}
@@ -231,15 +232,16 @@ export default function AccountData() {
 								/>
 							</div>
 						</div>
-						<div className="flex mb-1">
-							<div className="w-full mr-3">
+						<div className="flex flex-col mb-1 md:flex-row">
+							<div className="w-full md:mr-3">
 								<TextField
 									label={t("register.neighborhood")}
 									value={user?.profile.neighborhood}
 									disableCleave
+									disabled
 								/>
 							</div>
-							<div className="w-full ml-3">
+							<div className="w-full md:ml-3">
 								<TextField
 									label={t("register.postalCode")}
 									value={user?.profile.cep}

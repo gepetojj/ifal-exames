@@ -7,6 +7,7 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 	variant?: "red" | "green" | "blue";
 	isFull?: boolean;
 	href?: string;
+	prefetch?: boolean;
 }
 
 /**
@@ -20,7 +21,14 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
  * @param {string} href (Opcional) Quando algo é especificado, o botão se torna um link, mas mantém toda sua estilização padrão
  * @param {ButtonHTMLAttributes<HTMLButtonElement>} props Props existentes em um botão nativo também podem ser passadas para este
  */
-const ButtonComponent: FC<IButtonProps> = ({ label, variant, isFull, href, ...props }) => {
+const ButtonComponent: FC<IButtonProps> = ({
+	label,
+	variant,
+	isFull,
+	href,
+	prefetch = true,
+	...props
+}) => {
 	const classes = `flex justify-center items-center ${isFull ? "w-full" : "min-w-[7.5rem]"}
 	h-8 text-white-main text-sm font-medium shadow-sm duration-200 select-none rounded-project 
 	truncate px-1 hover:brightness-95 disabled:brightness-75 disabled:cursor-not-allowed
@@ -28,7 +36,7 @@ const ButtonComponent: FC<IButtonProps> = ({ label, variant, isFull, href, ...pr
 
 	if (href) {
 		return (
-			<Link to={href} prefetch="intent" className={classes}>
+			<Link to={href} prefetch={prefetch ? "intent" : "none"} className={classes}>
 				{label}
 			</Link>
 		);

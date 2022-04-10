@@ -96,3 +96,15 @@ span {
 	@apply flex h-8 w-auto cursor-pointer select-none items-center justify-center rounded-project bg-white-minusOne
 	px-3 py-2 text-lg shadow-sm;
 }
+
+.react-pdf__Page__svg,
+.react-pdf__Page__svg svg,
+.react-pdf__Page__textContent {
+	width: 100% !important;
+	height: 100% !important;
+	max-width: 50rem;
+}
+
+.react-pdf__Page__textContent {
+	@apply sr-only;
+}

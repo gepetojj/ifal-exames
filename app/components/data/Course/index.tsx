@@ -12,8 +12,8 @@ import type { ICourse } from "~/entities/Exam";
  * @param {string} id Id do curso. Pode ser o Id do objeto no banco de dados, ou alguma lógica extra pode ser implementada
  * @param {string} name Nome do curso. Exemplo: `Técnico em Eletroeletrônica`
  * @param {string} campus Cidade de qual campus está ofertando o curso. Exemplo: `Arapiraca`
- * @param {string} modality Modalidade do curso. Exemplo: `Integrado`
- * @param {string} shift Período do curso. É alterável no estado `shifts` do componente. Exemplo: `Manhã`
+ * @param {string} modality Modalidade do curso. Exemplo: `integrated`
+ * @param {string} shift Período do curso. Exemplo: `morning`
  * @param {number} vacancies Vagas do curso. Exemplo: `100`
  */
 const CourseComponent: FC<ICourse> = ({ name, campus, modality, shift, vacancies }) => {
@@ -29,7 +29,7 @@ const CourseComponent: FC<ICourse> = ({ name, campus, modality, shift, vacancies
 				{i18n.t("course.campus")} <strong>{campus}</strong>
 			</span>
 			<span className="text-sm truncate">
-				{i18n.t("course.modality")} <strong>{modality}</strong>
+				{i18n.t("course.modality")} <strong>{t(`modalities.${modality}`)}</strong>
 			</span>
 			<span className="text-sm truncate">
 				{i18n.t("course.name")} <strong>{name}</strong>

@@ -1,4 +1,3 @@
-import "cleave.js/dist/addons/cleave-phone.br.js";
 import type { CleaveOptions } from "cleave.js/options";
 import Cleave from "cleave.js/react";
 import React, { memo, useCallback, useState, KeyboardEvent, FocusEvent } from "react";

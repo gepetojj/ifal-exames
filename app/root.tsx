@@ -55,7 +55,8 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 	if (!sessionId) return { locale, auth: { isLogged: false }, i18n, title, description };
 
 	const session = await sessionsRepo.findById(sessionId);
-	if (!session) return { locale, auth: { isLogged: false }, i18n, title, description };
+	const isSessionExpired = await sessionsRepo.isExpired(sessionId);
+	if (!session || isSessionExpired) return { locale, auth: { isLogged: false }, i18n, title, description };
 
 	const user = await usersRepo.findById(session.userId);
 	if (!user) return { locale, auth: { isLogged: false }, i18n, title, description };

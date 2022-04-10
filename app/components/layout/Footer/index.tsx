@@ -5,6 +5,7 @@ import type { IconType } from "react-icons";
 import { BiLinkExternal } from "react-icons/bi";
 import { BsYoutube, BsInstagram, BsTwitter, BsGithub } from "react-icons/bs";
 import { MdFacebook, MdEmail } from "react-icons/md";
+import { LanguageSelector } from "~/components/input/LanguageSelector";
 
 interface ILinkProps {
 	label: string;
@@ -41,9 +42,12 @@ const FooterComponent: FC = () => {
 							alt={t("footer.logo")}
 						/>
 					</div>
+					<div className="flex justify-center items-center w-full pt-2 lg:justify-start">
+						<LanguageSelector />
+					</div>
 				</div>
 				<div className="flex flex-col footer:flex-row justify-center footer:justify-end w-full mt-4 footer:mt-0 footer:w-1/2 pt-3">
-					<div className="mx-4">
+					<div className="px-2">
 						<h2 className="text-black-plusOne mb-2 font-medium text-center truncate">
 							{t("footer.socialMedia")}
 						</h2>
@@ -68,7 +72,7 @@ const FooterComponent: FC = () => {
 							Icon={MdFacebook}
 						/>
 					</div>
-					<div className="mx-4 mt-4 footer:mt-0">
+					<div className="px-2 mt-4 footer:mt-0">
 						<h2 className="text-black-plusOne mb-2 font-medium text-center truncate">
 							{t("footer.related.title")}
 						</h2>
@@ -88,7 +92,7 @@ const FooterComponent: FC = () => {
 							Icon={BsGithub}
 						/>
 					</div>
-					<div className="mx-4 mt-4 footer:mt-0">
+					<div className="px-2 mt-4 footer:mt-0">
 						<h2 className="text-black-plusOne mb-2 font-medium text-center truncate">
 							{t("footer.contact.title")}
 						</h2>

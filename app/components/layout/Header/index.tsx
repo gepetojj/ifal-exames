@@ -10,17 +10,14 @@ import { NavDropdown } from "./NavDropdown";
 const HeaderComponent: FC = props => {
 	const { t } = useTranslation("common");
 
-	const [defaultItens] = useState<NavigationItem[]>([
-		{ to: "exames", label: t("header.exams") },
-		{ to: "auth", label: t("header.login") },
-		{ to: "sac", label: t("header.faq") },
+	const [items] = useState<NavigationItem[]>([
+		{ to: "exames", label: t("header.exams"), needsAuth: false, isRoleBased: false },
+		{ to: "auth", label: t("header.login"), needsAuth: false, isRoleBased: false },
+		{ to: "conta", label: t("header.account"), needsAuth: true, isRoleBased: false },
+		{ to: "gerenciar", label: t("header.manage"), needsAuth: true, isRoleBased: true },
+		{ to: "sac", label: t("header.faq"), needsAuth: false, isRoleBased: false },
 	]);
-	const [authItens] = useState<NavigationItem[]>([
-		{ to: "exames", label: t("header.exams"), isRoleBased: false },
-		{ to: "conta", label: t("header.account"), isRoleBased: false },
-		{ to: "gerenciar", label: t("header.manage"), isRoleBased: true },
-		{ to: "sac", label: t("header.faq"), isRoleBased: false },
-	]);
+
 	const { isLogged, user } = useAuth();
 
 	return (
@@ -56,7 +53,11 @@ const HeaderComponent: FC = props => {
 				title={t("header.navMenu")}
 				className="flex justify-center items-center w-full h-auto mb-4 md:hidden print:hidden"
 			>
-				<NavDropdown defaultItens={defaultItens} authItens={authItens} {...props} />
+				<NavDropdown
+					defaultItens={items.filter(item => !item.isRoleBased)}
+					authItens={items}
+					{...props}
+				/>
 			</nav>
 			<nav
 				id="desktop-header"
@@ -64,12 +65,15 @@ const HeaderComponent: FC = props => {
 				className="hidden md:flex flex-row justify-center items-center"
 			>
 				{isLogged
-					? authItens
-							.filter(item => item.isRoleBased === (user?.profile.role === "admin"))
+					? items
+							.filter(item =>
+								user?.profile.role === "admin" ? true : !item.isRoleBased
+							)
+							.filter(item => item.to !== "auth")
 							.map(item => <NavButton key={item.label.toLowerCase()} {...item} />)
-					: defaultItens.map(item => (
-							<NavButton key={item.label.toLowerCase()} {...item} />
-					  ))}
+					: items
+							.filter(item => !item.needsAuth)
+							.map(item => <NavButton key={item.label.toLowerCase()} {...item} />)}
 			</nav>
 		</header>
 	);
