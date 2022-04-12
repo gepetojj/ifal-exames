@@ -4,12 +4,15 @@ import React from "react";
 import { hydrateRoot } from "react-dom/client";
 import { I18nextProvider, initReactI18next } from "react-i18next";
 import { RemixBrowser } from "remix";
+import { disableReactDevTools } from "~/helpers/disableDevTools.client";
 
 import { i18nOptions } from "./config/i18n.config";
 
 if ("serviceWorker" in navigator) {
 	window.addEventListener("load", () => navigator.serviceWorker.register("/sw.js"));
 }
+
+if (process.env.NODE_ENV === "production") disableReactDevTools();
 
 i18next
 	.use(LanguageDetector)

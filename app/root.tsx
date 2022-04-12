@@ -14,7 +14,7 @@ import {
 	ScrollRestoration,
 	useMatches,
 } from "remix";
-import type { MetaFunction, LinksFunction, LoaderFunction, HeadersFunction } from "remix";
+import type { MetaFunction, LinksFunction, LoaderFunction } from "remix";
 import { useSetupTranslations } from "remix-i18next";
 
 import { AuthProvider as AuthProviderContext } from "./components/context/AuthContext";
@@ -82,17 +82,6 @@ export const loader: LoaderFunction = async ({ request }): Promise<LoaderData> =
 		i18n,
 		title,
 		description,
-	};
-};
-
-export const headers: HeadersFunction = ({ loaderHeaders }) => {
-	return {
-		"X-Ifal-Service": "exames",
-		"Cache-Control": loaderHeaders.get("Cache-Control") || "max-age=300, s-maxage=3600",
-		"Strict-Transport-Security": "max-age=604800; includeSubDomains; preload",
-		"X-Content-Type-Options": "nosniff",
-		"X-Frame-Options": "SAMEORIGIN",
-		"X-XSS-Protection": "1; mode=block",
 	};
 };
 

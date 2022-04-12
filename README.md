@@ -12,20 +12,21 @@ Acesse a releitura usando o link: [https://ifal.vercel.app](https://ifal.vercel.
 
 ## Conteúdos
 
--   [ifal-exames](#ifal-exames)
-    -   [Conteúdos](#conteúdos)
-    -   [Proposta](#proposta)
-    -   [Diferenças com a versão original](#diferenças-com-a-versão-original)
-        -   [Performance](#performance)
-        -   [Segurança](#segurança)
-        -   [Acessibilidade](#acessibilidade)
-    -   [Tecnologias](#tecnologias)
-    -   [Design](#design)
-    -   [Créditos e Licensa](#créditos-e-licensa)
+- [ifal-exames](#ifal-exames)
+	- [Conteúdos](#conteúdos)
+	- [Proposta](#proposta)
+	- [Diferenças com a versão original](#diferenças-com-a-versão-original)
+		- [Performance](#performance)
+		- [Segurança](#segurança)
+		- [Acessibilidade](#acessibilidade)
+		- [Funcionalidades](#funcionalidades)
+	- [Tecnologias](#tecnologias)
+	- [Design](#design)
+	- [Créditos e Licensa](#créditos-e-licensa)
 
 ## Proposta
 
-A proposta desta releitura é concertar e/ou melhorar falhas no website original, além de modernizar e usar tecnologias mais recentes. Mas sempre mantendo o visual original.
+A proposta desta releitura é concertar e/ou melhorar falhas no website original, além de modernizar e usar tecnologias mais recentes - mantendo a essência da versão original e suas principais funcionalidades.
 
 ## Diferenças com a versão original
 
@@ -72,6 +73,21 @@ Segurança do website original (exame.ifal.edu.br):
 ### Acessibilidade
 
 Como já mostrado nos testes do Web Vitals, a releitura possui um nível de acessibilidade muito maior que o website original. Além da acessibilidade servida na página em sí, a releitura fornece 3 línguas que podem ser escolhidas pelo usuário: pt-br (Português do Brasil), en (Inglês) e es (Espanhol). Desta forma, o alcance da releitura é expandido.
+
+### Funcionalidades
+
+A releitura implementa novas funcionalidades que não existem, no presente momento, na versão original. É possível listar algumas:
+
+* Pesquisa de exames (por nome, campi, ofertas, etc);
+* Visualização de PDF dentro do site (encontrado em "Documento(s)" de cada exame);
+* Informa a previsão de início de um exame futuro (se disponível);
+* Pesquisa instantânea de perguntas frequentes, junto com paginação delas;
+* Estado, cidade, logradouro e bairro são inseridos automaticamente após a inserção do CEP no registro;
+* Dados sensíveis do usuário são criptografados no banco de dados (CPF, CEP e outros);
+* Tradução completa do site em 3 línguas (pt-BR, en, es);
+* Controle do usuário perante os logins feitos em sua conta (encontrado em "Conexões" na aba "Sua conta").
+
+Além dos itens listados, outros estão em desenvolvimento.
 
 ## Tecnologias
 

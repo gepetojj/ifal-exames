@@ -22,7 +22,13 @@ export default async function handleRequest(
 			<RemixServer context={remixContext} url={request.url} />
 		</I18nextProvider>
 	);
+
 	responseHeaders.set("Content-Type", "text/html");
+	responseHeaders.set("X-Ifal-Service", "exames");
+	responseHeaders.set("Strict-Transport-Security", "max-age=604800; includeSubDomains; preload");
+	responseHeaders.set("X-Content-Type-Options", "nosniff");
+	responseHeaders.set("X-Frame-Options", "SAMEORIGIN");
+	responseHeaders.set("X-XSS-Protection", "1; mode=block");
 
 	return new Response("<!DOCTYPE html>" + markup, {
 		status: responseStatusCode,

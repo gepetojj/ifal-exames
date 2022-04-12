@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { MdArrowBack } from "react-icons/md";
 import { json, Link, useCatch, useLoaderData } from "remix";
-import type { LoaderFunction, MetaFunction } from "remix";
+import type { LoaderFunction, MetaFunction, HeadersFunction } from "remix";
 import invariant from "tiny-invariant";
 import { Alert } from "~/components/data/Alert";
 import { Course } from "~/components/data/Course";
@@ -27,6 +27,12 @@ export const loader: LoaderFunction = async ({ request, params }): Promise<Loade
 
 	if (!exam) throw json(t("exam.errors.notFound"), { status: 404 });
 	return { exam };
+};
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+	return {
+		"Cache-Control": loaderHeaders.get("Cache-Control") || "max-age=300, s-maxage=3600",
+	};
 };
 
 export const meta: MetaFunction = ({ data }: { data: LoaderData }) => {

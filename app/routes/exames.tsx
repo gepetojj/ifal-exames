@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Outlet } from "remix";
+import type { HeadersFunction } from "remix";
 import { SideNavigation } from "~/components/layout/SideNavigation";
 import type { NavigationItem } from "~/entities/NavigationItem";
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+	return {
+		"Cache-Control": loaderHeaders.get("Cache-Control") || "max-age=300, s-maxage=3600",
+	};
+};
 
 export default function ExamsLayout() {
 	const { t } = useTranslation("common");

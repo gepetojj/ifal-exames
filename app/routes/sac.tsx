@@ -12,7 +12,7 @@ import {
 	PoweredBy,
 } from "react-instantsearch-dom";
 import { useCatch, useLoaderData } from "remix";
-import type { MetaFunction, LoaderFunction } from "remix";
+import type { MetaFunction, LoaderFunction, HeadersFunction } from "remix";
 import { Alert } from "~/components/data/Alert";
 import { Dropdown } from "~/components/data/Dropdown";
 import { ErrorDisplay } from "~/components/layout/ErrorDisplay";
@@ -51,6 +51,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 	if (!algoliaApp || !algoliaToken) throw new Error("O app e token Algolia são necessários.");
 
 	return { algoliaApp, algoliaToken, query, page: Number(page) || 1 };
+};
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+	return {
+		"Cache-Control": loaderHeaders.get("Cache-Control") || "max-age=300, s-maxage=3600",
+	};
 };
 
 export function CatchBoundary() {

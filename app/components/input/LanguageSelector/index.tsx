@@ -56,6 +56,8 @@ const LanguageSelectorComponent: FC = () => {
 						<div className="flex justify-center items-center w-full text-white-minusOne">
 							<img
 								className="w-8"
+								width={32}
+								height={21}
 								src={`/images/${selectedLanguage.icon}.webp`}
 								alt="Bandeira da língua"
 							/>
@@ -79,6 +81,8 @@ const LanguageSelectorComponent: FC = () => {
 								>
 									<img
 										className="w-8"
+										width={32}
+										height={21}
 										src={`/images/${language.icon}.webp`}
 										alt="Bandeira da língua"
 									/>

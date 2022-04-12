@@ -16,7 +16,7 @@ interface ILinkProps {
 const Link: FC<ILinkProps> = ({ label, Icon, to }) => {
 	return (
 		<a
-			className="flex justify-center footer:justify-start items-center w-full my-1 footer:my-0 text-white-minusOne select-none"
+			className="flex justify-center footer:justify-start items-center w-full h-10 footer:h-fit footer:py-1 text-white-minusOne select-none"
 			href={to}
 			target="_blank"
 			rel="noreferrer"

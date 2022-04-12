@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Outlet } from "remix";
-import type { LoaderFunction } from "remix";
+import type { LoaderFunction, HeadersFunction } from "remix";
 import { SideNavigation } from "~/components/layout/SideNavigation";
 import type { NavigationItem } from "~/entities/NavigationItem";
 import { AuthProvider } from "~/providers/implementations/AuthProvider.server";
@@ -11,6 +11,12 @@ export const loader: LoaderFunction = async ({ request }) => {
 		failureRedirect: "/auth/login?continue=/conta",
 	});
 	return null;
+};
+
+export const headers: HeadersFunction = ({ loaderHeaders }) => {
+	return {
+		"Cache-Control": loaderHeaders.get("Cache-Control") || "max-age=300, s-maxage=3600",
+	};
 };
 
 export default function AccountLayout() {
