@@ -133,8 +133,40 @@
 	"account": {
 		"data": {
 			"title": "Datos personales - IFAL",
-			"description": "Vea y controle los datos personales de su cuenta."
+			"description": "Vea y controle los datos personales de su cuenta.",
+			"pageTitle": "Datos personales"
+		},
+		"connections": {
+			"title": "Conexiones - ifal",
+			"description": "Controla la actividad de tu cuenta.",
+			"pageTitle": "Conexiones",
+			"inactive": "Inactivo",
+			"current": "(Actual)",
+			"os": "Sistema:",
+			"createdAt": "Conectado en:",
+			"expiresAt": "Expira en:",
+			"status": "Estado:",
+			"active": "Activo",
+			"revoked": "Revocado",
+			"logoff": "Desconectar",
+			"errors": {
+				"notFound": "No tienes conexiones registradas."
+			}
 		}
 	},
-	"backToTop": "Pulse aquí para volver al principio de la página."
+	"pdf": {
+		"loading": "Cargando PDF...",
+		"page": "Página {{page}} de {{pages}}",
+		"controls": {
+			"close": "Haga clic aquí para cerrar el PDF.",
+			"download": "Click aquí para descargar el PDF.",
+			"goBack": "Haga clic aquí para retroceder una página.",
+			"goNext": "Haga clic aquí para avanzar una página."
+		},
+		"errors": {
+			"loading": "No se pudo mostrar el PDF, inténtelo de nuevo más tarde."
+		}
+	},
+	"backToTop": "Pulse aquí para volver al principio de la página.",
+	"backToPrevious": "Haga clic aquí para volver a la página anterior."
 }

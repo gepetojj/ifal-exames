@@ -93,7 +93,8 @@
 		"send": "Enviar",
 		"nextStep": "Siguiente paso",
 		"login": "Inicia sesión",
-		"register": "Crear una cuenta"
+		"register": "Crear una cuenta",
+		"save": "Guardar"
 	},
 	"title": "Sistema de selección - IFAL",
 	"description": "Participe en las selecciones para los cursos del Instituto Federal de Alagoas.",

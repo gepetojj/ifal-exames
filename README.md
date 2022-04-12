@@ -64,11 +64,11 @@ Testes feitos pelo [webpagetest.org](https://webpagetest.org/), usando o servido
 
 Segurança da releitura (ifal.vercel.app):
 
-![Segurança da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/security-ifalrework.png?raw=true)
+![Segurança da releitura](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/security-rework.png?raw=true)
 
 Segurança do website original (exame.ifal.edu.br):
 
-![Segurança do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/security-ifaloriginal.png?raw=true)
+![Segurança do website original](https://github.com/gepetojj/ifal-exames/blob/main/.github/assets/security-original.png?raw=true)
 
 ### Acessibilidade
 

@@ -133,8 +133,40 @@
 	"account": {
 		"data": {
 			"title": "Personal Data - IFAL",
-			"description": "View and control the personal data in your account."
+			"description": "View and control the personal data in your account.",
+			"pageTitle": "Personal data"
+		},
+		"connections": {
+			"title": "Connections - IFAL",
+			"description": "Control your account activity.",
+			"pageTitle": "Connections",
+			"inactive": "Inactive",
+			"current": "(Current)",
+			"os": "System:",
+			"createdAt": "Connected at:",
+			"expiresAt": "Expires at:",
+			"status": "Status:",
+			"active": "Active",
+			"revoked": "Revoked",
+			"logoff": "Disconnect",
+			"errors": {
+				"notFound": "You have no registered connections."
+			}
 		}
 	},
-	"backToTop": "Click here to return to the top of the page."
+	"pdf": {
+		"loading": "Loading PDF...",
+		"page": "Page {{page}} of {{pages}}",
+		"controls": {
+			"close": "Click here to close the PDF.",
+			"download": "Click here to download the PDF.",
+			"goBack": "Click here to go back one page.",
+			"goNext": "Click here to advance one page."
+		},
+		"errors": {
+			"loading": "The PDF could not be displayed, please try again later."
+		}
+	},
+	"backToTop": "Click here to return to the top of the page.",
+	"backToPrevious": "Click here to return to the previous page."
 }
